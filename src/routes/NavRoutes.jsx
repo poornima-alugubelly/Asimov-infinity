@@ -7,6 +7,7 @@ const NavRoutes = () => {
 		<Routes>
 			<Route path="home" element={<Home />} />
 			<Route path="productlisting" element={<ProductListing />} />
+			<Route path="/" element={<Home />} />
 		</Routes>
 	);
 };
