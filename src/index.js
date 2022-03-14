@@ -9,6 +9,7 @@ makeServer();
 
 ReactDOM.render(
 	<React.StrictMode>
+
 		<Router>
 			<App />
 		</Router>

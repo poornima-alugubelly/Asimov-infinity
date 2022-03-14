@@ -1,3 +1,4 @@
+
 import "./CSS/common.css";
 import { NavBar } from "./components/NavBar";
 import "./utils/fontAwesome";
@@ -9,6 +10,7 @@ function App() {
 			<NavRoutes />
 		</div>
 	);
+
 }
 
 export default App;
