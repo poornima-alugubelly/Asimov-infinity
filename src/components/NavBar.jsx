@@ -1,6 +1,5 @@
 import { IMAGES } from "../images/index.js";
 import "../CSS/header.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Link } from "react-router-dom";
 const NavBar = () => {
@@ -29,13 +28,15 @@ const NavBar = () => {
 
 			<ul className="nav-bar-secondary nav-bar-links">
 				<a href="./login.html" className="flex-column">
-					<FontAwesomeIcon icon={["fas", "user"]} className="btn-icon" />
+					<i class="fas fa-user btn-icon"></i>
+
 					<span className="text-xxs">Login</span>
 				</a>
 				<div className="flex-column">
 					<div className="badge-wrapper">
 						<a href="./wishlist-page.html">
-							<FontAwesomeIcon icon={["fas", "heart"]} className="btn-icon" />
+							<i class="fas fa-heart btn-icon"></i>
+
 							<span className="badge badge-top badge-s badge-red">11</span>
 						</a>
 					</div>
@@ -44,10 +45,8 @@ const NavBar = () => {
 				<div className="flex-column">
 					<div className="badge-wrapper">
 						<a href="./cart-page.html">
-							<FontAwesomeIcon
-								icon={["fas", "shopping-cart"]}
-								className="btn-icon"
-							/>
+							<i class="fas fa-shopping-cart btn-icon"></i>
+
 							<span className="badge badge-top badge-s badge-red">11</span>
 						</a>
 					</div>

@@ -1,7 +1,5 @@
-
 import "./CSS/common.css";
 import { NavBar } from "./components/NavBar";
-import "./utils/fontAwesome";
 import { NavRoutes } from "./routes/NavRoutes";
 function App() {
 	return (
@@ -10,7 +8,6 @@ function App() {
 			<NavRoutes />
 		</div>
 	);
-
 }
 
 export default App;
