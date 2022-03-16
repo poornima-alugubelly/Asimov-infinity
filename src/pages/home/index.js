@@ -1,6 +1,7 @@
-import "../CSS/homepage.css";
-import { IMAGES } from "../images/index";
+import "./home.css";
+import { IMAGES } from "../../assets/index";
 import { Link } from "react-router-dom";
+
 const Home = () => {
 	return (
 		<div className="main-container main-container-gutter">

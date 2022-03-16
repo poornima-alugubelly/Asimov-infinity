@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import { Home } from "../pages/Home";
-import { ProductListing } from "../pages/ProductListing";
+import { Home } from "../pages/home";
+import { ProductListing } from "../pages/product-listing";
 
 const NavRoutes = () => {
 	return (

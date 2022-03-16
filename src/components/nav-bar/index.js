@@ -1,5 +1,5 @@
-import { IMAGES } from "../images/index.js";
-import "../CSS/header.css";
+import { IMAGES } from "../../assets";
+import "./nav-bar.css";
 
 import { Link } from "react-router-dom";
 const NavBar = () => {

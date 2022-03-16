@@ -1,0 +1,71 @@
+.input-radio,
+.input-checkbox {
+	width: 1.2rem;
+	height: 1.2rem;
+	border: 2px solid var(--primary-dark);
+}
+
+.input-radio::before,
+.input-checkbox::before {
+	width: 0.7rem;
+	height: 0.7rem;
+}
+
+.filter-container {
+	width: 15rem;
+}
+
+.filter-section {
+	border-bottom: 1px solid var(--ternary-dark);
+	padding-bottom: 1rem;
+}
+
+.filter-section label,
+.filter-title {
+	cursor: pointer;
+}
+
+.prices {
+	max-width: 30rem;
+}
+
+datalist {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	padding-top: 0px;
+}
+
+.slider-container {
+	flex-direction: column;
+	height: auto;
+}
+
+fieldset {
+	border: 0;
+}
+
+@media (max-width: 1024px) {
+	.filter-container {
+		position: fixed;
+		z-index: 2;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		background-color: var(--ternary-dark);
+	}
+
+	.filter-title {
+		order: 1;
+		padding-bottom: 0;
+		color: var(--primary-dark);
+	}
+
+	.filter-wrapper {
+		display: none;
+	}
+	.filter-title:hover ~ .filter-wrapper {
+		display: flex;
+		overflow-y: auto;
+	}
+}

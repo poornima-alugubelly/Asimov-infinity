@@ -1,6 +1,7 @@
-import "./CSS/common.css";
-import { NavBar } from "./components/NavBar";
+import "./App.css";
+import { NavBar } from "./components/nav-bar";
 import { NavRoutes } from "./routes/NavRoutes";
+
 function App() {
 	return (
 		<div className="App">
