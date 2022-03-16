@@ -54,4 +54,28 @@ export const products = [
 		discount: 55,
 		src: "https://d1x7zurbps6occ.cloudfront.net/product/large/1077870-319062.jpg",
 	},
+	{
+		name: "item 7",
+		price: 2000,
+		category: "wallart",
+		rating: 1.6,
+		discount: 35,
+		src: "https://d1x7zurbps6occ.cloudfront.net/product/large/725123-192724.jpg",
+	},
+	{
+		name: "item 8",
+		price: 3500,
+		category: "accessories",
+		rating: 3,
+		discount: 45,
+		src: "https://d1x7zurbps6occ.cloudfront.net/product/large/1077870-319062.jpg",
+	},
+	{
+		name: "item 9",
+		price: 550,
+		category: "books",
+		rating: 4,
+		discount: 55,
+		src: "https://d1x7zurbps6occ.cloudfront.net/product/large/1077870-319062.jpg",
+	},
 ];

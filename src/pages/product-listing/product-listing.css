@@ -2,7 +2,9 @@
 	display: grid;
 	grid-template-columns: min-content 1fr;
 	place-content: center;
+	gap: 3rem;
 }
+
 .grid-product-layout {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
@@ -20,6 +22,7 @@
 	width: 15rem;
 	cursor: pointer;
 	justify-self: center;
+	height: min-content;
 }
 
 .grid-product-layout .card .card-subtitle {

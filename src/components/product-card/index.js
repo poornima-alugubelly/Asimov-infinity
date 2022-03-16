@@ -4,7 +4,6 @@ const ProductCard = ({ product }) => {
 			<div class="img-container">
 				<img src={product.src} alt="product image" class="img-responsive" />
 			</div>
-			{console.log("discount", product)}
 
 			<div class="card-content padding-s">
 				<div class="card-title">

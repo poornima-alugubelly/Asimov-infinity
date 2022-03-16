@@ -1,8 +1,12 @@
+import searchIcon from "./svg/Search.svg";
+import duneBookCover from "./jpg-png/dunebook.jpg";
+import hero from "./svg/delivery.svg";
+import heartOutline from "./svg/heart-outline.svg";
 const IMAGES = {
-	searchIcon: require("./svg/Search.svg").default,
-	duneBookCover: require("./jpg-png/dunebook.jpg").default,
-	hero: require("./svg/delivery.svg").default,
-	heartOutline: require("./svg/heart-outline.svg").default,
+	searchIcon,
+	duneBookCover,
+	hero,
+	heartOutline,
 };
 
 export { IMAGES };

@@ -13,6 +13,10 @@
 
 .filter-container {
 	width: 15rem;
+	position: sticky;
+	top: 0;
+	height: 80vh;
+	overflow-y: auto;
 }
 
 .filter-section {
@@ -23,6 +27,10 @@
 .filter-section label,
 .filter-title {
 	cursor: pointer;
+}
+
+.filter-option {
+	pointer-events: none;
 }
 
 .prices {
@@ -51,8 +59,13 @@ fieldset {
 		z-index: 2;
 		bottom: 0;
 		left: 0;
+		top: auto;
+		height: auto;
 		width: 100%;
 		background-color: var(--ternary-dark);
+	}
+	.filter-option {
+		pointer-events: all;
 	}
 
 	.filter-title {
@@ -63,9 +76,11 @@ fieldset {
 
 	.filter-wrapper {
 		display: none;
+		padding: 0.5rem;
 	}
-	.filter-title:hover ~ .filter-wrapper {
+	.filter-active > .filter-wrapper {
 		display: flex;
-		overflow-y: auto;
+		height: 90vh;
+		overflow-y: scroll;
 	}
 }
