@@ -1,38 +1,3 @@
-.grid-30-70 {
-	display: grid;
-	grid-template-columns: min-content 1fr;
-	place-content: center;
-}
-.grid-product-layout {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-	row-gap: 2rem;
-	margin: 1rem 1rem;
-}
-
-.grid-product-layout .img-container img {
-	height: 12rem;
-	width: 100%;
-	object-fit: contain;
-}
-
-.grid-product-layout .card {
-	width: 15rem;
-	cursor: pointer;
-	justify-self: center;
-}
-
-.grid-product-layout .card .card-subtitle {
-	width: 14rem;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.gap-xs {
-	gap: 0.5rem;
-}
-
 .input-radio,
 .input-checkbox {
 	width: 1.2rem;
@@ -102,10 +67,5 @@ fieldset {
 	.filter-title:hover ~ .filter-wrapper {
 		display: flex;
 		overflow-y: auto;
-	}
-
-	.grid-30-70 {
-		display: grid;
-		grid-template-columns: 1fr;
 	}
 }
