@@ -1,25 +1,20 @@
-const getFliteredProducts = (sortedproducts, clothing, wallart) => {
+const getFliteredProducts = (sortedproducts, categories) => {
 	const filteredlist = [];
-	if (clothing === false && wallart === false) {
-		return sortedproducts;
-	}
-	if (clothing) {
-		let newList = sortedproducts.filter(
-			(item) => "clothing" === item.category.toLowerCase()
-		);
 
-		filteredlist.push(...newList);
+	let count = 0;
+	for (let category in categories) {
+		if (categories[category]) {
+			let newList = sortedproducts.filter(
+				(item) => category === item.category.toLowerCase()
+			);
+
+			filteredlist.push(...newList);
+		} else {
+			count++;
+		}
 	}
 
-	if (wallart) {
-		let newList = sortedproducts.filter(
-			(item) => "wallart" === item.category.toLowerCase()
-		);
-
-		filteredlist.push(...newList);
-	}
-	console.log("filtered list", filteredlist);
-	return filteredlist;
+	return count === 6 ? sortedproducts : filteredlist;
 };
 
 export { getFliteredProducts };

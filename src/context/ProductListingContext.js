@@ -9,9 +9,17 @@ const ProductListingProvider = ({ children }) => {
 		{
 			data: [],
 			sortBy: "",
-			categories: { clothing: false, wallart: false },
+			categories: {
+				accessories: false,
+				books: false,
+				clothing: false,
+				lifestyle: false,
+				stationery: false,
+				wallart: false,
+			},
 			price: 5000,
 			discount: "",
+			rating: 1,
 		}
 	);
 	return (
