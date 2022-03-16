@@ -4,7 +4,8 @@ import "./filters.css";
 import { useState } from "react";
 const Filters = () => {
 	const {
-		SORT_TYPE,
+		LOW_TO_HIGH,
+		HIGH_TO_LOW,
 		PRICE,
 		ACCESSORIES,
 		BOOKS,
@@ -51,10 +52,8 @@ const Filters = () => {
 									id="price-L2H"
 									name="radio-item-sort"
 									value="lowToHigh"
-									checked={sortBy === SORT_TYPE[0]}
-									onChange={() =>
-										productListingDispatch({ type: SORT_TYPE[0] })
-									}
+									checked={sortBy === LOW_TO_HIGH}
+									onChange={() => productListingDispatch({ type: LOW_TO_HIGH })}
 								/>
 
 								<span>Price - Low to High</span>
@@ -69,10 +68,8 @@ const Filters = () => {
 									id="price-H2L"
 									name="radio-item-sort"
 									value="highToLow"
-									checked={sortBy === SORT_TYPE[1]}
-									onChange={() =>
-										productListingDispatch({ type: SORT_TYPE[1] })
-									}
+									checked={sortBy === HIGH_TO_LOW}
+									onChange={() => productListingDispatch({ type: HIGH_TO_LOW })}
 								/>
 								<span>Price - High to Low</span>
 							</label>

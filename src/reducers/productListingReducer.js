@@ -2,7 +2,8 @@ import { actionTypes } from "./actionTypes";
 const productListingReducer = (state, action) => {
 	const {
 		LOAD_DATA,
-		SORT_TYPE,
+		LOW_TO_HIGH,
+		HIGH_TO_LOW,
 		PRICE,
 		ACCESSORIES,
 		BOOKS,
@@ -20,12 +21,12 @@ const productListingReducer = (state, action) => {
 				...state,
 				data: [...action.payload],
 			};
-		case SORT_TYPE[0]:
+		case LOW_TO_HIGH:
 			return {
 				...state,
 				sortBy: action.type,
 			};
-		case SORT_TYPE[1]:
+		case HIGH_TO_LOW:
 			return {
 				...state,
 				sortBy: action.type,
