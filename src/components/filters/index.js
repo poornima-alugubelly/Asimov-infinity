@@ -203,6 +203,7 @@ const Filters = () => {
 									class="input-radio element-round"
 									id="input-4star"
 									name="radio-item"
+									value="4"
 									checked={rating === 4}
 									onChange={(e) =>
 										productListingDispatch({
@@ -223,6 +224,7 @@ const Filters = () => {
 									class="input-radio element-round"
 									id="input-3star"
 									name="radio-item"
+									value="3"
 									checked={rating === 3}
 									onChange={(e) =>
 										productListingDispatch({
@@ -241,6 +243,7 @@ const Filters = () => {
 									class="input-radio element-round"
 									id="input-2star"
 									name="radio-item"
+									value="2"
 									checked={rating === 2}
 									onChange={(e) =>
 										productListingDispatch({
@@ -259,6 +262,7 @@ const Filters = () => {
 									class="input-radio element-round"
 									id="input-1star"
 									name="radio-item"
+									value="1"
 									checked={rating === 1}
 									onChange={(e) =>
 										productListingDispatch({
