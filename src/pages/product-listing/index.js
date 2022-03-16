@@ -1,7 +1,7 @@
 import { Filters } from "../../components/filters";
 import "./product-listing.css";
 import { useProductListing } from "../../context/ProductListingContext.js";
-import { getProductListService } from "../../services/getProductListService.js";
+import { getProductListService } from "../../services/getProductListService";
 import { useEffect } from "react";
 import { ProductCard } from "../../components/product-card";
 const ProductListing = () => {
