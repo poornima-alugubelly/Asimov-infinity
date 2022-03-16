@@ -22,6 +22,7 @@
 	width: 15rem;
 	cursor: pointer;
 	justify-self: center;
+	height: min-content;
 }
 
 .grid-product-layout .card .card-subtitle {

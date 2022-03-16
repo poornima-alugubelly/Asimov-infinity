@@ -19,13 +19,10 @@ const ProductListing = () => {
 	useEffect(() => {
 		(async () => {
 			let products = await getProductListService();
-			products = products.map((item) =>
-				Object.defineProperty(item, "discountedPrice", {
-					get: function () {
-						return this.price - this.price * (this.discount / 100);
-					},
-				})
-			);
+			products = products.map((item) => ({
+				...item,
+				discountedPrice: item.price - item.price * (item.discount / 100),
+			}));
 			if (products) {
 				productListingDispatch({
 					type: actionTypes.LOAD_DATA,

@@ -1,7 +1,19 @@
 import { actionTypes } from "./actionTypes";
 const productListingReducer = (state, action) => {
-	const { LOAD_DATA, SORT_TYPE, PRICE, CATEGORY, RATING, DISCOUNT, CLEAR } =
-		actionTypes;
+	const {
+		LOAD_DATA,
+		SORT_TYPE,
+		PRICE,
+		ACCESSORIES,
+		BOOKS,
+		CLOTHING,
+		LIFESTYLE,
+		RATING,
+		STATIONERY,
+		WALLART,
+		DISCOUNT,
+		CLEAR,
+	} = actionTypes;
 	switch (action.type) {
 		case LOAD_DATA:
 			return {
@@ -23,7 +35,7 @@ const productListingReducer = (state, action) => {
 				...state,
 				price: action.price_value,
 			};
-		case CATEGORY[0]:
+		case ACCESSORIES:
 			return {
 				...state,
 				categories: {
@@ -31,7 +43,7 @@ const productListingReducer = (state, action) => {
 					accessories: !state.categories.accessories,
 				},
 			};
-		case CATEGORY[1]:
+		case BOOKS:
 			return {
 				...state,
 				categories: {
@@ -39,7 +51,7 @@ const productListingReducer = (state, action) => {
 					books: !state.categories.books,
 				},
 			};
-		case CATEGORY[2]:
+		case CLOTHING:
 			return {
 				...state,
 				categories: {
@@ -47,7 +59,7 @@ const productListingReducer = (state, action) => {
 					clothing: !state.categories.clothing,
 				},
 			};
-		case CATEGORY[3]:
+		case LIFESTYLE:
 			return {
 				...state,
 				categories: {
@@ -55,7 +67,7 @@ const productListingReducer = (state, action) => {
 					lifestyle: !state.categories.lifestyle,
 				},
 			};
-		case CATEGORY[4]:
+		case STATIONERY:
 			return {
 				...state,
 				categories: {
@@ -63,7 +75,7 @@ const productListingReducer = (state, action) => {
 					stationery: !state.categories.stationery,
 				},
 			};
-		case CATEGORY[5]:
+		case WALLART:
 			return {
 				...state,
 				categories: {

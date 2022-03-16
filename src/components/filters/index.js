@@ -3,7 +3,19 @@ import { useProductListing } from "../../context/ProductListingContext";
 import "./filters.css";
 import { useState } from "react";
 const Filters = () => {
-	const { SORT_TYPE, PRICE, CATEGORY, RATING, DISCOUNT, CLEAR } = actionTypes;
+	const {
+		SORT_TYPE,
+		PRICE,
+		ACCESSORIES,
+		BOOKS,
+		CLOTHING,
+		LIFESTYLE,
+		RATING,
+		STATIONERY,
+		WALLART,
+		DISCOUNT,
+		CLEAR,
+	} = actionTypes;
 	const { productListingDispatch, productListingState } = useProductListing();
 	const { sortBy, categories, price, rating, discount } = productListingState;
 	const { accessories, books, clothing, lifestyle, stationery, wallart } =
@@ -111,7 +123,7 @@ const Filters = () => {
 									class="input-checkbox"
 									checked={accessories}
 									onChange={(e) =>
-										productListingDispatch({ type: CATEGORY[0] })
+										productListingDispatch({ type: ACCESSORIES })
 									}
 								/>
 								Accessories
@@ -125,9 +137,7 @@ const Filters = () => {
 									id="checkbox-books"
 									class="input-checkbox"
 									checked={books}
-									onChange={(e) =>
-										productListingDispatch({ type: CATEGORY[1] })
-									}
+									onChange={(e) => productListingDispatch({ type: BOOKS })}
 								/>
 								Books
 							</label>
@@ -140,9 +150,7 @@ const Filters = () => {
 									id="checkbox-clothing"
 									class="input-checkbox"
 									checked={clothing}
-									onChange={(e) =>
-										productListingDispatch({ type: CATEGORY[2] })
-									}
+									onChange={(e) => productListingDispatch({ type: CLOTHING })}
 								/>
 								Clothing
 							</label>
@@ -155,9 +163,7 @@ const Filters = () => {
 									id="checkbox-living"
 									class="input-checkbox"
 									checked={lifestyle}
-									onChange={(e) =>
-										productListingDispatch({ type: CATEGORY[3] })
-									}
+									onChange={(e) => productListingDispatch({ type: LIFESTYLE })}
 								/>
 								Lifestyle
 							</label>
@@ -170,9 +176,7 @@ const Filters = () => {
 									id="checkbox-stationery"
 									class="input-checkbox"
 									checked={stationery}
-									onChange={(e) =>
-										productListingDispatch({ type: CATEGORY[4] })
-									}
+									onChange={(e) => productListingDispatch({ type: STATIONERY })}
 								/>
 								Stationery
 							</label>
@@ -185,9 +189,7 @@ const Filters = () => {
 									id="checkbox-wallart"
 									class="input-checkbox"
 									checked={wallart}
-									onChange={(e) =>
-										productListingDispatch({ type: CATEGORY[5] })
-									}
+									onChange={(e) => productListingDispatch({ type: WALLART })}
 								/>
 								Wall Art
 							</label>
