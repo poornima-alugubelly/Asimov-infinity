@@ -8,6 +8,10 @@ const ProductListingProvider = ({ children }) => {
 		productListingReducer,
 		{
 			data: [],
+			sortBy: "",
+			categories: { clothing: false, wallart: false },
+			price: 5000,
+			discount: "",
 		}
 	);
 	return (
