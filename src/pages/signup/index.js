@@ -2,6 +2,7 @@ import { signupService } from "../../services/signupService";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { usePwdToggler } from "../../hooks/usePwdToggler";
 const Signup = () => {
 	const [formVal, setFormVal] = useState({
 		email: "",
@@ -11,9 +12,9 @@ const Signup = () => {
 	});
 	const { setAuth } = useAuth();
 	const navigate = useNavigate();
+	const [pwdToggle, pwdToggler] = usePwdToggler();
 	const signUpHandler = async (e, email, password, firstName, lastName) => {
 		e.preventDefault();
-		console.log("handler", formVal);
 		const token = await signupService("/api/auth/signup", {
 			email,
 			password,
@@ -38,7 +39,7 @@ const Signup = () => {
 				)
 			}
 		>
-			<form action="" class="form-container" noValidate>
+			<form action="" class="form-container">
 				<h2 class="padding-s text-center">SIGN UP</h2>
 				<div class="flex-column gap-s">
 					<div>
@@ -59,23 +60,31 @@ const Signup = () => {
 
 					<div>
 						<label for="email-password"> Password </label>
-						<input
-							type="password"
-							class="input"
-							id="email-password"
-							pattern="^.{8,}$"
-							required
-							placeholder="Enter Password"
-							value={formVal.password}
-							onChange={(e) =>
-								setFormVal((prev) => ({ ...prev, password: e.target.value }))
-							}
-						/>
+						<div class="input input-with-icon flex-space-between">
+							<input
+								type={`${pwdToggle.type}`}
+								id="email-password"
+								pattern="^.{8,}$"
+								required
+								placeholder="Enter Password"
+								value={formVal.password}
+								onChange={(e) =>
+									setFormVal((prev) => ({ ...prev, password: e.target.value }))
+								}
+							/>
+
+							<span
+								class={`fas ${pwdToggle.class} pointer`}
+								role="button"
+								onClick={() => pwdToggler()}
+							></span>
+						</div>
 
 						<span class="form-error-msg">
 							Password must have atleast 8 characters
 						</span>
 					</div>
+
 					<div>
 						<label for="first-name"> First Name </label>
 						<input
