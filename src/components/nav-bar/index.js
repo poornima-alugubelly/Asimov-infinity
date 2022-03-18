@@ -1,8 +1,19 @@
 import { IMAGES } from "../../assets";
 import "./nav-bar.css";
-
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 const NavBar = () => {
+	const { auth, setAuth } = useAuth();
+	const navigate = useNavigate();
+	const logoutHandler = () => {
+		console.log("in logout");
+		localStorage.removeItem("token");
+		localStorage.removeItem("isAuth");
+		setAuth({ token: "", isAuth: false });
+		navigate("/home");
+	};
+
 	return (
 		<nav className="nav-bar shadow-bottom">
 			<div className="nav-bar-primary">
@@ -27,11 +38,24 @@ const NavBar = () => {
 			</div>
 
 			<ul className="nav-bar-secondary nav-bar-links">
-				<a href="./login.html" className="flex-column">
-					<i class="fas fa-user btn-icon"></i>
+				{auth.isAuth ? (
+					<div onClick={logoutHandler}>
+						<Link to="/login" className="flex-column">
+							<i class="fas fa-user btn-icon"></i>
 
-					<span className="text-xxs">Login</span>
-				</a>
+							<span className="text-xxs">Logout </span>
+						</Link>
+					</div>
+				) : (
+					<div>
+						<Link to="/login" className="flex-column">
+							<i class="fas fa-user btn-icon"></i>
+
+							<span className="text-xxs">Login</span>
+						</Link>
+					</div>
+				)}
+
 				<div className="flex-column">
 					<div className="badge-wrapper">
 						<a href="./wishlist-page.html">

@@ -60,7 +60,7 @@ fieldset {
 		bottom: 0;
 		left: 0;
 		top: auto;
-		height: auto;
+		height: 4rem;
 		width: 100%;
 		background-color: var(--ternary-dark);
 	}
@@ -82,5 +82,8 @@ fieldset {
 		display: flex;
 		height: 90vh;
 		overflow-y: scroll;
+	}
+	.filter-active.filter-container {
+		height: 80vh;
 	}
 }

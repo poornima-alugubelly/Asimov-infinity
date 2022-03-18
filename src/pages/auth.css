@@ -1,0 +1,30 @@
+.form-page-container {
+	height: 100vh;
+}
+
+.form-page-container .form-container {
+	max-width: 25rem;
+	margin: 2rem;
+	flex: 1 0 auto;
+}
+
+.form-container .input {
+	width: 100%;
+}
+.form-container .input-with-icon input {
+	outline: 0;
+	background: inherit;
+	border: none;
+	color: inherit;
+}
+.form-container .input-with-icon input::placeholder {
+	color: var(--shadow-color);
+	font-family: var(--primary-font);
+}
+
+@media (max-width: 400px) {
+	.form-subtext.flex-space-between {
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+}
