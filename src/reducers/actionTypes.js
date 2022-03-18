@@ -12,6 +12,10 @@ const actionTypes = {
 	RATING: "RATING",
 	DISCOUNT: "DISCOUNT",
 	CLEAR: "CLEAR",
+	ADD_TO_CART: "ADD_TO_CART",
+	SET_CART: "SET_CART",
+	INCREMENT: "INCREMENT",
+	DECREMENT: "DECREMENT",
 };
 
 export { actionTypes };

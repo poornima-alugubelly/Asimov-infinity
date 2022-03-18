@@ -1,4 +1,8 @@
+import { useGlobal } from "../../context/GlobalContext";
+import { actionTypes } from "../../reducers/actionTypes";
 const ProductCard = ({ product }) => {
+	const { globalDispatch } = useGlobal();
+	const { ADD_TO_CART } = actionTypes;
 	return (
 		<div class="card card-vertical">
 			<div class="img-container">
@@ -20,7 +24,12 @@ const ProductCard = ({ product }) => {
 					<span class="txt-high-light">{product.discount}%</span>
 				</div>
 				<div class="card-footer">
-					<button class="btn btn-primary-solid">
+					<button
+						class="btn btn-primary-solid"
+						onClick={() =>
+							globalDispatch({ type: ADD_TO_CART, payload: product })
+						}
+					>
 						<i class="fa-fw fas fa-shopping-cart"> </i>
 						<span>Add to Cart</span>
 					</button>

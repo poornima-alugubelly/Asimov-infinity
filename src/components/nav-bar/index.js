@@ -7,7 +7,6 @@ const NavBar = () => {
 	const { auth, setAuth } = useAuth();
 	const navigate = useNavigate();
 	const logoutHandler = () => {
-		console.log("in logout");
 		localStorage.removeItem("token");
 		localStorage.removeItem("isAuth");
 		setAuth({ token: "", isAuth: false });
@@ -47,12 +46,11 @@ const NavBar = () => {
 						</Link>
 					</div>
 				) : (
-					<div>
-						<Link to="/login" className="flex-column">
+					<div className="flex-column">
+						<Link to="/login">
 							<i class="fas fa-user btn-icon"></i>
-
-							<span className="text-xxs">Login</span>
 						</Link>
+						<span className="text-xxs">Login</span>
 					</div>
 				)}
 
@@ -67,13 +65,11 @@ const NavBar = () => {
 					<span className="text-xxs">Wish List</span>
 				</div>
 				<div className="flex-column">
-					<div className="badge-wrapper">
-						<a href="./cart-page.html">
-							<i class="fas fa-shopping-cart btn-icon"></i>
+					<Link to="/cart" className="badge-wrapper">
+						<i class="fas fa-shopping-cart btn-icon"></i>
 
-							<span className="badge badge-top badge-s badge-red">11</span>
-						</a>
-					</div>
+						<span className="badge badge-top badge-s badge-red">11</span>
+					</Link>
 					<span className="text-xxs">Cart</span>
 				</div>
 			</ul>

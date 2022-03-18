@@ -36,7 +36,7 @@ const Home = () => {
 						className="img-responsive"
 						alt="product image"
 					/>
-					<div className="text-overlay">Home & Living</div>
+					<div className="text-overlay">Life Style</div>
 				</div>
 				<div className="img-container card-shadow-dark">
 					<img

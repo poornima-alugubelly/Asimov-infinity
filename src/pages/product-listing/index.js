@@ -2,8 +2,9 @@ import { Filters } from "../../components/filters";
 import "./product-listing.css";
 import { useProductListing } from "../../context/ProductListingContext.js";
 import { getProductListService } from "../../services/getProductListService.js";
+
 import { useEffect } from "react";
-import { ProductCard } from "../../components/product-card";
+import { ProductCard } from "../../components/product";
 import { actionTypes } from "../../reducers/actionTypes";
 import {
 	getSortedProducts,
