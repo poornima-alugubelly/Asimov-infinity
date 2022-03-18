@@ -7,7 +7,7 @@ const signupService = async (email, password, firstName, lastName) => {
 		firstName,
 		lastName,
 	});
-	console.log("sign up", res);
+
 	try {
 		if (res.status === 201) {
 			return res.data.encodedToken;

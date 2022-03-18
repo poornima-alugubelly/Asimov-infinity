@@ -15,12 +15,7 @@ const Signup = () => {
 	const [pwdToggle, pwdToggler] = usePwdToggler();
 	const signUpHandler = async (e, email, password, firstName, lastName) => {
 		e.preventDefault();
-		const token = await signupService("/api/auth/signup", {
-			email,
-			password,
-			firstName,
-			lastName,
-		});
+		const token = await signupService(email, password, firstName, lastName);
 		localStorage.setItem("token", token);
 		localStorage.setItem("isAuth", true);
 		setAuth({ token, isAuth: true });
@@ -88,7 +83,7 @@ const Signup = () => {
 					<div>
 						<label for="first-name"> First Name </label>
 						<input
-							type="email"
+							type="text"
 							class="input"
 							id="first-name"
 							placeholder="Enter first name"
@@ -103,7 +98,7 @@ const Signup = () => {
 					<div>
 						<label for="last-name"> Last Name </label>
 						<input
-							type="email"
+							type="text"
 							class="input"
 							id="last-name"
 							placeholder="Enter last name"
