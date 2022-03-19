@@ -42,7 +42,7 @@ const ProductListing = () => {
 			<Filters />
 			<div class="grid-product-layout">
 				{finalFilteredProducts.map((product) => (
-					<ProductCard product={product} />
+					<ProductCard key={product._id} product={product} />
 				))}
 			</div>
 		</div>

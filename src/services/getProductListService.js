@@ -1,16 +1,12 @@
 import axios from "axios";
 
-const getProductListService = async () => {
-	const res = await axios.get("/api/products");
+export const getProductListService = async () => {
 	try {
+		const res = await axios.get("/api/products");
 		if (res.status === 200) {
 			return res.data.products;
-		} else {
-			throw new Error("try again!");
 		}
 	} catch (err) {
-		console.log("error"); // change to error page later
+		console.log("error", err); // change to error page later
 	}
 };
-
-export { getProductListService };

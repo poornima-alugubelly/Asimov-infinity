@@ -1,11 +1,11 @@
 const addToCart = (cart, product) => {
-	const productExists = cart.find((item) => item.id === product.id);
+	const productExists = cart.find((item) => item._id === product._id);
 	if (productExists) {
 		return cart.map((item) =>
-			item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+			item._id === product._id ? { ...item, qty: item.qty + 1 } : item
 		);
 	}
-	return [...cart, { ...product, quantity: 1 }];
+	return [...cart, { ...product, qty: 1 }];
 };
 
 export { addToCart };

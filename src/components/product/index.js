@@ -1,8 +1,24 @@
 import { useGlobal } from "../../context/GlobalContext";
 import { actionTypes } from "../../reducers/actionTypes";
+import { addToCartService } from "../../services/addToCartService";
+import { useAuth } from "../../context/AuthContext";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const ProductCard = ({ product }) => {
-	const { globalDispatch } = useGlobal();
-	const { ADD_TO_CART } = actionTypes;
+	const { globalState, globalDispatch } = useGlobal();
+	const { SET_CART } = actionTypes;
+	const { auth } = useAuth();
+	const [inCart, setInCart] = useState(false);
+	const addToCartServerCall = async () => {
+		const cart = await addToCartService(product, auth.token);
+		if (cart) globalDispatch({ type: SET_CART, payload: { cart } });
+	};
+	const navigate = useNavigate();
+	const goToCart = () => navigate("/cart");
+	useEffect(() => {
+		globalState.cart.find((item) => item._id === product._id) &&
+			setInCart(true);
+	}, [globalState.cart]);
 	return (
 		<div class="card card-vertical">
 			<div class="img-container">
@@ -26,12 +42,12 @@ const ProductCard = ({ product }) => {
 				<div class="card-footer">
 					<button
 						class="btn btn-primary-solid"
-						onClick={() =>
-							globalDispatch({ type: ADD_TO_CART, payload: product })
+						onClick={
+							inCart ? () => navigate("/cart") : () => addToCartServerCall()
 						}
 					>
 						<i class="fa-fw fas fa-shopping-cart"> </i>
-						<span>Add to Cart</span>
+						<span> {inCart ? "Go to cart" : "Add to Cart"}</span>
 					</button>
 				</div>
 			</div>

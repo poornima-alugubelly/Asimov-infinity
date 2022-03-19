@@ -1,19 +1,14 @@
 import axios from "axios";
 
-const getCartService = async (token) => {
-	const res = await axios.get(
-		"/api/user/cart",
-		// {},
-		{ headers: { authorization: token } }
-	);
+export const getCartService = async (token) => {
 	try {
+		const res = await axios.get("/api/user/cart", {
+			headers: { authorization: token },
+		});
 		if (res.status === 200) {
 			return res.data.cart;
-		} else {
-			throw new Error(res);
 		}
 	} catch (err) {
 		console.log("error", err);
 	}
 };
-export { getCartService };

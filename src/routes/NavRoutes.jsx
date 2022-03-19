@@ -20,6 +20,7 @@ const NavRoutes = () => {
 			<Route path="/" element={<ProtectedRoutes />}>
 				<Route path="/cart" element={<Cart />} />
 			</Route>
+			<Route path="/errorpage" element={<h1>Error page</h1>} />
 		</Routes>
 	);
 };

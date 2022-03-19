@@ -13,10 +13,12 @@ const Login = () => {
 	const loginHandler = async (e, email, password) => {
 		e.preventDefault();
 		const token = await loginService(email, password);
-		localStorage.setItem("token", token);
-		localStorage.setItem("isAuth", true);
-		setAuth({ token, isAuth: true });
-		navigate("/home");
+		if (token) {
+			localStorage.setItem("token", token);
+			localStorage.setItem("isAuth", true);
+			setAuth({ token, isAuth: true });
+			navigate("/home");
+		}
 	};
 
 	return (

@@ -1,22 +1,17 @@
 import axios from "axios";
 
-const signupService = async (email, password, firstName, lastName) => {
-	const res = await axios.post("/api/auth/signup", {
-		email,
-		password,
-		firstName,
-		lastName,
-	});
-
+export const signupService = async (email, password, firstName, lastName) => {
 	try {
+		const res = await axios.post("/api/auth/signup", {
+			email,
+			password,
+			firstName,
+			lastName,
+		});
 		if (res.status === 201) {
 			return res.data.encodedToken;
-		} else {
-			throw new Error(res);
 		}
 	} catch (err) {
-		console.log(err); // show page later
+		console.log("error", err); // show page later
 	}
 };
-
-export { signupService };

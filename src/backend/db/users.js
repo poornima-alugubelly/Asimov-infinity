@@ -8,31 +8,32 @@ import { formatDate } from "../utils/authUtils";
  * */
 
 export const users = [
-  {
-    _id: uuid(),
-    firstName: "Adarsh",
-    lastName: "Balika",
-    email: "adarshbalika@gmail.com",
-    password: bcyrpt.hashSync("adarshBalika123", 5),
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
-  },
-  {
-    _id: uuid(),
-    firstName: "John",
-    lastName: "Doe",
-    email: "johndoe@gmail.com",
-    password: bcyrpt.hashSync("johnDoe123", 5),
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
-  },
-  {
-    _id: uuid(),
-    firstName: "Adarsh",
-    lastName: "Balak",
-    email: "adarshbalak@gmail.com",
-    password: bcyrpt.hashSync("adarshBalaki123", 5),
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
-  },
+	{
+		_id: uuid(),
+		firstName: "Adarsh",
+		lastName: "Balika",
+		email: "adarshbalika@gmail.com",
+		password: bcyrpt.hashSync("adarshBalika123", 5),
+		createdAt: formatDate(),
+		updatedAt: formatDate(),
+	},
+	{
+		_id: uuid(),
+		firstName: "John",
+		lastName: "Doe",
+		email: "johndoe@gmail.com",
+		password: bcyrpt.hashSync("johnDoe123", 5),
+		createdAt: formatDate(),
+		updatedAt: formatDate(),
+	},
+	{
+		_id: uuid(),
+		firstName: "Adarsh",
+		lastName: "Balak",
+		email: "adarshbalak@gmail.com",
+		password: bcyrpt.hashSync("adarshBalaki123", 5),
+		// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJiYTNjMTRhYS0xYjVlLTQ0Y2UtYTM5Yy01ZWQ0Y2U2NjBjNWUiLCJlbWFpbCI6ImFkYXJzaGJhbGFrQGdtYWlsLmNvbSIsImlhdCI6MTY0NzY3NDk2N30.Ecjwy-pc0mCKxRzgOLGizTRsQzPX05wHvlT6WIlD-Bc
+		createdAt: formatDate(),
+		updatedAt: formatDate(),
+	},
 ];

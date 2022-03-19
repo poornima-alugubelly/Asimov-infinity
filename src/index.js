@@ -11,15 +11,15 @@ makeServer();
 
 ReactDOM.render(
 	<React.StrictMode>
-		<AuthContextProvider>
-			<GlobalProvider>
-				<ProductListingProvider>
-					<Router>
+		<Router>
+			<AuthContextProvider>
+				<GlobalProvider>
+					<ProductListingProvider>
 						<App />
-					</Router>
-				</ProductListingProvider>
-			</GlobalProvider>
-		</AuthContextProvider>
+					</ProductListingProvider>
+				</GlobalProvider>
+			</AuthContextProvider>
+		</Router>
 	</React.StrictMode>,
 	document.getElementById("root")
 );

@@ -1,11 +1,13 @@
 import { useEffect } from "react";
-import { CartProduct } from "../../components/cart-product";
+import { CartProduct } from "../../components/CartProduct/CartProduct";
 import { CartSummary } from "../../components/cart-summary";
 import { useGlobal } from "../../context/GlobalContext";
+import { useNavigate } from "react-router-dom";
 import "./cart.css";
 const Cart = () => {
 	const { globalState } = useGlobal();
-
+	const navigate = useNavigate();
+	useEffect(() => (globalState.cartError ? navigate("/errorpage") : ""));
 	console.log("state", globalState);
 	return (
 		<div class="cart-page-container">

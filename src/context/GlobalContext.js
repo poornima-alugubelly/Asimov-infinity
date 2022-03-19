@@ -7,18 +7,26 @@ const globalContext = createContext();
 const useGlobal = () => useContext(globalContext);
 const GlobalProvider = ({ children }) => {
 	const [globalState, globalDispatch] = useReducer(globalReducer, {
-		cart: [{ hmm: "ok" }],
+		cart: [],
+		cartError: false,
 	});
+
 	const { SET_CART } = actionTypes;
 	const { auth } = useAuth();
 	useEffect(
 		() =>
 			(async () => {
-				const cart = await getCartService(auth.token);
-				globalDispatch({ type: SET_CART, payload: cart });
+				console.log("in use effect");
+				if (auth.isAuth) {
+					console.log("calling");
+					const cart = await getCartService(auth.token);
+					console.log(cart);
+					if (cart) globalDispatch({ type: SET_CART, payload: { cart } });
+				}
 			})(),
-		[]
+		[auth.isAuth]
 	);
+
 	console.log("cart", ...globalState.cart);
 	return (
 		<globalContext.Provider value={{ globalState, globalDispatch }}>

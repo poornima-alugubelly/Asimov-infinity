@@ -7,7 +7,7 @@ import { v4 as uuid } from "uuid";
 
 export const products = [
 	{
-		id: uuid(),
+		_id: uuid(),
 		name: "item 1",
 		price: 1000,
 		category: "clothing",
@@ -16,7 +16,7 @@ export const products = [
 		src: "https://d1x7zurbps6occ.cloudfront.net/product/large/725123-192724.jpg",
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		name: "item 2",
 		price: 5000,
 		category: "clothing",
@@ -25,7 +25,7 @@ export const products = [
 		src: "https://d1x7zurbps6occ.cloudfront.net/product/large/970383-292194.jpg",
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		name: "item 3",
 		price: 1500,
 		category: "wallart",
@@ -34,6 +34,7 @@ export const products = [
 		src: "https://d1x7zurbps6occ.cloudfront.net/product/large/1077870-319062.jpg",
 	},
 	{
+		_id: uuid(),
 		name: "item 4",
 		price: 2000,
 		category: "clothing",
@@ -42,7 +43,7 @@ export const products = [
 		src: "https://d1x7zurbps6occ.cloudfront.net/product/large/725123-192724.jpg",
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		name: "item 5",
 		price: 3500,
 		category: "wallart",
@@ -51,7 +52,7 @@ export const products = [
 		src: "https://d1x7zurbps6occ.cloudfront.net/product/large/1077870-319062.jpg",
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		name: "item 6",
 		price: 550,
 		category: "wallart",
@@ -60,7 +61,7 @@ export const products = [
 		src: "https://d1x7zurbps6occ.cloudfront.net/product/large/1077870-319062.jpg",
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		name: "item 7",
 		price: 2000,
 		category: "wallart",
@@ -69,7 +70,7 @@ export const products = [
 		src: "https://d1x7zurbps6occ.cloudfront.net/product/large/725123-192724.jpg",
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		name: "item 8",
 		price: 3500,
 		category: "accessories",
@@ -78,7 +79,7 @@ export const products = [
 		src: "https://d1x7zurbps6occ.cloudfront.net/product/large/1077870-319062.jpg",
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		name: "item 9",
 		price: 550,
 		category: "books",

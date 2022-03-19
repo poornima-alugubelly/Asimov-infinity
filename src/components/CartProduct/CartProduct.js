@@ -1,9 +1,26 @@
-import "./cart-product.css";
+import "./CartProduct.css";
 import { actionTypes } from "../../reducers/actionTypes";
 import { useGlobal } from "../../context/GlobalContext";
+import { cartCounter } from "../../services/cartCounter";
+import { useAuth } from "../../context/AuthContext";
+import { removeProductService } from "../../services/removeProductService";
 const CartProduct = ({ product }) => {
-	const { INCREMENT, DECREMENT } = actionTypes;
+	const { SET_CART, INCREMENT } = actionTypes;
 	const { globalDispatch } = useGlobal();
+	const { auth } = useAuth();
+
+	const cartCounterServerCall = async (operation) => {
+		let cart = null;
+		if (product.qty === 1 && operation === "decrement") {
+			cart = await removeProductService(product._id, auth.token);
+		} else {
+			cart = await cartCounter(product._id, auth.token, operation);
+		}
+		if (cart) {
+			globalDispatch({ type: SET_CART, payload: { cart } });
+		}
+	};
+
 	return (
 		<div class="card card-horizontal padding-s">
 			<div class="img-container">
@@ -19,24 +36,20 @@ const CartProduct = ({ product }) => {
 				<div class="flex-row gap-xs">
 					<span class="txt-bold"> {product.discountedPrice}</span>
 					<span class="txt-crossed-off">{product.price}</span>
-					<span class="txt-high-light">{product.discount}</span>
+					<span class="txt-high-light">{product.discount}%</span>
 				</div>
 				<div class="flex-start gap-s">
 					<i
 						class="fas fa-minus  text-xxs pointer "
 						role="button"
-						onClick={() =>
-							globalDispatch({ type: DECREMENT, payload: product })
-						}
+						onClick={() => cartCounterServerCall("decrement")}
 					></i>
-					<span class="text-xs">{product.quantity}</span>
+					<span class="text-xs">{product.qty}</span>
 
 					<i
 						class="fas fa-plus  text-xxs pointer"
 						role="button"
-						onClick={() =>
-							globalDispatch({ type: INCREMENT, payload: product })
-						}
+						onClick={() => cartCounterServerCall("increment")}
 					></i>
 				</div>
 
