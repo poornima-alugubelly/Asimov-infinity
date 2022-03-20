@@ -89,7 +89,9 @@ export const Login = () => {
 					<button class="btn btn-primary-solid">Login</button>
 					<button
 						class="btn btn-primary-outline"
-						onClick={(e) => loginHandler(e, "testtest@gmail.com", "12345678")}
+						onClick={(e) =>
+							loginHandler(e, "adarshbalak@gmail.com", "adarshBalaki123")
+						}
 					>
 						Login with test credentials
 					</button>
