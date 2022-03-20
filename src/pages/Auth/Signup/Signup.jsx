@@ -1,9 +1,9 @@
-import { signupService } from "../../services/signupService";
-import { useAuth } from "../../context/AuthContext";
+import { signupService } from "../../../services/signupService";
+import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { usePwdToggler } from "../../hooks/usePwdToggler";
-const Signup = () => {
+import { usePwdToggler } from "../../../hooks/usePwdToggler";
+export const Signup = () => {
 	const [formVal, setFormVal] = useState({
 		email: "",
 		password: "",
@@ -135,4 +135,3 @@ const Signup = () => {
 		</div>
 	);
 };
-export { Signup };

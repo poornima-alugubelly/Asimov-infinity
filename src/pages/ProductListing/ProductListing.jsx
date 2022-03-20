@@ -1,9 +1,9 @@
-import { Filters } from "../../components/filters";
-import "./product-listing.css";
+import { ProductFilters } from "./components/ProductFilters/ProductFilters.jsx";
+import "./ProductListing.css";
 import { useProductListing } from "../../context/ProductListingContext.js";
 import { getProductListService } from "../../services/getProductListService.js";
 import { useEffect } from "react";
-import { ProductCard } from "../../components/product-card";
+import { ProductCard } from "./components/ProductCard/ProductCard.jsx";
 import { actionTypes } from "../../reducers/actionTypes";
 import {
 	getSortedProducts,
@@ -12,7 +12,7 @@ import {
 	getFliteredProducts,
 	getRatedProducts,
 } from "../../helpers/filter-functions";
-const ProductListing = () => {
+export const ProductListing = () => {
 	const { productListingState, productListingDispatch } = useProductListing();
 	const { data, sortBy, price, categories, rating, discount } =
 		productListingState;
@@ -38,14 +38,12 @@ const ProductListing = () => {
 	const finalFilteredProducts = getSortedProducts(ratedProducts, sortBy);
 	return (
 		<div class="grid-30-70 main-container-gutter">
-			<Filters />
+			<ProductFilters />
 			<div class="grid-product-layout">
 				{finalFilteredProducts.map((product) => (
-					<ProductCard product={product} />
+					<ProductCard key={product._id} product={product} />
 				))}
 			</div>
 		</div>
 	);
 };
-
-export { ProductListing };

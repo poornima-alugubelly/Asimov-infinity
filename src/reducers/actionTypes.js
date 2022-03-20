@@ -1,4 +1,4 @@
-const actionTypes = {
+export const actionTypes = {
 	LOAD_DATA: "LOAD_DATA",
 	LOW_TO_HIGH: "LOW_TO_HIGH",
 	HIGH_TO_LOW: "HIGH_TO_LOW",
@@ -12,6 +12,5 @@ const actionTypes = {
 	RATING: "RATING",
 	DISCOUNT: "DISCOUNT",
 	CLEAR: "CLEAR",
+	SET_CART: "SET_CART",
 };
-
-export { actionTypes };

@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import { Home } from "../pages/home";
-import { ProductListing } from "../pages/product-listing";
+import { Home } from "../pages/Home/Home.jsx";
+import { ProductListing } from "../pages/ProductListing/ProductListing.jsx";
 import { ProtectedRoutes } from "./ProtectedRoutes";
-import { useAuth } from "../context/AuthContext";
-import { Login } from "../pages/login";
-import { Signup } from "../pages/signup";
+import { Login } from "../pages/Auth/Login/Login.jsx";
+import { Signup } from "../pages/Auth/Signup/Signup.jsx";
+import { Cart } from "../pages/Cart/Cart.jsx";
 import MockApi from "../pages/mockman.jsx";
-const NavRoutes = () => {
+export const NavRoutes = () => {
 	return (
 		<Routes>
 			<Route path="/home" element={<Home />} />
@@ -17,8 +17,10 @@ const NavRoutes = () => {
 			<Route path="/Signup" element={<Signup />} />
 			<Route path="/MockApi" element={<MockApi />} />
 			<Route path="/autherror" element={<h1>Auth error</h1>} />
+			<Route path="/" element={<ProtectedRoutes />}>
+				<Route path="/cart" element={<Cart />} />
+			</Route>
+			<Route path="/errorpage" element={<h1>Error page</h1>} />
 		</Routes>
 	);
 };
-
-export { NavRoutes };

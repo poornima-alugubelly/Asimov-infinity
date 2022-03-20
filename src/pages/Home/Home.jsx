@@ -1,8 +1,8 @@
-import "./home.css";
+import "./Home.css";
 import { IMAGES } from "../../assets/index";
 import { Link } from "react-router-dom";
 
-const Home = () => {
+export const Home = () => {
 	return (
 		<div className="main-container main-container-gutter">
 			<div className="catergory-container gap-l grid-6-column">
@@ -36,7 +36,7 @@ const Home = () => {
 						className="img-responsive"
 						alt="product image"
 					/>
-					<div className="text-overlay">Home & Living</div>
+					<div className="text-overlay">Life Style</div>
 				</div>
 				<div className="img-container card-shadow-dark">
 					<img
@@ -93,5 +93,3 @@ const Home = () => {
 		</div>
 	);
 };
-
-export { Home };

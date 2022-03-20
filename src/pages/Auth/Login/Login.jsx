@@ -1,11 +1,11 @@
 import { useState } from "react";
-import "../auth.css";
-import { loginService } from "../../services/loginService";
-import { useAuth } from "../../context/AuthContext";
+import "../Auth.css";
+import { loginService } from "../../../services/loginService";
+import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { usePwdToggler } from "../../hooks/usePwdToggler";
+import { usePwdToggler } from "../../../hooks/usePwdToggler";
 import { Link } from "react-router-dom";
-const Login = () => {
+export const Login = () => {
 	const [formVal, setFormVal] = useState({ email: "", password: "" });
 	const [pwdToggle, pwdToggler] = usePwdToggler();
 	const { setAuth } = useAuth();
@@ -13,10 +13,12 @@ const Login = () => {
 	const loginHandler = async (e, email, password) => {
 		e.preventDefault();
 		const token = await loginService(email, password);
-		localStorage.setItem("token", token);
-		localStorage.setItem("isAuth", true);
-		setAuth({ token, isAuth: true });
-		navigate("/home");
+		if (token) {
+			localStorage.setItem("token", token);
+			localStorage.setItem("isAuth", true);
+			setAuth({ token, isAuth: true });
+			navigate("/home");
+		}
 	};
 
 	return (
@@ -104,5 +106,3 @@ const Login = () => {
 		</div>
 	);
 };
-
-export { Login };

@@ -1,0 +1,22 @@
+.cart-page-container {
+	width: 70%;
+	margin: 2rem auto;
+}
+
+.grid-60-40 {
+	display: grid;
+	grid-template-columns: 60% 40%;
+}
+
+@media (max-width: 1024px) {
+	.cart-page-container {
+		width: 90%;
+		margin: 3rem auto;
+	}
+}
+
+@media (max-width: 768px) {
+	.grid-60-40 {
+		grid-template-columns: 1fr;
+	}
+}
