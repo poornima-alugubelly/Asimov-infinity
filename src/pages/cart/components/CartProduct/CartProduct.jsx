@@ -1,12 +1,12 @@
 import "./CartProduct.css";
-import { actionTypes } from "../../reducers/actionTypes";
-import { useGlobal } from "../../context/GlobalContext";
-import { cartCounter } from "../../services/cartCounter";
-import { useAuth } from "../../context/AuthContext";
-import { removeProductService } from "../../services/removeProductService";
-const CartProduct = ({ product }) => {
-	const { SET_CART, INCREMENT } = actionTypes;
-	const { globalDispatch } = useGlobal();
+import { actionTypes } from "../../../../reducers/actionTypes";
+import { useCart } from "../../../../context/cartContext";
+import { cartCounterService } from "../../../../services/cartCounterService";
+import { useAuth } from "../../../../context/AuthContext";
+import { removeProductService } from "../../../../services/removeProductService";
+export const CartProduct = ({ product }) => {
+	const { SET_CART } = actionTypes;
+	const { cartDispatch } = useCart();
 	const { auth } = useAuth();
 
 	const cartCounterServerCall = async (operation) => {
@@ -14,10 +14,10 @@ const CartProduct = ({ product }) => {
 		if (product.qty === 1 && operation === "decrement") {
 			cart = await removeProductService(product._id, auth.token);
 		} else {
-			cart = await cartCounter(product._id, auth.token, operation);
+			cart = await cartCounterService(product._id, auth.token, operation);
 		}
 		if (cart) {
-			globalDispatch({ type: SET_CART, payload: { cart } });
+			cartDispatch({ type: SET_CART, payload: { cart } });
 		}
 	};
 
@@ -62,5 +62,3 @@ const CartProduct = ({ product }) => {
 		</div>
 	);
 };
-
-export { CartProduct };

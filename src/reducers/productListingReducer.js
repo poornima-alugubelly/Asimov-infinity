@@ -1,5 +1,5 @@
 import { actionTypes } from "./actionTypes";
-const productListingReducer = (state, action) => {
+export const productListingReducer = (state, action) => {
 	const {
 		LOAD_DATA,
 		LOW_TO_HIGH,
@@ -116,5 +116,3 @@ const productListingReducer = (state, action) => {
 			return state;
 	}
 };
-
-export { productListingReducer };

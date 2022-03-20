@@ -1,8 +1,8 @@
-import { actionTypes } from "../../reducers/actionTypes";
-import { useProductListing } from "../../context/ProductListingContext";
-import "./filters.css";
+import { actionTypes } from "../../../../reducers/actionTypes.js";
+import { useProductListing } from "../../../../context/ProductListingContext.js";
+import "./ProductFilters.css";
 import { useState } from "react";
-const Filters = () => {
+export const ProductFilters = () => {
 	const {
 		LOW_TO_HIGH,
 		HIGH_TO_LOW,
@@ -382,5 +382,3 @@ const Filters = () => {
 		</div>
 	);
 };
-
-export { Filters };

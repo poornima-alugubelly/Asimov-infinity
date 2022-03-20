@@ -1,4 +1,4 @@
-const getSortedProducts = (products, sortBy) => {
+export const getSortedProducts = (products, sortBy) => {
 	if (sortBy === "LOW_TO_HIGH")
 		return [...products].sort(
 			(item1, item2) => item1.discountedPrice - item2.discountedPrice
@@ -10,5 +10,3 @@ const getSortedProducts = (products, sortBy) => {
 
 	return products;
 };
-
-export { getSortedProducts };

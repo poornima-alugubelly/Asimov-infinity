@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import { Home } from "../pages/home";
-import { ProductListing } from "../pages/product-listing";
+import { Home } from "../pages/Home/Home.jsx";
+import { ProductListing } from "../pages/ProductListing/ProductListing.jsx";
 import { ProtectedRoutes } from "./ProtectedRoutes";
-import { Login } from "../pages/login";
-import { Signup } from "../pages/signup";
-import { Cart } from "../pages/cart";
+import { Login } from "../pages/Auth/Login/Login.jsx";
+import { Signup } from "../pages/Auth/Signup/Signup.jsx";
+import { Cart } from "../pages/Cart/Cart.jsx";
 import MockApi from "../pages/mockman.jsx";
-const NavRoutes = () => {
+export const NavRoutes = () => {
 	return (
 		<Routes>
 			<Route path="/home" element={<Home />} />
@@ -24,5 +24,3 @@ const NavRoutes = () => {
 		</Routes>
 	);
 };
-
-export { NavRoutes };

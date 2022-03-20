@@ -1,24 +1,23 @@
-import { useGlobal } from "../../context/GlobalContext";
-import { actionTypes } from "../../reducers/actionTypes";
-import { addToCartService } from "../../services/addToCartService";
-import { useAuth } from "../../context/AuthContext";
+import { useCart } from "../../../../context/cartContext";
+import { actionTypes } from "../../../../reducers/actionTypes";
+import { addToCartService } from "../../../../services/addToCartService";
+import { useAuth } from "../../../../context/AuthContext";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-const ProductCard = ({ product }) => {
-	const { globalState, globalDispatch } = useGlobal();
+export const ProductCard = ({ product }) => {
+	const { cartState, cartDispatch } = useCart();
 	const { SET_CART } = actionTypes;
 	const { auth } = useAuth();
 	const [inCart, setInCart] = useState(false);
 	const addToCartServerCall = async () => {
 		const cart = await addToCartService(product, auth.token);
-		if (cart) globalDispatch({ type: SET_CART, payload: { cart } });
+		if (cart) cartDispatch({ type: SET_CART, payload: { cart } });
 	};
 	const navigate = useNavigate();
 	const goToCart = () => navigate("/cart");
 	useEffect(() => {
-		globalState.cart.find((item) => item._id === product._id) &&
-			setInCart(true);
-	}, [globalState.cart]);
+		cartState.cart.find((item) => item._id === product._id) && setInCart(true);
+	}, [cartState.cart]);
 	return (
 		<div class="card card-vertical">
 			<div class="img-container">
@@ -54,4 +53,3 @@ const ProductCard = ({ product }) => {
 		</div>
 	);
 };
-export { ProductCard };

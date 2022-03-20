@@ -1,12 +1,12 @@
 import { useReducer, createContext, useContext, useEffect } from "react";
-import { globalReducer } from "../reducers/globalReducer";
+import { cartReducer } from "../reducers/cartReducer";
 import { getCartService } from "../services/getCartService";
 import { useAuth } from "./AuthContext";
 import { actionTypes } from "../reducers/actionTypes";
-const globalContext = createContext();
-const useGlobal = () => useContext(globalContext);
-const GlobalProvider = ({ children }) => {
-	const [globalState, globalDispatch] = useReducer(globalReducer, {
+const cartContext = createContext();
+const useCart = () => useContext(cartContext);
+const CartProvider = ({ children }) => {
+	const [cartState, cartDispatch] = useReducer(cartReducer, {
 		cart: [],
 		cartError: false,
 	});
@@ -21,18 +21,18 @@ const GlobalProvider = ({ children }) => {
 					console.log("calling");
 					const cart = await getCartService(auth.token);
 					console.log(cart);
-					if (cart) globalDispatch({ type: SET_CART, payload: { cart } });
+					if (cart) cartDispatch({ type: SET_CART, payload: { cart } });
 				}
 			})(),
 		[auth.isAuth]
 	);
 
-	console.log("cart", ...globalState.cart);
+	console.log("cart", ...cartState.cart);
 	return (
-		<globalContext.Provider value={{ globalState, globalDispatch }}>
+		<cartContext.Provider value={{ cartState, cartDispatch }}>
 			{children}
-		</globalContext.Provider>
+		</cartContext.Provider>
 	);
 };
 
-export { GlobalProvider, useGlobal };
+export { CartProvider, useCart };

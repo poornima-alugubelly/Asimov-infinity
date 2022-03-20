@@ -1,4 +1,4 @@
-const addToCart = (cart, product) => {
+export const addToCart = (cart, product) => {
 	const productExists = cart.find((item) => item._id === product._id);
 	if (productExists) {
 		return cart.map((item) =>
@@ -7,5 +7,3 @@ const addToCart = (cart, product) => {
 	}
 	return [...cart, { ...product, qty: 1 }];
 };
-
-export { addToCart };

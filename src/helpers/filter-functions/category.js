@@ -1,4 +1,4 @@
-const getFliteredProducts = (sortedproducts, categories) => {
+export const getFliteredProducts = (sortedproducts, categories) => {
 	const filteredlist = [];
 
 	let count = 0;
@@ -16,5 +16,3 @@ const getFliteredProducts = (sortedproducts, categories) => {
 
 	return count === 6 ? sortedproducts : filteredlist;
 };
-
-export { getFliteredProducts };

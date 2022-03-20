@@ -1,4 +1,4 @@
-const CartSummary = () => {
+export const CartSummary = () => {
 	return (
 		<div class="cart-total-wrapper flex-column gap-s">
 			<div class="flex-column gap-xs">
@@ -26,4 +26,3 @@ const CartSummary = () => {
 		</div>
 	);
 };
-export { CartSummary };

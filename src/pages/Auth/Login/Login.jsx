@@ -1,11 +1,11 @@
 import { useState } from "react";
-import "../auth.css";
-import { loginService } from "../../services/loginService";
-import { useAuth } from "../../context/AuthContext";
+import "../Auth.css";
+import { loginService } from "../../../services/loginService";
+import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { usePwdToggler } from "../../hooks/usePwdToggler";
+import { usePwdToggler } from "../../../hooks/usePwdToggler";
 import { Link } from "react-router-dom";
-const Login = () => {
+export const Login = () => {
 	const [formVal, setFormVal] = useState({ email: "", password: "" });
 	const [pwdToggle, pwdToggler] = usePwdToggler();
 	const { setAuth } = useAuth();
@@ -106,5 +106,3 @@ const Login = () => {
 		</div>
 	);
 };
-
-export { Login };

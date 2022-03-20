@@ -1,5 +1,5 @@
 import { useState } from "react";
-const usePwdToggler = () => {
+export const usePwdToggler = () => {
 	const [pwdToggle, setpwdToggle] = useState({
 		type: "password",
 		class: "fa-eye-slash",
@@ -12,5 +12,3 @@ const usePwdToggler = () => {
 
 	return [pwdToggle, pwdToggler];
 };
-
-export { usePwdToggler };

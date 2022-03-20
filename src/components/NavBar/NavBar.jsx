@@ -1,9 +1,9 @@
 import { IMAGES } from "../../assets";
-import "./nav-bar.css";
+import "./NavBar.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-const NavBar = () => {
+export const NavBar = () => {
 	const { auth, setAuth } = useAuth();
 	const navigate = useNavigate();
 	const logoutHandler = () => {
@@ -39,10 +39,10 @@ const NavBar = () => {
 			<ul className="nav-bar-secondary nav-bar-links">
 				{auth.isAuth ? (
 					<div onClick={logoutHandler}>
-						<Link to="/login" className="flex-column">
+						<Link to="/login" className="flex-column ">
 							<i class="fas fa-user btn-icon"></i>
 
-							<span className="text-xxs">Logout </span>
+							<span className="text-xxs pointer">Logout </span>
 						</Link>
 					</div>
 				) : (
@@ -50,27 +50,31 @@ const NavBar = () => {
 						<Link to="/login">
 							<i class="fas fa-user btn-icon"></i>
 						</Link>
-						<span className="text-xxs">Login</span>
+						<span className="text-xxs pointer">Login</span>
 					</div>
 				)}
 
-				<div className="flex-column">
-					<div className="badge-wrapper">
-						<a href="./wishlist-page.html">
+				<div>
+					<Link to="/wishlist">
+						<div className="badge-wrapper flex-column">
 							<i class="fas fa-heart btn-icon"></i>
 
 							<span className="badge badge-top badge-s badge-red">11</span>
-						</a>
-					</div>
-					<span className="text-xxs">Wish List</span>
+						</div>
+
+						<span className="text-xxs pointer">Wishlist</span>
+					</Link>
 				</div>
 				<div className="flex-column">
-					<Link to="/cart" className="badge-wrapper">
-						<i class="fas fa-shopping-cart btn-icon"></i>
+					<Link to="/cart">
+						<div className="badge-wrapper flex-column">
+							<i class="fas fa-shopping-cart btn-icon"></i>
 
-						<span className="badge badge-top badge-s badge-red">11</span>
+							<span className="badge badge-top badge-s badge-red">11</span>
+						</div>
+
+						<span className="text-xxs pointer">Cart</span>
 					</Link>
-					<span className="text-xxs">Cart</span>
 				</div>
 			</ul>
 			<a
@@ -116,5 +120,3 @@ const NavBar = () => {
 		</nav>
 	);
 };
-
-export { NavBar };

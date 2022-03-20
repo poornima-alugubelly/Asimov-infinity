@@ -1,5 +1,5 @@
 import { actionTypes } from "./actionTypes";
-const globalReducer = (state, action) => {
+export const cartReducer = (state, action) => {
 	const { SET_CART } = actionTypes;
 	switch (action.type) {
 		case SET_CART:
@@ -9,5 +9,3 @@ const globalReducer = (state, action) => {
 			};
 	}
 };
-
-export { globalReducer };
