@@ -48,11 +48,7 @@ export const CartProduct = ({ product }) => {
 	return (
 		<div class="card card-horizontal padding-s">
 			<div class="img-container">
-				<img
-					src="https://d1x7zurbps6occ.cloudfront.net/product/large/858355-224378.jpg"
-					alt="product image"
-					class="img-responsive"
-				/>
+				<img src={product.src} alt="product image" class="img-responsive" />
 			</div>
 
 			<div class="card-content gap-xs">
