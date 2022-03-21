@@ -1,23 +1,65 @@
 import { useCart } from "../../../../context/cartContext";
-import { actionTypes } from "../../../../reducers/actionTypes";
-import { addToCartService } from "../../../../services/addToCartService";
+import { addToCartService } from "../../../../services/cart-services/addToCartService";
+import { addToWishlistService } from "../../../../services/wishlist-services/addToWishlistService";
+import { removeProductWishlistService } from "../../../../services/wishlist-services/removeProductWishlistService";
 import { useAuth } from "../../../../context/AuthContext";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useWishlist } from "../../../../context/WishlistContext";
+
 export const ProductCard = ({ product }) => {
-	const { cartState, cartDispatch } = useCart();
-	const { SET_CART } = actionTypes;
+	const { cart, setCart } = useCart();
 	const { auth } = useAuth();
 	const [inCart, setInCart] = useState(false);
+	const [inWishlist, setInWishlist] = useState(false);
 	const addToCartServerCall = async () => {
-		const cart = await addToCartService(product, auth.token);
-		if (cart) cartDispatch({ type: SET_CART, payload: { cart } });
+		try {
+			const res = await addToCartService(product, auth.token);
+			if (res.status === 201) {
+				setCart((prev) => ({ ...prev, cartProducts: res.data.cart }));
+			}
+		} catch (err) {
+			console.log(err.response);
+		}
 	};
 	const navigate = useNavigate();
-	const goToCart = () => navigate("/cart");
+
+	const { wishlist, setWishlist } = useWishlist();
+
+	const addToWishlistServerCall = async () => {
+		try {
+			const res = await addToWishlistService(product, auth.token);
+			if (res.status === 201) {
+				setWishlist((prev) => ({
+					...prev,
+					wishlistProducts: res.data.wishlist,
+				}));
+			}
+		} catch (err) {
+			console.log(err.response);
+		}
+	};
+
+	const removeProductWishlistServerCall = async () => {
+		try {
+			const res = await removeProductWishlistService(product._id, auth.token);
+			if (res.status === 200) {
+				setWishlist((prev) => ({
+					...prev,
+					wishlistProducts: res.data.wishlist,
+				}));
+			}
+		} catch (err) {
+			console.log(err.response);
+		}
+	};
 	useEffect(() => {
-		cartState.cart.find((item) => item._id === product._id) && setInCart(true);
-	}, [cartState.cart]);
+		cart.cartProducts.find((item) => item._id === product._id) &&
+			setInCart(true);
+		wishlist.wishlistProducts.find((item) => item._id === product._id)
+			? setInWishlist(true)
+			: setInWishlist(false);
+	}, [cart.cartProducts, wishlist.wishlistProducts]);
 	return (
 		<div class="card card-vertical">
 			<div class="img-container">
@@ -25,17 +67,26 @@ export const ProductCard = ({ product }) => {
 			</div>
 
 			<div class="card-content padding-s">
-				<div class="card-title">
-					<h3> {product.category} </h3>{" "}
-					<i className="far fa-heart text-xs btn-icon"></i>
-				</div>
+				<i
+					className={
+						inWishlist
+							? "fas fa-heart text-xs btn-icon item-top  "
+							: "far fa-heart text-xs btn-icon item-top "
+					}
+					role="button"
+					onClick={() =>
+						inWishlist
+							? removeProductWishlistServerCall()
+							: addToWishlistServerCall()
+					}
+				></i>
 
 				<span class="card-subtitle">{product.name} </span>
 				<span class="card-subtitle">{product.rating} </span>
 
 				<div class="flex-row gap-xs">
-					<span class="txt-bold"> {product.discountedPrice}</span>
-					<span class="txt-crossed-off">RS.{product.price}</span>
+					<span class="txt-bold"> Rs.{product.discountedPrice}</span>
+					<span class="txt-crossed-off">Rs.{product.price}</span>
 					<span class="txt-high-light">{product.discount}%</span>
 				</div>
 				<div class="card-footer">

@@ -1,17 +1,14 @@
-import { useReducer, createContext, useContext, useEffect } from "react";
-import { cartReducer } from "../reducers/cartReducer";
-import { getCartService } from "../services/getCartService";
+import { createContext, useContext, useEffect, useState } from "react";
+import { getCartService } from "../services/cart-services/getCartService";
 import { useAuth } from "./AuthContext";
-import { actionTypes } from "../reducers/actionTypes";
 const cartContext = createContext();
 const useCart = () => useContext(cartContext);
 const CartProvider = ({ children }) => {
-	const [cartState, cartDispatch] = useReducer(cartReducer, {
-		cart: [],
+	const [cart, setCart] = useState({
+		cartProducts: [],
 		cartError: false,
 	});
 
-	const { SET_CART } = actionTypes;
 	const { auth } = useAuth();
 	useEffect(
 		() =>
@@ -19,17 +16,22 @@ const CartProvider = ({ children }) => {
 				console.log("in use effect");
 				if (auth.isAuth) {
 					console.log("calling");
-					const cart = await getCartService(auth.token);
-					console.log(cart);
-					if (cart) cartDispatch({ type: SET_CART, payload: { cart } });
+					try {
+						const res = await getCartService(auth.token);
+						console.log(cart);
+						if (res.status === 200)
+							setCart((prev) => ({ ...prev, cartProducts: res.data.cart }));
+					} catch (err) {
+						console.log(err.response);
+					}
 				}
 			})(),
 		[auth.isAuth]
 	);
 
-	console.log("cart", ...cartState.cart);
+	// console.log("cart", ...cart.cartProducts);
 	return (
-		<cartContext.Provider value={{ cartState, cartDispatch }}>
+		<cartContext.Provider value={{ cart, setCart }}>
 			{children}
 		</cartContext.Provider>
 	);

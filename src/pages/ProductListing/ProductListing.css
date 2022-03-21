@@ -24,12 +24,16 @@
 	justify-self: center;
 	height: min-content;
 }
+.grid-product-layout .card .black-bg {
+	height: 2rem;
+	width: 2rem;
+	color: var(--secondary-color);
+}
 
 .grid-product-layout .card .card-subtitle {
 	width: 14rem;
 	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+	white-space: wrap;
 }
 
 .gap-xs {

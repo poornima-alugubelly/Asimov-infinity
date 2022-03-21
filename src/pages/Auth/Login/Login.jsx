@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../Auth.css";
-import { loginService } from "../../../services/loginService";
+import { loginService } from "../../../services/auth-services/loginService";
 import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { usePwdToggler } from "../../../hooks/usePwdToggler";

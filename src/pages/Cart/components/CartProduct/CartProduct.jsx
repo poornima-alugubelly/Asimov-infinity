@@ -1,23 +1,45 @@
 import "./CartProduct.css";
-import { actionTypes } from "../../../../reducers/actionTypes";
 import { useCart } from "../../../../context/cartContext";
-import { cartCounterService } from "../../../../services/cartCounterService";
+import { cartCounterService } from "../../../../services/cart-services/cartCounterService";
 import { useAuth } from "../../../../context/AuthContext";
-import { removeProductService } from "../../../../services/removeProductService";
+import { removeProductCartService } from "../../../../services/cart-services/removeProductCartService";
+import { addToWishlistService } from "../../../../services/wishlist-services/addToWishlistService";
+import { useWishlist } from "../../../../context/WishlistContext";
 export const CartProduct = ({ product }) => {
-	const { SET_CART } = actionTypes;
-	const { cartDispatch } = useCart();
+	const { setCart } = useCart();
 	const { auth } = useAuth();
-
+	const { setWishlist } = useWishlist();
 	const cartCounterServerCall = async (operation) => {
-		let cart = null;
-		if (product.qty === 1 && operation === "decrement") {
-			cart = await removeProductService(product._id, auth.token);
-		} else {
-			cart = await cartCounterService(product._id, auth.token, operation);
+		let res = null;
+		try {
+			if (product.qty === 1 && operation === "decrement") {
+				res = await removeProductCartService(product._id, auth.token);
+			} else {
+				res = await cartCounterService(product._id, auth.token, operation);
+			}
+			console.log("increment", res.data.cart);
+			if (res.status === 200) {
+				setCart((prev) => ({ ...prev, cartProducts: res.data.cart }));
+			}
+		} catch (err) {
+			console.log(err);
 		}
-		if (cart) {
-			cartDispatch({ type: SET_CART, payload: { cart } });
+	};
+	const addToWishlistServerCall = async () => {
+		try {
+			const res = await addToWishlistService(product, auth.token);
+			if (res.status === 201) {
+				setWishlist((prev) => ({
+					...prev,
+					wishlistProducts: res.data.wishlist,
+				}));
+				const cartres = await removeProductCartService(product._id, auth.token);
+				if (cartres.status === 200) {
+					setCart((prev) => ({ ...prev, cartProducts: cartres.data.cart }));
+				}
+			}
+		} catch (err) {
+			console.log(err);
 		}
 	};
 
@@ -55,7 +77,9 @@ export const CartProduct = ({ product }) => {
 
 				<div class="card-footer">
 					<button class="btn btn-primary-outline">
-						<span>Move to wishlist</span>
+						<span onClick={() => addToWishlistServerCall()}>
+							Move to wishlist
+						</span>
 					</button>
 				</div>
 			</div>
