@@ -1,41 +1,66 @@
 import "./CartProduct.css";
-import { actionTypes } from "../../../../reducers/actionTypes";
 import { useCart } from "../../../../context/cartContext";
-import { cartCounterService } from "../../../../services/cartCounterService";
+import {
+	cartCounterService,
+	removeProductCartService,
+} from "../../../../services/cart-services";
 import { useAuth } from "../../../../context/AuthContext";
-import { removeProductService } from "../../../../services/removeProductService";
+import { useWishlist } from "../../../../context/WishlistContext";
 export const CartProduct = ({ product }) => {
-	const { SET_CART } = actionTypes;
-	const { cartDispatch } = useCart();
+	const { setCart } = useCart();
 	const { auth } = useAuth();
-
+	const { setWishlist } = useWishlist();
 	const cartCounterServerCall = async (operation) => {
-		let cart = null;
-		if (product.qty === 1 && operation === "decrement") {
-			cart = await removeProductService(product._id, auth.token);
-		} else {
-			cart = await cartCounterService(product._id, auth.token, operation);
+		let res = null;
+		try {
+			if (product.qty === 1 && operation === "decrement") {
+				res = await removeProductCartService(product._id, auth.token);
+			} else {
+				res = await cartCounterService(product._id, auth.token, operation);
+			}
+			console.log("increment", res.data.cart);
+			if (res.status === 200) {
+				setCart((prev) => ({ ...prev, cartProducts: res.data.cart }));
+			}
+		} catch (err) {
+			console.log(err);
 		}
-		if (cart) {
-			cartDispatch({ type: SET_CART, payload: { cart } });
+	};
+	const addToWishlistServerCall = async () => {
+		try {
+			const res = await addToWishlistService(product, auth.token);
+			if (res.status === 201) {
+				const findProduct = wishlist.wishlistProducts.find(
+					(item) => item._id === product.id_id
+				);
+				if (!findProduct) {
+					setWishlist((prev) => ({
+						...prev,
+						wishlistProducts: res.data.wishlist,
+					}));
+				}
+
+				const cartres = await removeProductCartService(product._id, auth.token);
+				if (cartres.status === 200) {
+					setCart((prev) => ({ ...prev, cartProducts: cartres.data.cart }));
+				}
+			}
+		} catch (err) {
+			console.log(err);
 		}
 	};
 
 	return (
 		<div class="card card-horizontal padding-s">
 			<div class="img-container">
-				<img
-					src="https://d1x7zurbps6occ.cloudfront.net/product/large/858355-224378.jpg"
-					alt="product image"
-					class="img-responsive"
-				/>
+				<img src={product.src} alt="product image" class="img-responsive" />
 			</div>
 
 			<div class="card-content gap-xs">
 				<h2 class="card-title">{product.name}</h2>
 				<div class="flex-row gap-xs">
-					<span class="txt-bold"> {product.discountedPrice}</span>
-					<span class="txt-crossed-off">{product.price}</span>
+					<span class="txt-bold"> Rs.{product.discountedPrice}</span>
+					<span class="txt-crossed-off">Rs.{product.price}</span>
 					<span class="txt-high-light">{product.discount}%</span>
 				</div>
 				<div class="flex-start gap-s">
@@ -55,7 +80,9 @@ export const CartProduct = ({ product }) => {
 
 				<div class="card-footer">
 					<button class="btn btn-primary-outline">
-						<span>Move to wishlist</span>
+						<span onClick={() => addToWishlistServerCall()}>
+							Move to wishlist
+						</span>
 					</button>
 				</div>
 			</div>

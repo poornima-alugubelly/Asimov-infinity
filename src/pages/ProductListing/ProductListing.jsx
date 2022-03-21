@@ -12,6 +12,7 @@ import {
 	getFliteredProducts,
 	getRatedProducts,
 } from "../../helpers/filter-functions";
+
 export const ProductListing = () => {
 	const { productListingState, productListingDispatch } = useProductListing();
 	const { data, sortBy, price, categories, rating, discount } =

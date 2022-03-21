@@ -3,8 +3,12 @@ import "./NavBar.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../context/cartContext";
+import { useWishlist } from "../../context/WishlistContext";
 export const NavBar = () => {
 	const { auth, setAuth } = useAuth();
+	const { cart } = useCart();
+	const { wishlist } = useWishlist();
 	const navigate = useNavigate();
 	const logoutHandler = () => {
 		localStorage.removeItem("token");
@@ -47,19 +51,21 @@ export const NavBar = () => {
 					</div>
 				) : (
 					<div className="flex-column">
-						<Link to="/login">
+						<Link to="/login" className="flex-column ">
 							<i class="fas fa-user btn-icon"></i>
+							<span className="text-xxs pointer">Login</span>
 						</Link>
-						<span className="text-xxs pointer">Login</span>
 					</div>
 				)}
 
-				<div>
+				<div className="flex-column">
 					<Link to="/wishlist">
-						<div className="badge-wrapper flex-column">
+						<div className="badge-wrapper ">
 							<i class="fas fa-heart btn-icon"></i>
 
-							<span className="badge badge-top badge-s badge-red">11</span>
+							<span className="badge badge-top badge-s badge-red">
+								{wishlist.wishlistProducts.length}
+							</span>
 						</div>
 
 						<span className="text-xxs pointer">Wishlist</span>
@@ -67,10 +73,12 @@ export const NavBar = () => {
 				</div>
 				<div className="flex-column">
 					<Link to="/cart">
-						<div className="badge-wrapper flex-column">
+						<div className="badge-wrapper">
 							<i class="fas fa-shopping-cart btn-icon"></i>
 
-							<span className="badge badge-top badge-s badge-red">11</span>
+							<span className="badge badge-top badge-s badge-red">
+								{cart.cartProducts.length}
+							</span>
 						</div>
 
 						<span className="text-xxs pointer">Cart</span>

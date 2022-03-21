@@ -1,4 +1,4 @@
-import { signupService } from "../../../services/signupService";
+import { signupService } from "../../../services/auth-services/signupService";
 import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
