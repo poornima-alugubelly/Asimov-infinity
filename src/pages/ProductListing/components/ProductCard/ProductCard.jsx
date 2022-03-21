@@ -1,7 +1,9 @@
 import { useCart } from "../../../../context/cartContext";
-import { addToCartService } from "../../../../services/cart-services/addToCartService";
-import { addToWishlistService } from "../../../../services/wishlist-services/addToWishlistService";
-import { removeProductWishlistService } from "../../../../services/wishlist-services/removeProductWishlistService";
+import { addToCartService } from "../../../../services/cart-services";
+import {
+	addToWishlistService,
+	removeProductWishlistService,
+} from "../../../../services/wishlist-services";
 import { useAuth } from "../../../../context/AuthContext";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";

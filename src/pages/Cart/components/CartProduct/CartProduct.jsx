@@ -1,9 +1,11 @@
 import "./CartProduct.css";
 import { useCart } from "../../../../context/cartContext";
-import { cartCounterService } from "../../../../services/cart-services/cartCounterService";
+import {
+	cartCounterService,
+	removeProductCartService,
+} from "../../../../services/cart-services";
 import { useAuth } from "../../../../context/AuthContext";
-import { removeProductCartService } from "../../../../services/cart-services/removeProductCartService";
-import { addToWishlistService } from "../../../../services/wishlist-services/addToWishlistService";
+import { addToWishlistService } from "../../../../services/wishlist-services";
 import { useWishlist } from "../../../../context/WishlistContext";
 export const CartProduct = ({ product }) => {
 	const { setCart } = useCart();

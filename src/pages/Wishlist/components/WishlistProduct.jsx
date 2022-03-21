@@ -1,6 +1,6 @@
 import { IMAGES } from "../../../assets";
-import { removeProductWishlistService } from "../../../services/wishlist-services/removeProductWishlistService.js";
-import { addToCartService } from "../../../services/cart-services/addToCartService";
+import { removeProductWishlistService } from "../../../services/wishlist-services";
+import { addToCartService } from "../../../services/cart-services";
 import { useAuth } from "../../../context/AuthContext";
 import { useWishlist } from "../../../context/WishlistContext";
 import { useCart } from "../../../context/cartContext";
