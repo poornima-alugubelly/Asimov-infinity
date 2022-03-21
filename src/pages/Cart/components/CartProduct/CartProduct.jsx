@@ -5,7 +5,6 @@ import {
 	removeProductCartService,
 } from "../../../../services/cart-services";
 import { useAuth } from "../../../../context/AuthContext";
-import { addToWishlistService } from "../../../../services/wishlist-services";
 import { useWishlist } from "../../../../context/WishlistContext";
 export const CartProduct = ({ product }) => {
 	const { setCart } = useCart();
@@ -31,10 +30,16 @@ export const CartProduct = ({ product }) => {
 		try {
 			const res = await addToWishlistService(product, auth.token);
 			if (res.status === 201) {
-				setWishlist((prev) => ({
-					...prev,
-					wishlistProducts: res.data.wishlist,
-				}));
+				const findProduct = wishlist.wishlistProducts.find(
+					(item) => item._id === product.id_id
+				);
+				if (!findProduct) {
+					setWishlist((prev) => ({
+						...prev,
+						wishlistProducts: res.data.wishlist,
+					}));
+				}
+
 				const cartres = await removeProductCartService(product._id, auth.token);
 				if (cartres.status === 200) {
 					setCart((prev) => ({ ...prev, cartProducts: cartres.data.cart }));
@@ -54,8 +59,8 @@ export const CartProduct = ({ product }) => {
 			<div class="card-content gap-xs">
 				<h2 class="card-title">{product.name}</h2>
 				<div class="flex-row gap-xs">
-					<span class="txt-bold"> {product.discountedPrice}</span>
-					<span class="txt-crossed-off">{product.price}</span>
+					<span class="txt-bold"> Rs.{product.discountedPrice}</span>
+					<span class="txt-crossed-off">Rs.{product.price}</span>
 					<span class="txt-high-light">{product.discount}%</span>
 				</div>
 				<div class="flex-start gap-s">
