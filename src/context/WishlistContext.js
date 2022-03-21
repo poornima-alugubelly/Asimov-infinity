@@ -7,23 +7,25 @@ const useWishlist = () => useContext(wishlistContext);
 const WishlistProvider = ({ children }) => {
 	const [wishlist, setWishlist] = useState({
 		wishlistProducts: [],
+		wishlistError: false,
+		wishlistLoading: false,
 	});
 	const { auth } = useAuth();
 
 	useEffect(() => {
 		(async () => {
 			if (auth.isAuth) {
-				console.log("calling");
+				setWishlist((prev) => ({ ...prev, wishlistLoading: true }));
 				try {
 					const res = await getWishlistService(auth.token);
-					console.log(cart);
 					if (res.status === 200)
 						setWishlist((prev) => ({
 							...prev,
 							wishlistProducts: res.data.wishlist,
+							wishlistLoading: false,
 						}));
 				} catch (err) {
-					console.log(err.response);
+					err && setWishlist((prev) => ({ ...prev, wishlistError: true }));
 				}
 			} else {
 				setWishlist((prev) => ({
