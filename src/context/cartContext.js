@@ -24,6 +24,8 @@ const CartProvider = ({ children }) => {
 					} catch (err) {
 						console.log(err.response);
 					}
+				} else {
+					setCart((prev) => ({ ...prev, cartProducts: [] }));
 				}
 			})(),
 		[auth.isAuth]

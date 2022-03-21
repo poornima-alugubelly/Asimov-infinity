@@ -25,6 +25,11 @@ const WishlistProvider = ({ children }) => {
 				} catch (err) {
 					console.log(err.response);
 				}
+			} else {
+				setWishlist((prev) => ({
+					...prev,
+					wishlistProducts: [],
+				}));
 			}
 		})();
 	}, []);

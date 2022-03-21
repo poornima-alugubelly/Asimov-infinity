@@ -76,10 +76,12 @@ export const ProductCard = ({ product }) => {
 							: "far fa-heart text-xs btn-icon item-top "
 					}
 					role="button"
-					onClick={() =>
-						inWishlist
-							? removeProductWishlistServerCall()
-							: addToWishlistServerCall()
+					onClick={
+						auth.isAuth
+							? inWishlist
+								? () => removeProductWishlistServerCall()
+								: () => addToWishlistServerCall()
+							: () => navigate("/login")
 					}
 				></i>
 
@@ -95,7 +97,11 @@ export const ProductCard = ({ product }) => {
 					<button
 						class="btn btn-primary-solid"
 						onClick={
-							inCart ? () => navigate("/cart") : () => addToCartServerCall()
+							auth.isAuth
+								? inCart
+									? () => navigate("/cart")
+									: () => addToCartServerCall()
+								: () => navigate("/login")
 						}
 					>
 						<i class="fa-fw fas fa-shopping-cart"> </i>
