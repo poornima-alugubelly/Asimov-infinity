@@ -14,12 +14,14 @@ export const productListingReducer = (state, action) => {
 		WALLART,
 		DISCOUNT,
 		CLEAR,
+		LOADING_DATA,
 	} = actionTypes;
 	switch (action.type) {
 		case LOAD_DATA:
 			return {
 				...state,
-				data: [...action.payload],
+				data: [...action.payload.products],
+				productsLoading: action.payload.status,
 			};
 		case LOW_TO_HIGH:
 			return {
@@ -110,6 +112,11 @@ export const productListingReducer = (state, action) => {
 				price: 5000,
 				discount: "",
 				rating: 1,
+			};
+		case LOADING_DATA:
+			return {
+				...state,
+				productsLoading: action.payload.status,
 			};
 
 		default:

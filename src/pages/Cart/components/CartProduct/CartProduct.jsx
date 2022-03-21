@@ -4,12 +4,13 @@ import {
 	cartCounterService,
 	removeProductCartService,
 } from "../../../../services/cart-services";
+import { addToWishlistService } from "../../../../services/wishlist-services";
 import { useAuth } from "../../../../context/AuthContext";
 import { useWishlist } from "../../../../context/WishlistContext";
 export const CartProduct = ({ product }) => {
 	const { setCart } = useCart();
 	const { auth } = useAuth();
-	const { setWishlist } = useWishlist();
+	const { wishlist, setWishlist } = useWishlist();
 	const cartCounterServerCall = async (operation) => {
 		let res = null;
 		try {
@@ -26,19 +27,24 @@ export const CartProduct = ({ product }) => {
 			console.log(err);
 		}
 	};
+	const findProduct = (product) => {
+		const found = wishlist.wishlistProducts.find(
+			(item) => item._id === product._id
+		);
+		console.log("found", found);
+		if (!found) addToWishlistServerCall();
+	};
+
 	const addToWishlistServerCall = async () => {
 		try {
 			const res = await addToWishlistService(product, auth.token);
+
 			if (res.status === 201) {
-				const findProduct = wishlist.wishlistProducts.find(
-					(item) => item._id === product.id_id
-				);
-				if (!findProduct) {
-					setWishlist((prev) => ({
-						...prev,
-						wishlistProducts: res.data.wishlist,
-					}));
-				}
+				console.log("data", res.data);
+				setWishlist((prev) => ({
+					...prev,
+					wishlistProducts: res.data.wishlist,
+				}));
 
 				const cartres = await removeProductCartService(product._id, auth.token);
 				if (cartres.status === 200) {
@@ -80,9 +86,7 @@ export const CartProduct = ({ product }) => {
 
 				<div class="card-footer">
 					<button class="btn btn-primary-outline">
-						<span onClick={() => addToWishlistServerCall()}>
-							Move to wishlist
-						</span>
+						<span onClick={() => findProduct(product)}>Move to wishlist</span>
 					</button>
 				</div>
 			</div>

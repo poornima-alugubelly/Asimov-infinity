@@ -7,15 +7,14 @@ const CartProvider = ({ children }) => {
 	const [cart, setCart] = useState({
 		cartProducts: [],
 		cartError: false,
+		cartLoading: false,
 	});
 
 	const { auth } = useAuth();
 	useEffect(
 		() =>
 			(async () => {
-				console.log("in use effect");
 				if (auth.isAuth) {
-					console.log("calling");
 					try {
 						const res = await getCartService(auth.token);
 						console.log(cart);

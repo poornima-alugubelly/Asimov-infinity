@@ -14,4 +14,5 @@ export const actionTypes = {
 	CLEAR: "CLEAR",
 	SET_CART: "SET_CART",
 	SET_WISHLIST: "SET_WISHLIST",
+	LOADING_DATA: "LOADING_DATA",
 };
