@@ -18,11 +18,19 @@ export const productListingReducer = (state, action) => {
 	} = actionTypes;
 	switch (action.type) {
 		case LOAD_DATA:
-			return {
-				...state,
-				data: [...action.payload.products],
-				productsLoading: action.payload.status,
-			};
+			if (action.payload.products)
+				return {
+					...state,
+					data: [...action.payload.products],
+					productsLoading: action.payload.status,
+				};
+			if (action.payload.categories)
+				return {
+					...state,
+					categoriesData: [...action.payload.categoriesData],
+					categories: { ...action.payload.categories },
+					productsLoading: action.payload.status,
+				};
 		case LOW_TO_HIGH:
 			return {
 				...state,
