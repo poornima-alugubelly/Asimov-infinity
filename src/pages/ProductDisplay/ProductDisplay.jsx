@@ -119,7 +119,7 @@ export const ProductDisplay = () => {
 									? inWishlist
 										? () => navigate("/wishlist")
 										: () => addToWishlistServerCall()
-									: navigate("/login")
+									: () => navigate("/login")
 							}
 						>
 							<span>
