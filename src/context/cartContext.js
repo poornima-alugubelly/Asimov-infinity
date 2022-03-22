@@ -7,25 +7,33 @@ const CartProvider = ({ children }) => {
 	const [cart, setCart] = useState({
 		cartProducts: [],
 		cartError: false,
+		cartLoading: false,
 	});
 
 	const { auth } = useAuth();
 	useEffect(
 		() =>
 			(async () => {
-				console.log("in use effect");
 				if (auth.isAuth) {
-					console.log("calling");
+					setCart((prev) => ({ ...prev, cartLoading: true }));
 					try {
 						const res = await getCartService(auth.token);
 						console.log(cart);
 						if (res.status === 200)
-							setCart((prev) => ({ ...prev, cartProducts: res.data.cart }));
+							setCart((prev) => ({
+								...prev,
+								cartProducts: res.data.cart,
+								cartLoading: false,
+							}));
 					} catch (err) {
-						console.log(err.response);
+						err && setCart((prev) => ({ ...prev, cartError: true }));
 					}
 				} else {
-					setCart((prev) => ({ ...prev, cartProducts: [] }));
+					setCart((prev) => ({
+						...prev,
+						cartProducts: [],
+						cartLoading: false,
+					}));
 				}
 			})(),
 		[auth.isAuth]
