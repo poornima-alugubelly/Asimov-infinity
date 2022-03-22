@@ -68,7 +68,7 @@ export const ProductCard = ({ product }) => {
 				}));
 			}
 		} catch (err) {
-			console.log(err.response);
+			toast.error("Please try again after some time")
 		}
 	};
 	useEffect(() => {
