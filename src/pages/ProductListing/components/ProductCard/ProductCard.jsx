@@ -68,19 +68,18 @@ export const ProductCard = ({ product }) => {
 				}));
 			}
 		} catch (err) {
-			toast.error("Please try again after some time")
+			toast.error("Please try again after some time");
 		}
 	};
 	useEffect(() => {
 		cart.cartProducts.find((item) => item._id === product._id) &&
 			setInCart(true);
-		wishlist.wishlistProducts.find((item) => item._id === product._id)
-			? setInWishlist(true)
-			: setInWishlist(false);
+		wishlist.wishlistProducts.find((item) => item._id === product._id) &&
+			setInWishlist(true);
 	}, [cart.cartProducts, wishlist.wishlistProducts]);
 	return (
 		<div class="card card-vertical">
-			<div class="img-container">
+			<div class="img-container" onClick={() => navigate(`/${product.id}`)}>
 				<img src={product.src} alt="product image" class="img-responsive" />
 			</div>
 

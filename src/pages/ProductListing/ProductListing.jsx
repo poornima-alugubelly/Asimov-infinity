@@ -21,6 +21,7 @@ export const ProductListing = () => {
 	const categoryProducts = getFliteredProducts(discountedProducts, categories);
 	const ratedProducts = getRatedProducts(categoryProducts, rating);
 	const finalFilteredProducts = getSortedProducts(ratedProducts, sortBy);
+	console.log("products", productListingState.data);
 	return !productsLoading ? (
 		<div class="grid-30-70 main-container-gutter">
 			<ProductFilters />

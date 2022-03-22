@@ -6,6 +6,7 @@ import { Login } from "../pages/Auth/Login/Login.jsx";
 import { Signup } from "../pages/Auth/Signup/Signup.jsx";
 import { Cart } from "../pages/Cart/Cart.jsx";
 import { WishList } from "../pages/Wishlist/Wishlist.jsx";
+import { ProductDisplay } from "../pages/ProductDisplay/ProductDisplay.jsx";
 import MockApi from "../pages/mockman.jsx";
 export const NavRoutes = () => {
 	return (
@@ -21,6 +22,7 @@ export const NavRoutes = () => {
 				<Route path="/cart" element={<Cart />} />
 				<Route path="/wishlist" element={<WishList />} />
 			</Route>
+			<Route path="/:productId" element={<ProductDisplay />} />
 			<Route path="/errorpage" element={<h1>Error page</h1>} />
 		</Routes>
 	);

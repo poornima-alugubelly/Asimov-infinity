@@ -34,8 +34,10 @@
 	.search-bar {
 		position: absolute;
 		top: 6rem;
-		left: 1rem;
-		width: 90%;
+		left: 0;
+		right: 0;
+		width: 100%;
+		border-radius: 2px;
 	}
 	.nav-bar {
 		padding: 0rem 2rem;
