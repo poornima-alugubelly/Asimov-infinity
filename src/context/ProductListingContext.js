@@ -8,6 +8,7 @@ import {
 import { productListingReducer } from "../reducers/productListingReducer";
 import { getProductListService } from "../services/getProductListService";
 import { actionTypes } from "../reducers/actionTypes";
+import { getCategoryService } from "../services/getCategoryService";
 const ProductListingContext = createContext();
 const useProductListing = () => useContext(ProductListingContext);
 
@@ -16,15 +17,9 @@ const ProductListingProvider = ({ children }) => {
 		productListingReducer,
 		{
 			data: [],
+			categoriesData: [],
 			sortBy: "",
-			categories: {
-				accessories: false,
-				books: false,
-				clothing: false,
-				lifestyle: false,
-				stationery: false,
-				wallart: false,
-			},
+			categories: {},
 			price: 5000,
 			discount: "",
 			rating: 1,
@@ -51,7 +46,32 @@ const ProductListingProvider = ({ children }) => {
 				});
 			}
 		})();
+		(async () => {
+			try {
+				let res = await getCategoryService();
+				productListingDispatch({
+					type: actionTypes.LOADING_DATA,
+					payload: { status: true },
+				});
+
+				if (res.status === 200) {
+					let categoriesData = res.data.categories;
+					let categories = categoriesData.reduce(
+						(acc, curr) => ({ ...acc, [curr.categoryName]: false }),
+						{}
+					);
+
+					productListingDispatch({
+						type: actionTypes.LOAD_DATA,
+						payload: { categories, status: false, categoriesData },
+					});
+				}
+			} catch (err) {
+				console.log("error", err);
+			}
+		})();
 	}, []);
+	console.log("data", productListingState);
 	return (
 		<ProductListingContext.Provider
 			value={{ productListingState, productListingDispatch }}

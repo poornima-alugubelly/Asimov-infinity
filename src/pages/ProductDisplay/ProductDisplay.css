@@ -1,0 +1,27 @@
+.single-product-container {
+	display: grid;
+	grid-template-columns: 40% 60%;
+	margin: 6rem;
+}
+.single-product-container .img-container {
+	height: 22rem;
+}
+
+.single-product-container .img-container img {
+	object-fit: contain;
+}
+.single-product-container .flex-row {
+	align-items: center;
+}
+.single-product-price {
+	border-bottom: 1px solid var(--shadow-color);
+	padding-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+	.single-product-container {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		margin: 6rem 3rem;
+	}
+}

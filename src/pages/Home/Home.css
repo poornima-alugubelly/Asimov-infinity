@@ -35,13 +35,6 @@
 	width: fit-content;
 }
 
-.collection-container {
-	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	grid-template-rows: 250px;
-	justify-content: center;
-}
-
 .text-overlay {
 	font-size: 1.5rem;
 }

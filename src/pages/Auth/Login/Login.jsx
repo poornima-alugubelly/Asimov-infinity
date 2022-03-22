@@ -11,6 +11,7 @@ export const Login = () => {
 	const { setAuth } = useAuth();
 	const navigate = useNavigate();
 	const loginHandler = async (e, email, password) => {
+		setFormVal({ email, password });
 		e.preventDefault();
 		const token = await loginService(email, password);
 		if (token) {

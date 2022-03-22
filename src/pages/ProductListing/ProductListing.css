@@ -16,11 +16,12 @@
 	height: 12rem;
 	width: 100%;
 	object-fit: contain;
+	cursor: pointer;
 }
 
 .grid-product-layout .card {
 	width: 15rem;
-	cursor: pointer;
+
 	justify-self: center;
 	height: min-content;
 }

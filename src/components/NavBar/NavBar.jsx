@@ -33,8 +33,9 @@ export const NavBar = () => {
 					</li>
 				</ul>
 			</div>
+
 			<div className="search-bar input">
-				<input type="text" />
+				<input type="text" placeholder="type to search..." />
 				<button>
 					<img className="icon-search" src={IMAGES.searchIcon} alt="search" />
 				</button>
