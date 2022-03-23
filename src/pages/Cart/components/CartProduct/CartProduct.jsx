@@ -1,20 +1,20 @@
 import "./CartProduct.css";
-import { useCart } from "../../../../context/cartContext";
+import { useUserData } from "../../../../context/UserDataContext";
 import {
 	cartCounterService,
 	removeProductCartService,
 } from "../../../../services/cart-services";
 import { addToWishlistService } from "../../../../services/wishlist-services";
 import { useAuth } from "../../../../context/AuthContext";
-import { useWishlist } from "../../../../context/WishlistContext";
 import { useState } from "react";
+import { actionTypes } from "../../../../reducers/actionTypes";
 import { toast } from "react-toastify";
 
 export const CartProduct = ({ product }) => {
-	const { setCart } = useCart();
+	const { userData, userDataDispatch } = useUserData();
 	const { auth } = useAuth();
-	const { wishlist, setWishlist } = useWishlist();
 	const [updatingCart, setUpdatingCart] = useState(false);
+	const { SET_CART, SET_WISHLIST } = actionTypes;
 	const cartCounterServerCall = async (operation) => {
 		let res = null;
 		setUpdatingCart(true);
@@ -30,14 +30,18 @@ export const CartProduct = ({ product }) => {
 			if (res.status === 200) {
 				setUpdatingCart(false);
 				toast.success("Successfully Updated cart");
-				setCart((prev) => ({ ...prev, cartProducts: res.data.cart }));
+
+				userDataDispatch({
+					type: SET_CART,
+					payload: { cart: res.data.cart },
+				});
 			}
 		} catch (err) {
 			toast.error("Could not update cart, try again later");
 		}
 	};
 	const findProduct = (product) => {
-		const found = wishlist.wishlistProducts.find(
+		const found = userData.wishlistProducts.find(
 			(item) => item._id === product._id
 		);
 		found ? toast.info("Item already in wishlist") : addToWishlistServerCall();
@@ -51,14 +55,17 @@ export const CartProduct = ({ product }) => {
 			if (res.status === 201) {
 				toast.success("Added to wishlist");
 				setUpdatingCart(false);
-				setWishlist((prev) => ({
-					...prev,
-					wishlistProducts: res.data.wishlist,
-				}));
+				userDataDispatch({
+					type: SET_WISHLIST,
+					payload: { cart: res.data.wishlist },
+				});
 
 				const cartres = await removeProductCartService(product._id, auth.token);
 				if (cartres.status === 200) {
-					setCart((prev) => ({ ...prev, cartProducts: cartres.data.cart }));
+					userDataDispatch({
+						type: SET_CART,
+						payload: { cart: cartres.data.cart },
+					});
 				}
 			}
 		} catch (err) {
