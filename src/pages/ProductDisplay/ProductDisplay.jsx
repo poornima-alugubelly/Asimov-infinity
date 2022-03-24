@@ -16,7 +16,7 @@ export const ProductDisplay = () => {
 	const { data } = productListingState;
 	const product = data?.find((item) => item.id === productId);
 	const { userData, userDataDispatch } = useUserData();
-	const { cartProducts, wishlistProducts } = userData();
+	const { cartProducts, wishlistProducts } = userData;
 	const { auth } = useAuth();
 	const [inCart, setInCart] = useState(false);
 	const [inWishlist, setInWishlist] = useState(false);
