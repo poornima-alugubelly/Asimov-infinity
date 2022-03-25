@@ -12,12 +12,13 @@ export const Home = () => {
 		BOOKS,
 		CLOTHING,
 		LIFESTYLE,
-
+		CLEAR,
 		STATIONERY,
 		WALLART,
 	} = actionTypes;
-	const navigateHandler = (type) => {
-		productListingDispatch({ type });
+	const navigateHandler = (typeVal) => {
+		productListingDispatch({ type: CLEAR });
+		productListingDispatch({ type: typeVal });
 		navigate("/productlisting");
 	};
 	return (
