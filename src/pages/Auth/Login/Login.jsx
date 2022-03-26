@@ -13,12 +13,16 @@ export const Login = () => {
 	const loginHandler = async (e, email, password) => {
 		setFormVal({ email, password });
 		e.preventDefault();
-		const token = await loginService(email, password);
-		if (token) {
-			localStorage.setItem("token", token);
-			localStorage.setItem("isAuth", true);
-			setAuth({ token, isAuth: true });
-			navigate("/home");
+		try {
+			const res = await loginService(email, password);
+			if (res.status === 200) {
+				localStorage.setItem("token", res.data.token);
+				localStorage.setItem("isAuth", true);
+				setAuth({ token: res.data.token, isAuth: true });
+				navigate("/home");
+			}
+		} catch (err) {
+			console.log("err", err);
 		}
 	};
 
