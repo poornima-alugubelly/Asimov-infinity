@@ -16,9 +16,9 @@ export const Login = () => {
 		try {
 			const res = await loginService(email, password);
 			if (res.status === 200) {
-				localStorage.setItem("token", res.data.token);
+				localStorage.setItem("token", res.data.encodedToken);
 				localStorage.setItem("isAuth", true);
-				setAuth({ token: res.data.token, isAuth: true });
+				setAuth({ token: res.data.encodedToken, isAuth: true });
 				navigate("/home");
 			}
 		} catch (err) {
