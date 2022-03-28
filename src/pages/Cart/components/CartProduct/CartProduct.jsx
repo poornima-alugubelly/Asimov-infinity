@@ -57,7 +57,7 @@ export const CartProduct = ({ product }) => {
 				setUpdatingCart(false);
 				userDataDispatch({
 					type: SET_WISHLIST,
-					payload: { cart: res.data.wishlist },
+					payload: { wishlist: res.data.wishlist },
 				});
 
 				const cartres = await removeProductCartService(product._id, auth.token);
