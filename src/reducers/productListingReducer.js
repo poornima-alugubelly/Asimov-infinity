@@ -15,6 +15,7 @@ export const productListingReducer = (state, action) => {
 		DISCOUNT,
 		CLEAR,
 		LOADING_DATA,
+		SEARCH,
 	} = actionTypes;
 	switch (action.type) {
 		case LOAD_DATA:
@@ -126,6 +127,12 @@ export const productListingReducer = (state, action) => {
 				...state,
 				productsLoading: action.payload.status,
 			};
+		case SEARCH: {
+			return {
+				...state,
+				searchText: action.payload.searchInput,
+			};
+		}
 
 		default:
 			return state;

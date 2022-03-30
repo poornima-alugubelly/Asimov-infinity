@@ -10,18 +10,32 @@ import {
 	getFliteredProducts,
 	getRatedProducts,
 } from "../../helpers/filter-functions";
+import { getSearchedProducts } from "../../helpers/getSearchedProducts.js";
 
 export const ProductListing = () => {
 	const { productListingState } = useProductListing();
-	const { data, sortBy, price, categories, rating, discount, productsLoading } =
-		productListingState;
+	const {
+		data,
+		sortBy,
+		price,
+		categories,
+		rating,
+		discount,
+		productsLoading,
+		searchText,
+	} = productListingState;
+	let products = [...data];
+	if (searchText) {
+		products = getSearchedProducts(data, searchText);
+		console.log(products);
+	}
 
-	const pricedProducts = getPricedProducts(data, price);
+	const pricedProducts = getPricedProducts(products, price);
 	const discountedProducts = getDiscountedProducts(pricedProducts, discount);
 	const categoryProducts = getFliteredProducts(discountedProducts, categories);
 	const ratedProducts = getRatedProducts(categoryProducts, rating);
 	const finalFilteredProducts = getSortedProducts(ratedProducts, sortBy);
-	console.log("products", productListingState.data);
+
 	return !productsLoading ? (
 		<div class="grid-30-70 main-container-gutter">
 			<ProductFilters />

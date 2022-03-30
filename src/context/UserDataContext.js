@@ -7,6 +7,7 @@ import {
 } from "react";
 import { getCartService } from "../services/cart-services";
 import { getWishlistService } from "../services/wishlist-services";
+import { getAddressListService } from "../services/address-services/getAddressListService";
 import { userDataReducer } from "../reducers/userDataReducer";
 import { useAuth } from "./AuthContext";
 import { actionTypes } from "../reducers/actionTypes";
@@ -16,11 +17,12 @@ const UserDataProvider = ({ children }) => {
 	const [userData, userDataDispatch] = useReducer(userDataReducer, {
 		cartProducts: [],
 		wishlistProducts: [],
+		addressList: [],
 	});
 
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
-	const { SET_CART, SET_WISHLIST } = actionTypes;
+	const { SET_CART, SET_WISHLIST, SET_ADDRESSLIST } = actionTypes;
 	const { auth } = useAuth();
 
 	useEffect(() => {
@@ -29,7 +31,7 @@ const UserDataProvider = ({ children }) => {
 				setLoading(true);
 				try {
 					const res = await getCartService(auth.token);
-
+					console.log(res.data.cart, "res");
 					if (res.status === 200) {
 						userDataDispatch({
 							type: SET_CART,
@@ -51,6 +53,23 @@ const UserDataProvider = ({ children }) => {
 						userDataDispatch({
 							type: SET_WISHLIST,
 							payload: { wishlist: res.data.wishlist },
+						});
+						setLoading(false);
+					}
+				} catch (err) {
+					console.log("error", err);
+				}
+			})();
+		auth.isAuth &&
+			(async () => {
+				setLoading(true);
+				try {
+					const res = await getAddressListService(auth.token);
+					console.log("addresses", res);
+					if (res.status === 200) {
+						userDataDispatch({
+							type: SET_ADDRESSLIST,
+							payload: { addressList: res.data.addressList },
 						});
 						setLoading(false);
 					}

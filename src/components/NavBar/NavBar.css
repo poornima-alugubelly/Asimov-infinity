@@ -23,6 +23,13 @@
 .search-bar button {
 	border: none;
 	background-color: transparent;
+	margin-right: 0.5rem;
+	cursor: pointer;
+}
+
+.search-bar button img {
+	height: 1rem;
+	width: 1rem;
 }
 
 .nav-bar-links .flex-column {
