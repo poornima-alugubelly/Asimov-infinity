@@ -1,4 +1,3 @@
-import { useCart } from "../../../../context/cartContext";
 import { addToCartService } from "../../../../services/cart-services";
 import {
 	addToWishlistService,
@@ -7,12 +6,13 @@ import {
 import { useAuth } from "../../../../context/AuthContext";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useWishlist } from "../../../../context/WishlistContext";
+import { useUserData } from "../../../../context/UserDataContext";
 import { toast } from "react-toastify";
-
+import { actionTypes } from "../../../../reducers/actionTypes";
 export const ProductCard = ({ product }) => {
-	const { cart, setCart } = useCart();
-	const { wishlist, setWishlist } = useWishlist();
+	const { userData, userDataDispatch } = useUserData();
+	const { cartProducts, wishlistProducts } = userData;
+	const { SET_CART, SET_WISHLIST } = actionTypes;
 	const { auth } = useAuth();
 	const [inCart, setInCart] = useState(false);
 	const [inWishlist, setInWishlist] = useState(false);
@@ -29,7 +29,10 @@ export const ProductCard = ({ product }) => {
 			if (res.status === 201) {
 				toast.success("Added to cart");
 				setAddingToCart(false);
-				setCart((prev) => ({ ...prev, cartProducts: res.data.cart }));
+				userDataDispatch({
+					type: SET_CART,
+					payload: { cart: res.data.cart },
+				});
 			}
 		} catch (err) {
 			toast.error("Couldn't add to cart , try again later!");
@@ -43,10 +46,10 @@ export const ProductCard = ({ product }) => {
 			if (res.status === 201) {
 				toast.success("Added to wishlist");
 				setAddingToWishlist(false);
-				setWishlist((prev) => ({
-					...prev,
-					wishlistProducts: res.data.wishlist,
-				}));
+				userDataDispatch({
+					type: SET_WISHLIST,
+					payload: { wishlist: res.data.wishlist },
+				});
 			}
 		} catch (err) {
 			toast.error("Couldn't add to wishlist , try again later!");
@@ -62,21 +65,20 @@ export const ProductCard = ({ product }) => {
 				toast.success("Removed from wishlist");
 				setRemovingFromWishlist(false);
 
-				setWishlist((prev) => ({
-					...prev,
-					wishlistProducts: res.data.wishlist,
-				}));
+				userDataDispatch({
+					type: SET_WISHLIST,
+					payload: { wishlist: res.data.wishlist },
+				});
 			}
 		} catch (err) {
 			toast.error("Please try again after some time");
 		}
 	};
 	useEffect(() => {
-		cart.cartProducts.find((item) => item._id === product._id) &&
-			setInCart(true);
-		wishlist.wishlistProducts.find((item) => item._id === product._id) &&
+		cartProducts.find((item) => item._id === product._id) && setInCart(true);
+		wishlistProducts.find((item) => item._id === product._id) &&
 			setInWishlist(true);
-	}, [cart.cartProducts, wishlist.wishlistProducts]);
+	}, [cartProducts, wishlistProducts]);
 	return (
 		<div class="card card-vertical">
 			<div class="img-container" onClick={() => navigate(`/${product.id}`)}>

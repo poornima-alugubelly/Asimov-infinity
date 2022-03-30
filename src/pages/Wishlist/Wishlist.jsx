@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import { useWishlist } from "../../context/WishlistContext";
+import { useUserData } from "../../context/UserDataContext";
 import { ProductCard } from "../ProductListing/components/ProductCard/ProductCard";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../../components/Loader/Loader";
 export const WishList = () => {
-	const { wishlist } = useWishlist();
-	const { wishlistProducts, wishlistError, wishlistLoading } = wishlist;
+	const { userData, error, loading } = useUserData();
+	const { wishlistProducts } = userData;
 	const navigate = useNavigate();
-	useEffect(() => (wishlistError ? navigate("/errorpage") : ""));
-	return !wishlistLoading ? (
+	useEffect(() => (error ? navigate("/errorpage") : ""));
+	return !loading ? (
 		<div class="cart-page-container">
 			<h2 class="padding-l text-center">My Wish List</h2>
 			<div class="grid-product-layout">

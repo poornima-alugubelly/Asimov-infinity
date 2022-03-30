@@ -1,15 +1,14 @@
 import { IMAGES } from "../../assets";
 import "./NavBar.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { useCart } from "../../context/cartContext";
-import { useWishlist } from "../../context/WishlistContext";
+import { useUserData } from "../../context/UserDataContext";
 export const NavBar = () => {
 	const { auth, setAuth } = useAuth();
-	const { cart } = useCart();
-	const { wishlist } = useWishlist();
-	const navigate = useNavigate();
+	const { userData } = useUserData();
+	const { cartProducts, wishlistProducts } = userData;
+	const [navIsOpen, setNavIsOpen] = useState(false);
 	const logoutHandler = () => {
 		localStorage.removeItem("token");
 		localStorage.removeItem("isAuth");
@@ -65,7 +64,7 @@ export const NavBar = () => {
 							<i class="fas fa-heart btn-icon"></i>
 
 							<span className="badge badge-top badge-s badge-red">
-								{wishlist.wishlistProducts.length}
+								{wishlistProducts.length}
 							</span>
 						</div>
 
@@ -78,7 +77,7 @@ export const NavBar = () => {
 							<i class="fas fa-shopping-cart btn-icon"></i>
 
 							<span className="badge badge-top badge-s badge-red">
-								{cart.cartProducts.length}
+								{cartProducts.length}
 							</span>
 						</div>
 
@@ -86,44 +85,50 @@ export const NavBar = () => {
 					</Link>
 				</div>
 			</ul>
-			<a
+			<div
 				href="#"
-				className="toggle-btn drawer-toggle"
-				data-drawer-target="#drawer"
+				className="toggle-btn "
+				role="button"
+				onClick={() => setNavIsOpen(!navIsOpen)}
 			>
-				<span className="toggle-bar"></span>
-				<span className="toggle-bar"></span>
-				<span className="toggle-bar"></span>
-			</a>
-			<ul className="drawer" id="drawer">
-				<div className="drawer-header">
+				{!navIsOpen ? (
+					<div>
+						<span className="toggle-bar"></span>
+						<span className="toggle-bar"></span>
+						<span className="toggle-bar"></span>
+					</div>
+				) : (
+					<i class="fas fa-times btn-icon"></i>
+				)}
+			</div>
+
+			<ul
+				className={`side-nav-mobile ${navIsOpen ? "active" : ""}`}
+				id="drawer"
+			>
+				{/* <div className="drawer-header">
 					<a href="./index.html" className="nav-bar-logo">
 						ASIMOV∞
 					</a>
 					<button className="btn btn-dismiss">
 						<img src="./assets/SVG/dismiss-blue.svg" alt="" />
 					</button>
-				</div>
+				</div> */}
 
 				<li className="list-item">
-					<a href="./index.html" className="link-text">
-						Profile
-					</a>
+					<Link to="/Home" className="link-text">
+						Home
+					</Link>
 				</li>
 				<li className="list-item">
-					<a href="./public/product-page.html" className="link-text">
-						Orders
-					</a>
+					<Link to="/cart" className="link-text">
+						My Cart
+					</Link>
 				</li>
 				<li className="list-item">
-					<a href="./index.html" className="link-text">
-						Settings
-					</a>
-				</li>
-				<li className="list-item">
-					<a href="./index.html" className="link-text">
-						Cart
-					</a>
+					<Link to="/wishlist" className="link-text">
+						My Wishlist
+					</Link>
 				</li>
 			</ul>
 		</nav>

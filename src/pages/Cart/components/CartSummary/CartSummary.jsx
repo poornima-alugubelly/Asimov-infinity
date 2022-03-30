@@ -1,9 +1,10 @@
-import { useCart } from "../../../../context/cartContext";
+import { useUserData } from "../../../../context/UserDataContext";
 import { sumOfProducts } from "../../../../helpers/sumOfProducts";
 export const CartSummary = () => {
-	const { cart } = useCart();
-	const priceSum = sumOfProducts(cart.cartProducts, "price");
-	const discountedPriceSum = sumOfProducts(cart.cartProducts, "discount");
+	const { userData } = useUserData();
+	const { cartProducts } = userData;
+	const priceSum = sumOfProducts(cartProducts, "price");
+	const discountedPriceSum = sumOfProducts(cartProducts, "discount");
 	return (
 		<div class="cart-total-wrapper flex-column gap-s">
 			<div class="flex-column gap-xs">
@@ -12,9 +13,7 @@ export const CartSummary = () => {
 			</div>
 
 			<ul class="flex-column gap-xs">
-				<li class="txt-bold">
-					PRICE DETAILS ({cart.cartProducts.length} items):
-				</li>
+				<li class="txt-bold">PRICE DETAILS ({cartProducts.length} items):</li>
 				<li class="flex-space-between">
 					<span>Total MRP:</span> <span>₹{priceSum}.00</span>
 				</li>

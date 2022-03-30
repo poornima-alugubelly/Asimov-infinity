@@ -15,11 +15,17 @@ export const Signup = () => {
 	const [pwdToggle, pwdToggler] = usePwdToggler();
 	const signUpHandler = async (e, email, password, firstName, lastName) => {
 		e.preventDefault();
-		const token = await signupService(email, password, firstName, lastName);
-		localStorage.setItem("token", token);
-		localStorage.setItem("isAuth", true);
-		setAuth({ token, isAuth: true });
-		navigate("/home");
+		try {
+			const res = await signupService(email, password, firstName, lastName);
+			if (res.status === 201) {
+				localStorage.setItem("token", res.data.token);
+				localStorage.setItem("isAuth", true);
+				setAuth({ token: res.data.token, isAuth: true });
+				navigate("/home");
+			}
+		} catch (err) {
+			console.log("err", err);
+		}
 	};
 	return (
 		<div
