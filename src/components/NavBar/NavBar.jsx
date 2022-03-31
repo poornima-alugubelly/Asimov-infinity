@@ -38,7 +38,7 @@ export const NavBar = () => {
 			<div className="search-bar input">
 				<input
 					type="text"
-					placeholder="type to search..."
+					placeholder="Enter category or product name..."
 					onKeyUp={(e) => {
 						console.log(e);
 						navigate("/ProductListing");
@@ -131,15 +131,6 @@ export const NavBar = () => {
 				className={`side-nav-mobile ${navIsOpen ? "active" : ""}`}
 				id="drawer"
 			>
-				{/* <div className="drawer-header">
-					<a href="./index.html" className="nav-bar-logo">
-						ASIMOV∞
-					</a>
-					<button className="btn btn-dismiss">
-						<img src="./assets/SVG/dismiss-blue.svg" alt="" />
-					</button>
-				</div> */}
-
 				<li className="list-item">
 					<Link to="/Home" className="link-text">
 						Home
