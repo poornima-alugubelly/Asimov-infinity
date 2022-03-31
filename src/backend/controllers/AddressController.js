@@ -1,5 +1,6 @@
 import { Response } from "miragejs";
 import { formatDate, requiresAuth } from "../utils/authUtils";
+import { v4 as uuid } from "uuid";
 
 export const getAddressListHandler = function (schema, request) {
 	const userId = requiresAuth.call(this, request);
@@ -19,6 +20,8 @@ export const getAddressListHandler = function (schema, request) {
 
 export const addAddressHandler = function (schema, request) {
 	const userId = requiresAuth.call(this, request);
+	console.log("id", userId);
+	console.log("add address");
 	try {
 		if (!userId) {
 			new Response(
@@ -33,12 +36,14 @@ export const addAddressHandler = function (schema, request) {
 			_id: userId,
 		}).addressList;
 		const { address } = JSON.parse(request.requestBody);
+		console.log("list", userAddressList, "address", address);
 		userAddressList.push({
 			...address,
 			_id: uuid(),
 			createdAt: formatDate(),
 			updatedAt: formatDate(),
 		});
+		console.log("userAddresslist", userAddressList);
 		this.db.users.update(
 			{
 				_id: userId,
@@ -66,7 +71,9 @@ export const addAddressHandler = function (schema, request) {
 };
 
 export const removeAddressHandler = function (schema, request) {
+	console.log("before");
 	const userId = requiresAuth.call(this, request);
+	console.log("after");
 	try {
 		if (!userId) {
 			new Response(
@@ -113,6 +120,7 @@ export const removeAddressHandler = function (schema, request) {
 export const updateAddressHandler = function (schema, request) {
 	const addressId = request.params.addressId;
 	const userId = requiresAuth.call(this, request);
+
 	try {
 		if (!userId) {
 			new Response(
@@ -128,7 +136,7 @@ export const updateAddressHandler = function (schema, request) {
 		}).addressList;
 
 		const {
-			address: { name, street, city, state, country, zipCode, mobile },
+			address: { name, street, city, state, country, pincode, phone },
 		} = JSON.parse(request.requestBody);
 
 		userAddressList.forEach((address) => {
@@ -138,8 +146,8 @@ export const updateAddressHandler = function (schema, request) {
 				address.city = city;
 				address.state = state;
 				address.country = country;
-				address.zipCode = zipCode;
-				address.mobile = mobile;
+				address.pincode = pincode;
+				address.phone = phone;
 				address.updatedAt = formatDate();
 			}
 		});

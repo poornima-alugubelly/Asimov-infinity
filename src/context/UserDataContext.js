@@ -7,7 +7,7 @@ import {
 } from "react";
 import { getCartService } from "../services/cart-services";
 import { getWishlistService } from "../services/wishlist-services";
-import { getAddressListService } from "../services/address-services/getAddressListService";
+import { getAddressListService } from "../services/address-services";
 import { userDataReducer } from "../reducers/userDataReducer";
 import { useAuth } from "./AuthContext";
 import { actionTypes } from "../reducers/actionTypes";

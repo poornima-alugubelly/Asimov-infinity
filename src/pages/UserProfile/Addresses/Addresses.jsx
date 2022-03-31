@@ -1,32 +1,28 @@
 import { useUserData } from "../../../context/UserDataContext";
+import { AddressCard } from "./AddressCard";
+import { useGlobal } from "../../../context/GlobalContext";
 export const Addresses = () => {
+	const { setGlobalState } = useGlobal();
 	const {
 		userData: { addressList },
 	} = useUserData();
+
 	return (
-		<div className="padding-s">
-			<h3>My Addresses</h3>
+		<div className="padding-m">
+			<h3 className="text-s margin-tp-btm-s">My Addresses</h3>
 			<button className="btn btn-primary-solid ">
 				<i className="fas fa-plus"></i>
-				<span>Add new address</span>
+				<span
+					onClick={() =>
+						setGlobalState((prev) => ({ ...prev, isModalOpen: true }))
+					}
+				>
+					Add new address
+				</span>
 			</button>
 			<ul>
 				{addressList.map((address) => (
-					<div className="card card-vertical">
-						<div className="card-content">
-							<span>{address.name}</span>
-							<span>{address.street}</span>
-							<div>
-								{address.city},{address.state} - {address.pincode}
-							</div>
-							<span>{address.country}</span>
-							<span>Phone Number : {address.mobile}</span>
-						</div>
-						<div className="card-footer">
-							<button className="btn btn-primary-solid">Edit</button>
-							<button className="btn btn-primary-outline">Delete</button>
-						</div>
-					</div>
+					<AddressCard key={address._id} address={address} />
 				))}
 			</ul>
 		</div>

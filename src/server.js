@@ -32,6 +32,7 @@ import {
 import { categories } from "./backend/db/categories";
 import { products } from "./backend/db/products";
 import { users } from "./backend/db/users";
+import { v4 as uuid } from "uuid";
 
 export function makeServer({ environment = "development" } = {}) {
 	return new Server({
@@ -61,7 +62,18 @@ export function makeServer({ environment = "development" } = {}) {
 					...item,
 					cart: [],
 					wishlist: [],
-					addressList: [],
+					addressList: [
+						{
+							_id: uuid(),
+							name: "Sherlock Holmes",
+							street: "221B Baker's Street",
+							city: "Bangalore",
+							state: "Karnataka",
+							country: "India",
+							zipCode: "500099",
+							mobile: "123456789",
+						},
+					],
 				})
 			);
 
