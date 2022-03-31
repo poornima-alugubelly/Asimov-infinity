@@ -26,14 +26,15 @@ export const NavRoutes = () => {
 			<Route path="/" element={<ProtectedRoutes />}>
 				<Route path="/cart" element={<Cart />} />
 				<Route path="/wishlist" element={<WishList />} />
-			</Route>
-			<Route path="/profile" element={<UserProfile />}>
-				<Route path="/profile" element={<Profile />} />
+				<Route path="/profile" element={<UserProfile />}>
+					<Route path="/profile" element={<Profile />} />
 
-				<Route path="/profile/orders" element={<Orders />} />
-				<Route path="/profile/settings" element={<Settings />} />
-				<Route path="/profile/addresses" element={<Addresses />} />
+					<Route path="/profile/orders" element={<Orders />} />
+					<Route path="/profile/settings" element={<Settings />} />
+					<Route path="/profile/addresses" element={<Addresses />} />
+				</Route>
 			</Route>
+
 			<Route path="/:productId" element={<ProductDisplay />} />
 			<Route path="/errorpage" element={<h1>Error page</h1>} />
 		</Routes>
