@@ -146,6 +146,7 @@ export const removeItemFromCartHandler = function (schema, request) {
 console.log("in backend");
 export const updateCartItemHandler = function (schema, request) {
 	const productId = request.params.productId;
+	console.log("resquest", request);
 	const userId = requiresAuth.call(this, request);
 	try {
 		if (!userId) {

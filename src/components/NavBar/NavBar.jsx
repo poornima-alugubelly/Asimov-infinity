@@ -1,20 +1,22 @@
 import { IMAGES } from "../../assets";
 import "./NavBar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useUserData } from "../../context/UserDataContext";
+import { useProductListing } from "../../context/ProductListingContext";
+import { actionTypes } from "../../reducers/actionTypes";
 export const NavBar = () => {
 	const { auth, setAuth } = useAuth();
-	const { userData } = useUserData();
-	const { cartProducts, wishlistProducts } = userData;
+	const { SEARCH } = actionTypes;
+	const {
+		userData: { cartProducts, wishlistProducts },
+	} = useUserData();
+	const { productListingDispatch } = useProductListing();
 	const [navIsOpen, setNavIsOpen] = useState(false);
-	const logoutHandler = () => {
-		localStorage.removeItem("token");
-		localStorage.removeItem("isAuth");
-		setAuth({ token: "", isAuth: false });
-		navigate("/home");
-	};
+
+	const navigate = useNavigate();
+	const [typing, setTyping] = useState(false);
 
 	return (
 		<nav className="nav-bar shadow-bottom">
@@ -34,19 +36,42 @@ export const NavBar = () => {
 			</div>
 
 			<div className="search-bar input">
-				<input type="text" placeholder="type to search..." />
+				<input
+					type="text"
+					placeholder="Enter category or product name..."
+					onKeyUp={(e) => {
+						console.log(e);
+						navigate("/ProductListing");
+						setTyping(true);
+						productListingDispatch({
+							type: SEARCH,
+							payload: { searchInput: e.target.value },
+						});
+					}}
+				/>
 				<button>
-					<img className="icon-search" src={IMAGES.searchIcon} alt="search" />
+					<img
+						className="icon-search"
+						src={typing ? IMAGES.dismissBlue : IMAGES.searchIcon}
+						alt="search"
+						onClick={() => {
+							setTyping(false);
+							productListingDispatch({
+								type: SEARCH,
+								payload: { searchInput: "" },
+							});
+						}}
+					/>
 				</button>
 			</div>
 
 			<ul className="nav-bar-secondary nav-bar-links">
 				{auth.isAuth ? (
-					<div onClick={logoutHandler}>
-						<Link to="/login" className="flex-column ">
+					<div>
+						<Link to="/profile" className="flex-column ">
 							<i class="fas fa-user btn-icon"></i>
 
-							<span className="text-xxs pointer">Logout </span>
+							<span className="text-xxs pointer">Profile </span>
 						</Link>
 					</div>
 				) : (
@@ -106,15 +131,6 @@ export const NavBar = () => {
 				className={`side-nav-mobile ${navIsOpen ? "active" : ""}`}
 				id="drawer"
 			>
-				{/* <div className="drawer-header">
-					<a href="./index.html" className="nav-bar-logo">
-						ASIMOV∞
-					</a>
-					<button className="btn btn-dismiss">
-						<img src="./assets/SVG/dismiss-blue.svg" alt="" />
-					</button>
-				</div> */}
-
 				<li className="list-item">
 					<Link to="/Home" className="link-text">
 						Home

@@ -24,6 +24,7 @@ const ProductListingProvider = ({ children }) => {
 			discount: "",
 			rating: 1,
 			productsLoading: false,
+			searchText: "",
 		}
 	);
 

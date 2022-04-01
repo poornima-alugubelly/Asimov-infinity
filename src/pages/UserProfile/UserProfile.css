@@ -1,0 +1,17 @@
+.profile-link {
+	border-bottom: 1px solid var(--ternary-dark);
+}
+
+.profile-container {
+	display: flex;
+	border-top: 1px solid var(--ternary-dark);
+	margin: 0 3rem;
+}
+
+.profile-nav {
+	border-right: 1px solid var(--ternary-dark);
+}
+
+.profile-details {
+	min-width: 15rem;
+}
