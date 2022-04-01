@@ -14,7 +14,7 @@ export const Addresses = () => {
 				<i className="fas fa-plus"></i>
 				<span
 					onClick={() =>
-						setGlobalState((prev) => ({ ...prev, isModalOpen: true }))
+						setGlobalState((prev) => ({ ...prev, isAddressModalOpen: true }))
 					}
 				>
 					Add new address
