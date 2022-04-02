@@ -34,7 +34,7 @@ export const CartSummary = () => {
 					ORDER DETAILS ({cartProducts.length} items):
 				</li>
 				<span className="text-xs border-top-bottom-light padding-tp-btm-xs text-center">
-					PURCHASED ITEMS:
+					PURCHASED ITEMS
 				</span>
 				<div className="flex-space-between txt-bold">
 					<span>Item</span> <span>Price</span>
@@ -47,7 +47,7 @@ export const CartSummary = () => {
 							<div className="flex-row gap-xs">
 								(<span>{product.qty}</span>
 								<span>x</span>
-								<span>{product.price}</span>)
+								<span>₹{product.price}</span>)
 							</div>
 						</div>
 
@@ -55,7 +55,7 @@ export const CartSummary = () => {
 					</li>
 				))}
 				<span className="text-xs border-top-bottom-light padding-tp-btm-xs text-center">
-					BILLING:
+					BILLING
 				</span>
 				<li class="flex-space-between">
 					<span>Total MRP:</span> <span>₹{orderDetails?.cartItemsTotal}</span>
@@ -84,15 +84,18 @@ export const CartSummary = () => {
 							orderDetails?.couponDiscountTotal}
 					</span>
 				</li>
+				<span className="text-xs border-top-bottom-light padding-tp-btm-xs text-center">
+					DELIVERING TO
+				</span>
 				<div className="card-content gap-xs ">
 					<span className="text-xs">{orderDetails?.orderAddress.name}</span>
 
 					<div>
-						{orderDetails?.orderAddress.street} ,
-						{orderDetails?.orderAddress.city} ,
-						{orderDetails?.orderAddress.state} ,
-						{orderDetails?.orderAddress.country} -
-						{orderDetails?.orderAddress.pincode}
+						{`${orderDetails?.orderAddress.street} ,
+						 ${orderDetails?.orderAddress.city} ,
+						 ${orderDetails?.orderAddress.state} ,
+						 ${orderDetails?.orderAddress.country} -
+						 ${orderDetails?.orderAddress.pincode}`}
 					</div>
 
 					<span>Phone Number : {orderDetails?.orderAddress.phone}</span>

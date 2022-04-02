@@ -52,8 +52,8 @@ export const Checkout = () => {
 										<span className="text-xs txt-bold">{address.name} </span>
 
 										<div>
-											<span>{address.street}</span> , {address.city} ,
-											{address.state} , {address.country} - {address.pincode}
+											{`${address.street} , ${address.city} , 
+											${address.state} , ${address.country} - ${address.pincode}`}
 										</div>
 										<span>Phone Number : {address.phone}</span>
 									</div>
