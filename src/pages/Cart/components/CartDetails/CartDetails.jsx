@@ -1,9 +1,15 @@
 import { useState, useEffect } from "react";
 import { useUserData } from "../../../../context/UserDataContext";
 import { billGenerator } from "../../../../helpers/billGenerator";
-export const CartSummary = () => {
-	const { userData } = useUserData();
-	const { cartProducts } = userData;
+import { actionTypes } from "../../../../reducers/actionTypes";
+import { useNavigate } from "react-router-dom";
+export const CartDetails = () => {
+	const {
+		userData: { cartProducts, orderDetails },
+		userDataDispatch,
+	} = useUserData();
+	const navigate = useNavigate();
+	const { SET_ORDER } = actionTypes;
 	const [priceSum, discountedPriceSum] = billGenerator(cartProducts);
 	let totalBill = priceSum - discountedPriceSum;
 	const [showModal, setShowModal] = useState(false);
@@ -24,7 +30,7 @@ export const CartSummary = () => {
 		},
 	];
 	const [couponSelected, setCouponSelected] = useState([]);
-	const [couponDiscount, setCouponsDiscount] = useState(0);
+	const [couponDiscount, setCouponsDiscount] = useState(0); //context
 
 	useEffect(() => {
 		let total = 0;
@@ -34,7 +40,7 @@ export const CartSummary = () => {
 		});
 		setCouponsDiscount(total);
 	}, [couponSelected]);
-
+	const deliveryFee = totalBill - couponDiscount > 1000 ? 0 : 100;
 	return (
 		<div>
 			{showModal && (
@@ -70,11 +76,9 @@ export const CartSummary = () => {
 														? setCouponSelected((prev) => [...prev, coupon])
 														: setCouponSelected(
 																couponSelected.filter((curr) => {
-																	console.log(curr.id, coupon.id);
 																	return curr.id !== coupon.id;
 																})
 														  );
-													console.log(e.target.checked);
 												}}
 											/>
 										</label>
@@ -90,7 +94,7 @@ export const CartSummary = () => {
 				</div>
 			)}
 			<div class="cart-total-wrapper flex-column gap-s">
-				<div class="border-light txt-bold padding-xs pointer">
+				<div class="border-dark txt-bold padding-xs pointer">
 					<span
 						onClick={() => setShowModal(true)}
 						className="  gap-xs flex-align-center "
@@ -117,16 +121,42 @@ export const CartSummary = () => {
 						</li>
 					) : null}
 					<li class="flex-space-between">
-						<span>Delivery fee:</span> <span>FREE</span>
+						<span>Delivery fee:</span>{" "}
+						<span>Rs.{deliveryFee > 0 ? deliveryFee : "FREE"}</span>
 					</li>
 					<li class="flex-space-between txt-bold text-s">
 						<span>Total:</span> <span>₹{totalBill - couponDiscount}</span>
 					</li>
 				</ul>
-				<span className="text-green ">{`You saved Rs.${
-					couponDiscount + discountedPriceSum
-				}`}</span>
-				<button class="btn btn-primary-solid">Place Order</button>
+				{deliveryFee > 0 ? (
+					<span>
+						Add items worth Rs.{1000 - totalBill - couponDiscount} to be
+						eligible for free delivery
+					</span>
+				) : null}
+				{couponDiscount + discountedPriceSum > 0 ? (
+					<span className="text-green ">{`You saved Rs.${
+						couponDiscount + discountedPriceSum
+					}`}</span>
+				) : null}
+				<button
+					class="btn btn-primary-solid"
+					onClick={() => {
+						userDataDispatch({
+							type: SET_ORDER,
+							payload: {
+								orderDetails: {
+									cartItemsTotal: priceSum,
+									cartItemsDiscountTotal: discountedPriceSum,
+									couponDiscountTotal: couponDiscount,
+								},
+							},
+						});
+						navigate("/checkout");
+					}}
+				>
+					Place Order
+				</button>
 			</div>
 		</div>
 	);

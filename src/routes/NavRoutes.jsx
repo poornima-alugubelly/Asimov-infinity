@@ -13,6 +13,7 @@ import { Orders } from "../pages/UserProfile/Orders/Orders.jsx";
 import { Addresses } from "../pages/UserProfile/Addresses/Addresses.jsx";
 import { Settings } from "../pages/UserProfile/Settings/Settings.jsx";
 import { Profile } from "../pages/UserProfile/Profile/Profile.jsx";
+import { Checkout } from "../pages/Checkout/Checkout.jsx";
 export const NavRoutes = () => {
 	return (
 		<Routes>
@@ -28,11 +29,11 @@ export const NavRoutes = () => {
 				<Route path="/wishlist" element={<WishList />} />
 				<Route path="/profile" element={<UserProfile />}>
 					<Route path="/profile" element={<Profile />} />
-
 					<Route path="/profile/orders" element={<Orders />} />
 					<Route path="/profile/settings" element={<Settings />} />
 					<Route path="/profile/addresses" element={<Addresses />} />
 				</Route>
+				<Route path="/checkout" element={<Checkout />} />
 			</Route>
 
 			<Route path="/:productId" element={<ProductDisplay />} />

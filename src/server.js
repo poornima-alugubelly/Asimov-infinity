@@ -70,8 +70,8 @@ export function makeServer({ environment = "development" } = {}) {
 							city: "Bangalore",
 							state: "Karnataka",
 							country: "India",
-							zipCode: "500099",
-							mobile: "123456789",
+							pincode: "500099",
+							phone: "123456789",
 						},
 					],
 				})

@@ -43,10 +43,25 @@
 }
 
 .border-top-bottom-light{
-	border: 1px  var(--shadow-color);
+	border: 1px  var(--ternary-dark);
 	border-style: solid none;
 }
 
-.border-light{
+.border-dark{
 	border: 1px  solid var(--shadow-color);
+}
+
+
+
+
+.cart-page-container {
+	width: 70%;
+	margin: 2rem auto;
+}
+
+@media (max-width: 1024px) {
+	.cart-page-container {
+		width: 90%;
+		margin: 3rem auto;
+	}
 }
