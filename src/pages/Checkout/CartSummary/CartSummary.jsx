@@ -30,7 +30,7 @@ export const CartSummary = () => {
 	return (
 		<div class="cart-total-wrapper flex-column gap-s">
 			<ul class="flex-column gap-xs">
-				<li class="txt-bold text-s ">
+				<li class="txt-bold text-xs">
 					ORDER DETAILS ({cartProducts.length} items):
 				</li>
 				<span className="text-xs border-top-bottom-light padding-tp-btm-xs text-center">

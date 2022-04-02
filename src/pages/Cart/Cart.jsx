@@ -13,7 +13,7 @@ export const Cart = () => {
 
 	return !loading ? (
 		<div class="cart-page-container">
-			<h2 class="padding-l text-center">
+			<h2 class="padding-l text-center txt-high-light">
 				My Cart ({cartProducts.length} products)
 			</h2>
 

@@ -25,7 +25,7 @@ export const Checkout = () => {
 
 	return !loading ? (
 		<div class="cart-page-container">
-			<h2 class="padding-l text-center">Checkout </h2>
+			<h2 class="padding-l text-center txt-high-light">Checkout </h2>
 			<div class="grid-40-60 gap-xl">
 				<div class="cart-products-wrapper">
 					<ul className="flex-column gap-s">

@@ -10,7 +10,7 @@ export const WishList = () => {
 	useEffect(() => (error ? navigate("/errorpage") : ""));
 	return !loading ? (
 		<div class="cart-page-container">
-			<h2 class="padding-l text-center">My Wish List</h2>
+			<h2 class="padding-l text-center txt-high-light">My Wish List</h2>
 			<div class="grid-product-layout">
 				{wishlistProducts.map((product) => (
 					<ProductCard key={product._id} product={product} />
