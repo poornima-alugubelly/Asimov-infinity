@@ -5,7 +5,7 @@ import { actionTypes } from "../../../../reducers/actionTypes";
 import { useNavigate } from "react-router-dom";
 export const CartDetails = () => {
 	const {
-		userData: { cartProducts, orderDetails },
+		userData: { cartProducts, addressList },
 		userDataDispatch,
 	} = useUserData();
 	const navigate = useNavigate();
@@ -149,6 +149,7 @@ export const CartDetails = () => {
 									cartItemsTotal: priceSum,
 									cartItemsDiscountTotal: discountedPriceSum,
 									couponDiscountTotal: couponDiscount,
+									orderAddress: addressList[0],
 								},
 							},
 						});

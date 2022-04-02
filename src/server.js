@@ -35,6 +35,7 @@ import { users } from "./backend/db/users";
 import { v4 as uuid } from "uuid";
 
 export function makeServer({ environment = "development" } = {}) {
+	const Razorpay = require("razorpay");
 	return new Server({
 		serializers: {
 			application: RestSerializer,
@@ -116,6 +117,31 @@ export function makeServer({ environment = "development" } = {}) {
 			this.post("/user/address", addAddressHandler.bind(this));
 			this.post("/user/address/:addressId", updateAddressHandler.bind(this));
 			this.delete("/user/address/:addressId", removeAddressHandler.bind(this));
+
+			// orders
+			this.post("/orders", async (req, res) => {
+				try {
+					const instance = new Razorpay({
+						key_id: process.env.REACT_APP_RAZORPAY_ID,
+						key_secret: process.env.REACT_APP_RAZORPAY_KEY_SECRET,
+					});
+					console.log("instance", instance.orders);
+
+					const options = {
+						amount: 100, // amount in smallest currency unit
+						currency: "INR",
+					};
+
+					const order = instance.orders.create(options, (res) =>
+						console.log(res)
+					);
+					// if (!order) return res.status(500).send("Some error occured");
+					console.log("order", order);
+					res.json(order);
+				} catch (error) {
+					console.log(error);
+				}
+			});
 		},
 	});
 }

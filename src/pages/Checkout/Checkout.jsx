@@ -1,7 +1,6 @@
 import { useUserData } from "../../context/UserDataContext";
 import { CartSummary } from "./CartSummary/CartSummary";
 import { Loader } from "../../components/Loader/Loader";
-import { useEffect } from "react";
 import { actionTypes } from "../../reducers/actionTypes";
 import "./Checkout.css";
 export const Checkout = () => {
@@ -12,16 +11,6 @@ export const Checkout = () => {
 	} = useUserData();
 
 	const { SET_ORDER } = actionTypes;
-	useEffect(() => {
-		addressList.length
-			? userDataDispatch({
-					type: SET_ORDER,
-					payload: {
-						orderDetails: { orderAddress: addressList[0] },
-					},
-			  })
-			: "";
-	}, [addressList]);
 
 	return !loading ? (
 		<div class="cart-page-container">

@@ -1,31 +1,77 @@
 import { useUserData } from "../../../context/UserDataContext";
-import { useEffect } from "react";
-import { actionTypes } from "../../../reducers/actionTypes";
+import { v4 as uuid } from "uuid";
+import axios from "axios";
+function loadScript(src) {
+	return new Promise((resolve) => {
+		const script = document.createElement("script");
+		script.src = src;
+		script.onload = () => {
+			resolve(true);
+		};
+		script.onerror = () => {
+			resolve(false);
+		};
+		document.body.appendChild(script);
+	});
+}
+
 export const CartSummary = () => {
 	const {
-		userData: { orderDetails, cartProducts, addressList },
-		userDataDispatch,
+		userData: { orderDetails, cartProducts },
 	} = useUserData();
+	console.log(orderDetails);
+	const totalPaymentWithOutDelivery =
+		orderDetails?.cartItemsTotal -
+		orderDetails?.cartItemsDiscountTotal -
+		orderDetails?.couponDiscountTotal;
+	const deliveryFee = totalPaymentWithOutDelivery > 1000 ? 0 : 100;
+	console.log(totalPaymentWithOutDelivery, deliveryFee);
 
-	const { SET_ORDER } = actionTypes;
-	const deliveryFee =
-		orderDetails?.cartItemsTotal +
-			orderDetails?.cartItemsDiscountTotal -
-			orderDetails?.couponDiscount >
-		1000
-			? 0
-			: 100;
+	const totalPayment = totalPaymentWithOutDelivery + deliveryFee;
 
-	useEffect(() => {
-		addressList.length
-			? userDataDispatch({
-					type: SET_ORDER,
-					payload: {
-						orderDetails: { orderAddress: addressList[0] },
-					},
-			  })
-			: "";
-	}, [addressList]);
+	async function displayRazorpay() {
+		const res = await loadScript(
+			"https://checkout.razorpay.com/v1/checkout.js"
+		);
+
+		if (!res) {
+			alert("Razorpay SDK failed to load. Are you online?");
+			return;
+		}
+
+		// const result = await axios.post("api/orders");
+		// if (!result) {
+		// 	alert("Server error. Are you online?");
+		// 	return;
+		// }
+		// console.log(totalPayment);
+		// console.log("razorpay", result.data);
+		// const { amount, id: order_id, currency } = result.data;
+		// console.log(amount, order_id, currency);
+		const options = {
+			key: process.env.REACT_APP_RAZORPAY_ID,
+			currency: "INR",
+			amount: totalPayment * 100,
+			name: "Asimov-store",
+			description: "Order for products",
+			handler: function (response) {
+				const data = {
+					orderCreationId: order_id,
+					razorpayPaymentId: response.razorpay_payment_id,
+					razorpayOrderId: response.razorpay_order_id,
+					razorpaySignature: response.razorpay_signature,
+				};
+				console.log(data);
+			},
+			prefill: {
+				name: "Gaurav Kumar",
+				email: "gaurav.kumar@example.com",
+				contact: "9999999999",
+			},
+		};
+		const paymentObject = new window.Razorpay(options);
+		paymentObject.open();
+	}
 
 	return (
 		<div class="cart-total-wrapper flex-column gap-s">
@@ -101,6 +147,9 @@ export const CartSummary = () => {
 					<span>Phone Number : {orderDetails?.orderAddress.phone}</span>
 				</div>
 			</ul>
+			<button className="btn btn-primary-solid" onClick={displayRazorpay}>
+				Proceed to pay
+			</button>
 		</div>
 	);
 };
