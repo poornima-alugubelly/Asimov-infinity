@@ -18,11 +18,17 @@ const UserDataProvider = ({ children }) => {
 		cartProducts: [],
 		wishlistProducts: [],
 		addressList: [],
+		ordersDetails: {
+			cartItemsTotal: "",
+			cartItemsDiscountTotal: "",
+			couponDiscountTotal: "",
+			orderAddress: "",
+		},
 	});
 
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
-	const { SET_CART, SET_WISHLIST, SET_ADDRESSLIST } = actionTypes;
+	const { SET_CART, SET_WISHLIST, SET_ADDRESSLIST, SET_ORDER } = actionTypes;
 	const { auth } = useAuth();
 
 	useEffect(() => {
@@ -37,6 +43,7 @@ const UserDataProvider = ({ children }) => {
 							type: SET_CART,
 							payload: { cart: res.data.cart },
 						});
+
 						setLoading(false);
 					}
 				} catch (err) {
@@ -71,6 +78,7 @@ const UserDataProvider = ({ children }) => {
 							type: SET_ADDRESSLIST,
 							payload: { addressList: res.data.addressList },
 						});
+
 						setLoading(false);
 					}
 				} catch (err) {
@@ -79,7 +87,7 @@ const UserDataProvider = ({ children }) => {
 			})();
 	}, [auth.isAuth]);
 
-	console.log("userData", userData);
+	// console.log("userData", userData.ordersDetails);
 	return (
 		<userDataContext.Provider
 			value={{ userData, userDataDispatch, error, loading }}

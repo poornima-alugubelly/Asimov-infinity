@@ -1,4 +1,3 @@
-import "./AddressModal.css";
 import { useGlobal } from "../../../context/GlobalContext";
 import { useState, useEffect } from "react";
 import { useAddressUpdater } from "../../../hooks/useAddressUpdater";
@@ -7,7 +6,7 @@ import { updateAddressService } from "../../../services/address-services/updateA
 
 export const AddressModal = () => {
 	const {
-		globalState: { isModalOpen, currAddress },
+		globalState: { isAddressModalOpen, currAddress },
 		setGlobalState,
 	} = useGlobal();
 
@@ -44,7 +43,7 @@ export const AddressModal = () => {
 	const resetForm = () => {
 		setGlobalState((prev) => ({
 			...prev,
-			isModalOpen: false,
+			isAddressModalOpen: false,
 			currAddress: {
 				name: "",
 				street: "",
@@ -63,7 +62,7 @@ export const AddressModal = () => {
 	};
 
 	return (
-		isModalOpen && (
+		isAddressModalOpen && (
 			<div>
 				<div className="overlay"></div>
 				<form className=" modal-center form-container flex-column gap-s">

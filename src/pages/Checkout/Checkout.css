@@ -1,0 +1,28 @@
+.grid-40-60 {
+	display: grid;
+	grid-template-columns: 40% minmax(0,60%);
+}
+
+.address-body{
+    display: flex;
+    
+    flex-shrink: 0;
+  
+  
+}
+
+.line-break{
+    max-width:30ch;
+}
+
+@media (max-width: 768px) {
+	.grid-40-60 {
+		grid-template-columns: 1fr;
+	}
+
+    .line-break{
+      
+        max-width:80ch;
+      
+    }
+}

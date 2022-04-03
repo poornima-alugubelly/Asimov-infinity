@@ -23,18 +23,19 @@ export const ProductDisplay = () => {
 	const [addingToCart, setAddingToCart] = useState(false);
 	const [addingToWishList, setAddingToWishlist] = useState(false);
 	const { SET_CART, SET_WISHLIST } = actionTypes;
+
 	const navigate = useNavigate();
 	const addToCartServerCall = async () => {
 		setAddingToCart(true);
 		try {
 			const res = await addToCartService(product, auth.token);
-
+			console.log("result", res);
 			if (res.status === 201) {
 				toast.success("Added to cart");
 				setAddingToCart(false);
 				userDataDispatch({
 					type: SET_CART,
-					payload: { wishlist: res.data.cart },
+					payload: { cart: res.data.cart },
 				});
 			}
 		} catch (err) {

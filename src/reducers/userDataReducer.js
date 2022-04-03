@@ -1,6 +1,6 @@
 import { actionTypes } from "./actionTypes";
 export const userDataReducer = (state, action) => {
-	const { SET_WISHLIST, SET_CART, SET_ADDRESSLIST } = actionTypes;
+	const { SET_WISHLIST, SET_CART, SET_ADDRESSLIST, SET_ORDER } = actionTypes;
 
 	switch (action.type) {
 		case SET_CART:
@@ -17,6 +17,14 @@ export const userDataReducer = (state, action) => {
 			return {
 				...state,
 				addressList: [...action.payload.addressList],
+			};
+		case SET_ORDER:
+			return {
+				...state,
+				orderDetails: {
+					...state.ordersDetails,
+					...action.payload.orderDetails,
+				},
 			};
 	}
 };

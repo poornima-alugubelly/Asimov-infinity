@@ -25,7 +25,10 @@ export const AddressCard = ({ address }) => {
 				<button
 					className="btn btn-primary-solid"
 					onClick={() =>
-						setGlobalState({ isModalOpen: true, currAddress: { ...address } })
+						setGlobalState({
+							isAddressModalOpen: true,
+							currAddress: { ...address },
+						})
 					}
 				>
 					Edit

@@ -5,7 +5,7 @@ const useGlobal = () => useContext(GlobalContext);
 
 const GlobalProvider = ({ children }) => {
 	const [globalState, setGlobalState] = useState({
-		isModalOpen: false,
+		isAddressModalOpen: false,
 		currAddress: {
 			name: "",
 			street: "",
