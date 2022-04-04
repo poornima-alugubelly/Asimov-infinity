@@ -114,26 +114,39 @@ export const NavBar = () => {
 				href="#"
 				className="toggle-btn "
 				role="button"
-				onClick={() => setNavIsOpen(!navIsOpen)}
+				onClick={() => setNavIsOpen(true)}
 			>
-				{!navIsOpen ? (
-					<div>
-						<span className="toggle-bar"></span>
-						<span className="toggle-bar"></span>
-						<span className="toggle-bar"></span>
-					</div>
-				) : (
-					<i class="fas fa-times btn-icon"></i>
-				)}
+				<div>
+					<span className="toggle-bar"></span>
+					<span className="toggle-bar"></span>
+					<span className="toggle-bar"></span>
+				</div>
 			</div>
 
 			<ul
 				className={`side-nav-mobile ${navIsOpen ? "active" : ""}`}
 				id="drawer"
 			>
+				<li className="padding-s">
+					<img
+						src={IMAGES.dismissBlue}
+						className="btn-dismiss item-top-left"
+						onClick={() => setNavIsOpen(false)}
+					/>
+				</li>
+
+				{/* <i
+					class="fas fa-times btn-icon padding-xs "
+					
+				></i> */}
 				<li className="list-item">
 					<Link to="/Home" className="link-text">
 						Home
+					</Link>
+				</li>
+				<li className="list-item">
+					<Link to="/profile" className="link-text">
+						My Profile
 					</Link>
 				</li>
 				<li className="list-item">

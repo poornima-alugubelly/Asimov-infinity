@@ -29,6 +29,8 @@ import {
 	removeAddressHandler,
 	updateAddressHandler,
 } from "./backend/controllers/AddressController";
+import { getOrderItemsHandler } from "./backend/controllers/OrdersController";
+import { addItemToOrdersHandler } from "./backend/controllers/OrdersController";
 import { categories } from "./backend/db/categories";
 import { products } from "./backend/db/products";
 import { users } from "./backend/db/users";
@@ -48,6 +50,7 @@ export function makeServer({ environment = "development" } = {}) {
 			cart: Model,
 			wishlist: Model,
 			addressList: Model,
+			orders: Model,
 		},
 
 		// Runs on the start of the server
@@ -75,6 +78,7 @@ export function makeServer({ environment = "development" } = {}) {
 							phone: "123456789",
 						},
 					],
+					orders: [],
 				})
 			);
 
@@ -118,6 +122,10 @@ export function makeServer({ environment = "development" } = {}) {
 			this.post("/user/address/:addressId", updateAddressHandler.bind(this));
 			this.delete("/user/address/:addressId", removeAddressHandler.bind(this));
 
+			// order routes (private)
+			this.get("/user/orders", getOrderItemsHandler.bind(this));
+			this.post("/user/orders", addItemToOrdersHandler.bind(this));
+
 			// orders
 			this.post("/orders", async (req, res) => {
 				try {
@@ -132,9 +140,8 @@ export function makeServer({ environment = "development" } = {}) {
 						currency: "INR",
 					};
 
-					const order = instance.orders.create(options, (res) =>
-						console.log(res)
-					);
+					const order = instance.orders.create(options);
+
 					// if (!order) return res.status(500).send("Some error occured");
 					console.log("order", order);
 					res.json(order);

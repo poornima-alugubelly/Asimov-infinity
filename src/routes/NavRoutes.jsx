@@ -14,6 +14,7 @@ import { Addresses } from "../pages/UserProfile/Addresses/Addresses.jsx";
 import { Settings } from "../pages/UserProfile/Settings/Settings.jsx";
 import { Profile } from "../pages/UserProfile/Profile/Profile.jsx";
 import { Checkout } from "../pages/Checkout/Checkout.jsx";
+import { OrderSummary } from "../pages/Checkout/OrderSummary/OrderSummary.jsx";
 export const NavRoutes = () => {
 	return (
 		<Routes>
@@ -34,6 +35,7 @@ export const NavRoutes = () => {
 					<Route path="/profile/addresses" element={<Addresses />} />
 				</Route>
 				<Route path="/checkout" element={<Checkout />} />
+				<Route path="/orderSummary" element={<OrderSummary />} />
 			</Route>
 
 			<Route path="/:productId" element={<ProductDisplay />} />

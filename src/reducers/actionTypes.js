@@ -18,4 +18,5 @@ export const actionTypes = {
 	SEARCH: "SEARCH",
 	SET_ADDRESSLIST: "SET_ADDRESSLIST",
 	SET_ORDER: "SET_ORDER",
+	SET_ORDERS: "SET_ORDERS",
 };

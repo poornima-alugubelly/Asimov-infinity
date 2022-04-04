@@ -4,12 +4,17 @@
 
 .profile-container {
 	display: flex;
-	border-top: 1px solid var(--ternary-dark);
+	border: 1px solid var(--ternary-dark);
 	margin: 0 3rem;
+	max-width:30rem;
+	flex-direction: column;
 }
 
 .profile-nav {
-	border-right: 1px solid var(--ternary-dark);
+	display: flex;
+	border-bottom: 1px  var(--ternary-dark);
+
+
 }
 
 .profile-details {

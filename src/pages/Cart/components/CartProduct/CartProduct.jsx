@@ -74,7 +74,7 @@ export const CartProduct = ({ product }) => {
 	};
 
 	return (
-		<div class="card card-horizontal padding-s">
+		<div class="card card-horizontal-border card-horizontal padding-s">
 			<div class="img-container">
 				<img src={product.src} alt="product image" class="img-responsive" />
 			</div>

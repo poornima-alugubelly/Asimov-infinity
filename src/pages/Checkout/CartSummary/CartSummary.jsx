@@ -1,6 +1,10 @@
-import { useUserData } from "../../../context/UserDataContext";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
-import axios from "axios";
+import { useUserData } from "../../../context/UserDataContext";
+import { actionTypes } from "../../../reducers/actionTypes";
+import { useAuth } from "../../../context/AuthContext";
+import { addOrderService } from "../../../services/order-services/addOrderService";
+
 function loadScript(src) {
 	return new Promise((resolve) => {
 		const script = document.createElement("script");
@@ -18,16 +22,22 @@ function loadScript(src) {
 export const CartSummary = () => {
 	const {
 		userData: { orderDetails, cartProducts },
+		userDataDispatch,
 	} = useUserData();
-	console.log(orderDetails);
+	const {
+		auth: { token },
+	} = useAuth();
+	const { SET_ORDERS, SET_ORDER, SET_CART } = actionTypes;
+
 	const totalPaymentWithOutDelivery =
 		orderDetails?.cartItemsTotal -
 		orderDetails?.cartItemsDiscountTotal -
 		orderDetails?.couponDiscountTotal;
 	const deliveryFee = totalPaymentWithOutDelivery > 1000 ? 0 : 100;
-	console.log(totalPaymentWithOutDelivery, deliveryFee);
 
 	const totalPayment = totalPaymentWithOutDelivery + deliveryFee;
+
+	const navigate = useNavigate();
 
 	async function displayRazorpay() {
 		const res = await loadScript(
@@ -39,32 +49,44 @@ export const CartSummary = () => {
 			return;
 		}
 
-		// const result = await axios.post("api/orders");
-		// if (!result) {
-		// 	alert("Server error. Are you online?");
-		// 	return;
-		// }
-		// console.log(totalPayment);
-		// console.log("razorpay", result.data);
-		// const { amount, id: order_id, currency } = result.data;
-		// console.log(amount, order_id, currency);
 		const options = {
 			key: process.env.REACT_APP_RAZORPAY_ID,
 			currency: "INR",
 			amount: totalPayment * 100,
-			name: "Asimov-store",
+			name: "Asimov store",
 			description: "Order for products",
-			handler: function (response) {
-				const data = {
-					orderCreationId: order_id,
-					razorpayPaymentId: response.razorpay_payment_id,
-					razorpayOrderId: response.razorpay_order_id,
-					razorpaySignature: response.razorpay_signature,
+			handler: async function (response) {
+				const paymentId = response.razorpay_payment_id;
+				const orderId = uuid();
+
+				const order = {
+					paymentId,
+					orderId,
+					amountPaid: totalPayment,
+					orderedProducts: [...cartProducts],
+					deliveryAddress: { ...orderDetails.orderAddress },
 				};
-				console.log(data);
+
+				const res = await addOrderService(order, token);
+				if (res.status === 201) {
+					console.log("order", res.data.orders);
+					userDataDispatch({
+						type: SET_ORDERS,
+						payload: { orders: res.data.orders },
+					});
+					userDataDispatch({
+						type: SET_ORDER,
+						payload: { orderDetails: { orderId } },
+					});
+					userDataDispatch({
+						type: SET_CART,
+						payload: { cart: [] },
+					});
+					navigate("/orderSummary", { state: { orderId } });
+				}
 			},
 			prefill: {
-				name: "Gaurav Kumar",
+				name: orderDetails?.orderAddress.name,
 				email: "gaurav.kumar@example.com",
 				contact: "9999999999",
 			},
