@@ -8,6 +8,7 @@ import {
 import { getCartService } from "../services/cart-services";
 import { getWishlistService } from "../services/wishlist-services";
 import { getAddressListService } from "../services/address-services";
+import { getOrdersService } from "../services/order-services/getOrdersService";
 import { userDataReducer } from "../reducers/userDataReducer";
 import { useAuth } from "./AuthContext";
 import { actionTypes } from "../reducers/actionTypes";
@@ -23,12 +24,14 @@ const UserDataProvider = ({ children }) => {
 			cartItemsDiscountTotal: "",
 			couponDiscountTotal: "",
 			orderAddress: "",
+			orderId: "",
 		},
+		orders: [],
 	});
 
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
-	const { SET_CART, SET_WISHLIST, SET_ADDRESSLIST, SET_ORDER } = actionTypes;
+	const { SET_CART, SET_WISHLIST, SET_ADDRESSLIST, SET_ORDERS } = actionTypes;
 	const { auth } = useAuth();
 
 	useEffect(() => {
@@ -77,6 +80,24 @@ const UserDataProvider = ({ children }) => {
 						userDataDispatch({
 							type: SET_ADDRESSLIST,
 							payload: { addressList: res.data.addressList },
+						});
+
+						setLoading(false);
+					}
+				} catch (err) {
+					console.log("error", err);
+				}
+			})();
+		auth.isAuth &&
+			(async () => {
+				setLoading(true);
+				try {
+					const res = await getOrdersService(auth.token);
+					console.log("orders", res);
+					if (res.status === 200) {
+						userDataDispatch({
+							type: SET_ORDERS,
+							payload: { orders: res.data.orders },
 						});
 
 						setLoading(false);

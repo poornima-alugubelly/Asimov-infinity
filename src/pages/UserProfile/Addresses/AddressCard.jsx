@@ -11,7 +11,9 @@ export const AddressCard = ({ address }) => {
 	return (
 		<div className="margin-tp-btm-s card-vertical">
 			<div className="card-content gap-xs">
-				<span>{address.name}</span>
+				<span className="text-xs">
+					<b>{address.name}</b>
+				</span>
 				<span>{address.street}</span>
 				<div>
 					{address.city} , {address.state}

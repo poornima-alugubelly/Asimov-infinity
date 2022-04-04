@@ -41,12 +41,19 @@
 	width: 30vh;
 	background-color: var(--black);
 	position: absolute;
-	top: 5rem;
-	height: 95vh;
+	top: 0;
+	height: 90vh;
 	display: none;
 	right: 0;
 	z-index: 4;
 }
+
+.item-top-left{
+	position: absolute;
+	top:2%;
+	left:10%;
+}
+
 
 @media (max-width: 1024px) {
 	.search-bar {

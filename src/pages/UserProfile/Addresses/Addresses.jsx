@@ -8,9 +8,9 @@ export const Addresses = () => {
 	} = useUserData();
 
 	return (
-		<div className="padding-m">
-			<h3 className="text-s margin-tp-btm-s">My Addresses</h3>
-			<button className="btn btn-primary-solid ">
+		<div className="padding-s">
+			<h3>My Addresses</h3>
+			<button className="btn btn-primary-solid margin-tp-btm-s">
 				<i className="fas fa-plus"></i>
 				<span
 					onClick={() =>
