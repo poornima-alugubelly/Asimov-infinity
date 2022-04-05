@@ -19,4 +19,5 @@ export const actionTypes = {
 	SET_ADDRESSLIST: "SET_ADDRESSLIST",
 	SET_ORDER: "SET_ORDER",
 	SET_ORDERS: "SET_ORDERS",
+	RESET: "RESET",
 };

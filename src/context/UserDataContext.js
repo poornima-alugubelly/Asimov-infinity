@@ -12,6 +12,7 @@ import { getOrdersService } from "../services/order-services/getOrdersService";
 import { userDataReducer } from "../reducers/userDataReducer";
 import { useAuth } from "./AuthContext";
 import { actionTypes } from "../reducers/actionTypes";
+import { toast } from "react-toastify";
 const userDataContext = createContext();
 const useUserData = () => useContext(userDataContext);
 const UserDataProvider = ({ children }) => {
@@ -30,17 +31,17 @@ const UserDataProvider = ({ children }) => {
 	});
 
 	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(false);
-	const { SET_CART, SET_WISHLIST, SET_ADDRESSLIST, SET_ORDERS } = actionTypes;
+
+	const { SET_CART, SET_WISHLIST, SET_ADDRESSLIST, SET_ORDERS, RESET } =
+		actionTypes;
 	const { auth } = useAuth();
 
 	useEffect(() => {
-		auth.isAuth &&
+		if (auth.isAuth) {
 			(async () => {
 				setLoading(true);
 				try {
 					const res = await getCartService(auth.token);
-					console.log(res.data.cart, "res");
 					if (res.status === 200) {
 						userDataDispatch({
 							type: SET_CART,
@@ -50,11 +51,10 @@ const UserDataProvider = ({ children }) => {
 						setLoading(false);
 					}
 				} catch (err) {
-					console.log("error", err);
+					console.log(err);
 				}
 			})();
 
-		auth.isAuth &&
 			(async () => {
 				setLoading(true);
 				try {
@@ -67,10 +67,10 @@ const UserDataProvider = ({ children }) => {
 						setLoading(false);
 					}
 				} catch (err) {
-					console.log("error", err);
+					console.log(err);
 				}
 			})();
-		auth.isAuth &&
+
 			(async () => {
 				setLoading(true);
 				try {
@@ -85,10 +85,10 @@ const UserDataProvider = ({ children }) => {
 						setLoading(false);
 					}
 				} catch (err) {
-					console.log("error", err);
+					console.log(err);
 				}
 			})();
-		auth.isAuth &&
+
 			(async () => {
 				setLoading(true);
 				try {
@@ -103,16 +103,14 @@ const UserDataProvider = ({ children }) => {
 						setLoading(false);
 					}
 				} catch (err) {
-					console.log("error", err);
+					console.log(err);
 				}
 			})();
+		}
 	}, [auth.isAuth]);
 
-	// console.log("userData", userData.ordersDetails);
 	return (
-		<userDataContext.Provider
-			value={{ userData, userDataDispatch, error, loading }}
-		>
+		<userDataContext.Provider value={{ userData, userDataDispatch, loading }}>
 			{children}
 		</userDataContext.Provider>
 	);

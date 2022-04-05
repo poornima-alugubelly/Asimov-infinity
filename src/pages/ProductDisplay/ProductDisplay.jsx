@@ -66,41 +66,48 @@ export const ProductDisplay = () => {
 	};
 
 	return (
-		<div class="cart-page-container ">
-			<div class="single-product-container gap-s padding-l holo-bg">
-				<div class="img-container">
-					<img src={product?.src} alt="product image" class="img-responsive" />
+		<div className="cart-page-container ">
+			<div className="single-product-container gap-s padding-l holo-bg">
+				<div className="img-container">
+					<img
+						src={product?.src}
+						alt="product image"
+						className="img-responsive"
+					/>
 				</div>
-				<div class=" flex-column gap-s">
-					<div class="text-m flex-column gap-xxs">
+				<div className=" flex-column gap-s">
+					<div className="text-m flex-column gap-xxs">
 						{product?.name}
-						<span class="card-subtitle text-xs rating-star-icon">
-							{product?.rating} <i class="fas fa-star "></i>
+						<span className="card-subtitle text-xs rating-star-icon">
+							{product?.rating} <i className="fas fa-star "></i>
 						</span>
 					</div>
 
-					<div class="flex-row gap-xs single-product-price">
-						<span class="txt-bold text-s"> Rs.{product?.discountedPrice}</span>
-						<span class="txt-crossed-off">Rs.{product?.price}</span>
-						<span class="txt-high-light">{product?.discount}%</span>
+					<div className="flex-row gap-xs single-product-price">
+						<span className="txt-bold text-s">
+							{" "}
+							Rs.{product?.discountedPrice}
+						</span>
+						<span className="txt-crossed-off">Rs.{product?.price}</span>
+						<span className="txt-high-light">{product?.discount}%</span>
 					</div>
-					<div class="flex-column gap-xs">
-						<span class="flex-row gap-xs">
-							<i class="fas fa-truck fa-fw"></i>{" "}
+					<div className="flex-column gap-xs">
+						<span className="flex-row gap-xs">
+							<i className="fas fa-truck fa-fw"></i>{" "}
 							<span>Fast & No-contact Delivery</span>
 						</span>
-						<span class="flex-row gap-xs">
-							<i class="fas fa-tag fa-fw"></i>
+						<span className="flex-row gap-xs">
+							<i className="fas fa-tag fa-fw"></i>
 							<span>Price displayed is inclusive of GST </span>
 						</span>
-						<span class="flex-row gap-xs">
-							<i class="fas fa-money-bill fa-fw"></i>{" "}
+						<span className="flex-row gap-xs">
+							<i className="fas fa-money-bill fa-fw"></i>{" "}
 							<span>Cash on Delivery available</span>
 						</span>
 					</div>
-					<div class="flex-start gap-xs">
+					<div className="flex-start gap-xs">
 						<button
-							class={`btn btn-primary-solid ${
+							className={`btn btn-primary-solid ${
 								addingToCart ? "btn-disabled" : ""
 							}`}
 							onClick={
@@ -111,11 +118,11 @@ export const ProductDisplay = () => {
 									: () => navigate("/login")
 							}
 						>
-							<i class="fa-fw fas fa-shopping-cart"> </i>
+							<i className="fa-fw fas fa-shopping-cart"> </i>
 							<span> {inCart ? "Go to cart" : "Add to Cart"}</span>
 						</button>
 						<button
-							class={`btn btn-primary-outline ${
+							className={`btn btn-primary-outline ${
 								addingToWishList ? "btn-disabled" : ""
 							}`}
 							onClick={

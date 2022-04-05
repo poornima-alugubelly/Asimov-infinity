@@ -11,7 +11,6 @@ import MockApi from "../pages/mockman.jsx";
 import { UserProfile } from "../pages/UserProfile/UserProfile.jsx";
 import { Orders } from "../pages/UserProfile/Orders/Orders.jsx";
 import { Addresses } from "../pages/UserProfile/Addresses/Addresses.jsx";
-import { Settings } from "../pages/UserProfile/Settings/Settings.jsx";
 import { Profile } from "../pages/UserProfile/Profile/Profile.jsx";
 import { Checkout } from "../pages/Checkout/Checkout.jsx";
 import { OrderSummary } from "../pages/Checkout/OrderSummary/OrderSummary.jsx";
@@ -24,14 +23,16 @@ export const NavRoutes = () => {
 			<Route path="/login" element={<Login />} />
 			<Route path="/Signup" element={<Signup />} />
 			<Route path="/MockApi" element={<MockApi />} />
-			<Route path="/autherror" element={<h1>Auth error</h1>} />
+			<Route
+				path="/autherror"
+				element={<h1>There was an error!It's not you it's us</h1>}
+			/>
 			<Route path="/" element={<ProtectedRoutes />}>
 				<Route path="/cart" element={<Cart />} />
 				<Route path="/wishlist" element={<WishList />} />
 				<Route path="/profile" element={<UserProfile />}>
 					<Route path="/profile" element={<Profile />} />
 					<Route path="/profile/orders" element={<Orders />} />
-					<Route path="/profile/settings" element={<Settings />} />
 					<Route path="/profile/addresses" element={<Addresses />} />
 				</Route>
 				<Route path="/checkout" element={<Checkout />} />

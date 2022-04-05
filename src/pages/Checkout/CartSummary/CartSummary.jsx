@@ -1,33 +1,33 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { v4 as uuid } from "uuid";
+import { useState } from "react";
 import { useUserData } from "../../../context/UserDataContext";
 import { actionTypes } from "../../../reducers/actionTypes";
 import { useAuth } from "../../../context/AuthContext";
 import { addOrderService } from "../../../services/order-services/addOrderService";
-
-function loadScript(src) {
-	return new Promise((resolve) => {
-		const script = document.createElement("script");
-		script.src = src;
-		script.onload = () => {
-			resolve(true);
-		};
-		script.onerror = () => {
-			resolve(false);
-		};
-		document.body.appendChild(script);
-	});
-}
-
+import { loadScript } from "../../../helpers/loadScript";
+import { clearCartService } from "../../../services/cart-services";
 export const CartSummary = () => {
 	const {
 		userData: { orderDetails, cartProducts },
 		userDataDispatch,
 	} = useUserData();
 	const {
-		auth: { token },
+		auth: { token, firstName, lastName, userEmail },
+		auth: {},
 	} = useAuth();
 	const { SET_ORDERS, SET_ORDER, SET_CART } = actionTypes;
+	const navigate = useNavigate();
+	const [addressWarning, setAddressWarning] = useState(false);
+
+	const placeOrderHandler = () => {
+		if (orderDetails?.orderAddress) {
+			displayRazorpay();
+			setAddressWarning(false);
+		} else {
+			setAddressWarning(true);
+		}
+	};
 
 	const totalPaymentWithOutDelivery =
 		orderDetails?.cartItemsTotal -
@@ -37,9 +37,7 @@ export const CartSummary = () => {
 
 	const totalPayment = totalPaymentWithOutDelivery + deliveryFee;
 
-	const navigate = useNavigate();
-
-	async function displayRazorpay() {
+	const displayRazorpay = async () => {
 		const res = await loadScript(
 			"https://checkout.razorpay.com/v1/checkout.js"
 		);
@@ -68,8 +66,9 @@ export const CartSummary = () => {
 				};
 
 				const res = await addOrderService(order, token);
-				if (res.status === 201) {
-					console.log("order", res.data.orders);
+				const resCart = await clearCartService(token);
+				console.log(resCart);
+				if (res.status === 201 && resCart.status === 201) {
 					userDataDispatch({
 						type: SET_ORDERS,
 						payload: { orders: res.data.orders },
@@ -93,12 +92,12 @@ export const CartSummary = () => {
 		};
 		const paymentObject = new window.Razorpay(options);
 		paymentObject.open();
-	}
+	};
 
 	return (
-		<div class="cart-total-wrapper flex-column gap-s">
-			<ul class="flex-column gap-xs">
-				<li class="txt-bold text-xs">
+		<div className="cart-total-wrapper flex-column gap-s">
+			<ul className="flex-column gap-xs">
+				<li className="txt-bold text-xs">
 					ORDER DETAILS ({cartProducts.length} items):
 				</li>
 				<span className="text-xs border-top-bottom-light padding-tp-btm-xs text-center">
@@ -125,53 +124,58 @@ export const CartSummary = () => {
 				<span className="text-xs border-top-bottom-light padding-tp-btm-xs text-center">
 					BILLING
 				</span>
-				<li class="flex-space-between">
+				<li className="flex-space-between">
 					<span>Total MRP:</span> <span>₹{orderDetails?.cartItemsTotal}</span>
 				</li>
 
-				<li class="flex-space-between">
+				<li className="flex-space-between">
 					<span>Total Discount:</span>
 					<span>-₹{orderDetails?.cartItemsDiscountTotal}</span>
 				</li>
 				{orderDetails?.couponDiscount ? (
-					<li class="flex-space-between">
+					<li className="flex-space-between">
 						<span>Coupon discount:</span>{" "}
 						<span>-₹{orderDetails?.couponDiscountTotal}</span>
 					</li>
 				) : null}
-				<li class="flex-space-between">
+				<li className="flex-space-between">
 					<span>Delivery fee:</span>{" "}
 					<span>₹{deliveryFee > 0 ? deliveryFee : "FREE"}</span>
 				</li>
-				<li class="flex-space-between txt-bold text-s">
-					<span>Total:</span>{" "}
-					<span>
-						₹
-						{orderDetails?.cartItemsTotal -
-							orderDetails?.cartItemsDiscountTotal -
-							orderDetails?.couponDiscountTotal}
-					</span>
+				<li className="flex-space-between txt-bold text-s">
+					<span>Total:</span> <span>₹{totalPayment}</span>
 				</li>
 				<span className="text-xs border-top-bottom-light padding-tp-btm-xs text-center">
 					DELIVERING TO
 				</span>
-				<div className="card-content gap-xs ">
-					<span className="text-xs">{orderDetails?.orderAddress.name}</span>
+				{!orderDetails?.orderAddress ? (
+					<span className="text-s">Address not selected..I am lost..</span>
+				) : (
+					<div className="card-content gap-xs ">
+						<span className="text-xs">{orderDetails?.orderAddress?.name}</span>
 
-					<div>
-						{`${orderDetails?.orderAddress.street} ,
-						 ${orderDetails?.orderAddress.city} ,
-						 ${orderDetails?.orderAddress.state} ,
-						 ${orderDetails?.orderAddress.country} -
-						 ${orderDetails?.orderAddress.pincode}`}
+						<div>
+							{`${orderDetails?.orderAddress?.street} ,
+						 ${orderDetails?.orderAddress?.city} ,
+						 ${orderDetails?.orderAddress?.state} ,
+						 ${orderDetails?.orderAddress?.country} -
+						 ${orderDetails?.orderAddress?.pincode}`}
+						</div>
+
+						<span>Phone Number : {orderDetails?.orderAddress?.phone}</span>
 					</div>
-
-					<span>Phone Number : {orderDetails?.orderAddress.phone}</span>
-				</div>
+				)}
 			</ul>
-			<button className="btn btn-primary-solid" onClick={displayRazorpay}>
+			<button className="btn btn-primary-solid" onClick={placeOrderHandler}>
 				Proceed to pay
 			</button>
+			{addressWarning && (
+				<Link to="/profile/addresses">
+					<span className="link-text">
+						Click here to add an address for delivery
+					</span>
+				</Link>
+			)}
 		</div>
 	);
 };

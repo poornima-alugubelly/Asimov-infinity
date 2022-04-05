@@ -13,17 +13,17 @@ export const Checkout = () => {
 	const { SET_ORDER } = actionTypes;
 
 	return !loading ? (
-		<div class="cart-page-container">
-			<h2 class="padding-l text-center txt-high-light">Checkout </h2>
-			<div class="grid-40-60 gap-xl">
-				<div class="cart-products-wrapper">
+		<div className="cart-page-container">
+			<h2 className="padding-l text-center txt-high-light">Checkout </h2>
+			<div className="grid-40-60 gap-xl">
+				<div className="cart-products-wrapper">
 					<ul className="flex-column gap-s">
 						{addressList.map((address) => (
 							<li className="modal-item gap-s " key={address._id}>
-								<label class="address-body gap-s " htmlFor={address._id}>
+								<label className="address-body gap-s " htmlFor={address._id}>
 									<input
 										type="radio"
-										class="input-radio element-round"
+										className="input-radio element-round"
 										name="radio-item"
 										checked={orderDetails?.orderAddress._id === address._id}
 										onChange={(e) =>

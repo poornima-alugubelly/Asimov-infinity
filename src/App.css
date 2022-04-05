@@ -1,4 +1,9 @@
 @import url(https://asimov-ui.netlify.app/themes/darktheme.css);
+
+.content {
+	min-height:80vh;
+}
+
 .overlay {
 	position: fixed;
 	transition: 200ms ease-in-out;

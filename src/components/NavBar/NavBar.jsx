@@ -1,4 +1,3 @@
-import { IMAGES } from "../../assets";
 import "./NavBar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -52,7 +51,7 @@ export const NavBar = () => {
 				<button>
 					<img
 						className="icon-search"
-						src={typing ? IMAGES.dismissBlue : IMAGES.searchIcon}
+						src={typing ? "/assets/dismiss-blue.svg" : "/assets/Search.svg"}
 						alt="search"
 						onClick={() => {
 							setTyping(false);
@@ -69,7 +68,7 @@ export const NavBar = () => {
 				{auth.isAuth ? (
 					<div>
 						<Link to="/profile" className="flex-column ">
-							<i class="fas fa-user btn-icon"></i>
+							<i className="fas fa-user btn-icon"></i>
 
 							<span className="text-xxs pointer">Profile </span>
 						</Link>
@@ -77,7 +76,7 @@ export const NavBar = () => {
 				) : (
 					<div className="flex-column">
 						<Link to="/login" className="flex-column ">
-							<i class="fas fa-user btn-icon"></i>
+							<i className="fas fa-user btn-icon"></i>
 							<span className="text-xxs pointer">Login</span>
 						</Link>
 					</div>
@@ -89,7 +88,7 @@ export const NavBar = () => {
 							<i class="fas fa-heart btn-icon"></i>
 
 							<span className="badge badge-top badge-s badge-red">
-								{wishlistProducts.length}
+								{wishlistProducts?.length}
 							</span>
 						</div>
 
@@ -99,10 +98,10 @@ export const NavBar = () => {
 				<div className="flex-column">
 					<Link to="/cart">
 						<div className="badge-wrapper">
-							<i class="fas fa-shopping-cart btn-icon"></i>
+							<i className="fas fa-shopping-cart btn-icon"></i>
 
 							<span className="badge badge-top badge-s badge-red">
-								{cartProducts.length}
+								{cartProducts?.length}
 							</span>
 						</div>
 
@@ -129,19 +128,20 @@ export const NavBar = () => {
 			>
 				<li className="padding-s">
 					<img
-						src={IMAGES.dismissBlue}
+						src="/assets/dismiss-blue.svg"
 						className="btn-dismiss item-top-left"
 						onClick={() => setNavIsOpen(false)}
 					/>
 				</li>
 
-				{/* <i
-					class="fas fa-times btn-icon padding-xs "
-					
-				></i> */}
 				<li className="list-item">
 					<Link to="/Home" className="link-text">
 						Home
+					</Link>
+				</li>
+				<li className="list-item">
+					<Link to="/ProductListing" className="link-text">
+						Shop Now
 					</Link>
 				</li>
 				<li className="list-item">
