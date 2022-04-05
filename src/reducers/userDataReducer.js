@@ -29,7 +29,7 @@ export const userDataReducer = (state, action) => {
 			return {
 				...state,
 				orderDetails: {
-					...state.ordersDetails,
+					...state.orderDetails,
 					...action.payload.orderDetails,
 				},
 			};
