@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ProductFilters } from "./components/ProductFilters/ProductFilters.jsx";
 import "./ProductListing.css";
 import { useProductListing } from "../../context/ProductListingContext.js";
@@ -12,6 +12,7 @@ import {
 	getRatedProducts,
 } from "../../helpers/filter-functions";
 import { getSearchedProducts } from "../../helpers/getSearchedProducts.js";
+import { useCallback } from "react";
 
 export const ProductListing = () => {
 	const { productListingState } = useProductListing();
@@ -28,7 +29,6 @@ export const ProductListing = () => {
 	let products = [...data];
 	if (searchText) {
 		products = getSearchedProducts(data, searchText);
-		console.log(products);
 	}
 
 	const pricedProducts = getPricedProducts(products, price);
@@ -37,10 +37,21 @@ export const ProductListing = () => {
 	const ratedProducts = getRatedProducts(categoryProducts, rating);
 	const finalFilteredProducts = getSortedProducts(ratedProducts, sortBy);
 	const totalPages = Math.ceil(finalFilteredProducts.length / 8);
-
+	console.log("total", totalPages);
 	const [currPage, setCurrPage] = useState(1);
 	const [pagesArray, setPagesArray] = useState([1, 2, 3]);
 	const pageLimit = 3;
+	const setValue = useCallback(() => {
+		setPagesArray(
+			Array(totalPages)
+				.fill()
+				.map((_, idx) => idx + 1)
+		);
+	}, [totalPages]);
+
+	useEffect(() => {
+		totalPages < 3 ? setValue() : setPagesArray([1, 2, 3]);
+	}, [setValue]);
 
 	const pageProducts = finalFilteredProducts.slice(
 		1 + 8 * (currPage - 1),
@@ -75,7 +86,7 @@ export const ProductListing = () => {
 				<div className="flex-row gap-s flex-align-center">
 					<button
 						className={`btn btn-primary-outline ${
-							pagesArray[0] === 1 ? "btn-disabled" : ""
+							pagesArray && pagesArray[0] === 1 ? "btn-disabled" : ""
 						}`}
 						onClick={() => getPagesArray(pagesArray[0] - pageLimit)}
 					>

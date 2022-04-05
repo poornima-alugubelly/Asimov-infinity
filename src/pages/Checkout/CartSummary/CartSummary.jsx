@@ -1,9 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { useUserData } from "../../../context/UserDataContext";
 import { actionTypes } from "../../../reducers/actionTypes";
 import { useAuth } from "../../../context/AuthContext";
 import { addOrderService } from "../../../services/order-services/addOrderService";
+import { useState } from "react";
 
 function loadScript(src) {
 	return new Promise((resolve) => {
@@ -28,6 +29,17 @@ export const CartSummary = () => {
 		auth: { token },
 	} = useAuth();
 	const { SET_ORDERS, SET_ORDER, SET_CART } = actionTypes;
+	const navigate = useNavigate();
+	const [addressWarning, setAddressWarning] = useState(false);
+
+	const placeOrderHandler = () => {
+		if (orderDetails?.orderAddress) {
+			displayRazorpay();
+			setAddressWarning(false);
+		} else {
+			setAddressWarning(true);
+		}
+	};
 
 	const totalPaymentWithOutDelivery =
 		orderDetails?.cartItemsTotal -
@@ -36,8 +48,6 @@ export const CartSummary = () => {
 	const deliveryFee = totalPaymentWithOutDelivery > 1000 ? 0 : 100;
 
 	const totalPayment = totalPaymentWithOutDelivery + deliveryFee;
-
-	const navigate = useNavigate();
 
 	async function displayRazorpay() {
 		const res = await loadScript(
@@ -169,9 +179,16 @@ export const CartSummary = () => {
 					<span>Phone Number : {orderDetails?.orderAddress?.phone}</span>
 				</div>
 			</ul>
-			<button className="btn btn-primary-solid" onClick={displayRazorpay}>
+			<button className="btn btn-primary-solid" onClick={placeOrderHandler}>
 				Proceed to pay
 			</button>
+			{addressWarning && (
+				<Link to="/profile/addresses">
+					<span className="link-text">
+						Click here to add an address for delivery
+					</span>
+				</Link>
+			)}
 		</div>
 	);
 };

@@ -10,7 +10,11 @@ function App() {
 	return (
 		<div className="App">
 			<div className="content">
-				<ToastContainer theme="colored" autoClose={1200} />
+				<ToastContainer
+					theme="colored"
+					autoClose={1000}
+					position="bottom-left"
+				/>
 
 				<NavBar />
 				<AddressModal />
