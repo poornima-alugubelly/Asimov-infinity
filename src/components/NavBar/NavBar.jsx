@@ -11,7 +11,10 @@ export const NavBar = () => {
 	const {
 		userData: { cartProducts, wishlistProducts },
 	} = useUserData();
-	const { productListingDispatch } = useProductListing();
+	const {
+		productListingState: { searchText },
+		productListingDispatch,
+	} = useProductListing();
 	const [navIsOpen, setNavIsOpen] = useState(false);
 
 	const navigate = useNavigate();
@@ -38,8 +41,8 @@ export const NavBar = () => {
 				<input
 					type="text"
 					placeholder="Enter category or product name..."
-					onKeyUp={(e) => {
-						console.log(e);
+					value={searchText}
+					onChange={(e) => {
 						navigate("/ProductListing");
 						setTyping(true);
 						productListingDispatch({
