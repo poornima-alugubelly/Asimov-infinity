@@ -135,13 +135,14 @@ export const NavBar = () => {
 					/>
 				</li>
 
-				{/* <i
-					class="fas fa-times btn-icon padding-xs "
-					
-				></i> */}
 				<li className="list-item">
 					<Link to="/Home" className="link-text">
 						Home
+					</Link>
+				</li>
+				<li className="list-item">
+					<Link to="/ProductListing" className="link-text">
+						Shop Now
 					</Link>
 				</li>
 				<li className="list-item">
