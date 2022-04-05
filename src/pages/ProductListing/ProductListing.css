@@ -42,6 +42,13 @@
 	gap: 0.5rem;
 }
 
+.productListing-space-between{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	
+}
+
 @media (max-width: 1024px) {
 	.grid-30-70 {
 		display: grid;

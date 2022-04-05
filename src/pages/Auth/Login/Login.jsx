@@ -19,7 +19,7 @@ export const Login = () => {
 			if (res.status === 200) {
 				localStorage.setItem("token", res.data.encodedToken);
 				localStorage.setItem("isAuth", true);
-				console.log(res.data.foundUser.firstName);
+
 				setAuth({
 					token: res.data.encodedToken,
 					isAuth: true,

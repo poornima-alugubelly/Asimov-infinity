@@ -1,6 +1,6 @@
 import { signupService } from "../../../services/auth-services/signupService";
 import { useAuth } from "../../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import { usePwdToggler } from "../../../hooks/usePwdToggler";
 export const Signup = () => {
@@ -16,17 +16,20 @@ export const Signup = () => {
 	const [pwdToggle, pwdToggler] = usePwdToggler();
 	const signUpHandler = async (e, email, password, firstName, lastName) => {
 		e.preventDefault();
+
 		try {
 			const res = await signupService(email, password, firstName, lastName);
+			console.log(res);
 			if (res.status === 201) {
-				localStorage.setItem("token", res.data.token);
+				localStorage.setItem("token", res.data.encodedToken);
 				localStorage.setItem("isAuth", true);
+				setError(false);
 				setAuth({
-					token: res.data.token,
+					token: res.data.encodedToken,
 					isAuth: true,
-					firstName: res.data.foundUser.firstName,
-					lastName: res.data.foundUser.lastName,
-					userEmail: res.data.foundUser.email,
+					firstName,
+					lastName,
+					userEmail: email,
 				});
 				navigate("/home");
 			}
@@ -130,12 +133,12 @@ export const Signup = () => {
 					</div>
 					{error && <span className="text-red">{error}</span>}
 					<button className="btn btn-primary-solid">Sign Up</button>
-					<a
-						href="./login.html"
+					<Link
+						to="/login"
 						className="text-center link-colored flex-center gap-xs"
 					>
 						Already have an account? <i className="fas fa-chevron-right"></i>
-					</a>
+					</Link>
 				</div>
 			</form>
 		</div>

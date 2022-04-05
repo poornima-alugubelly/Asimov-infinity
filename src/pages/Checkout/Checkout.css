@@ -5,7 +5,6 @@
 
 .address-body{
     display: flex;
-    
     flex-shrink: 0;
   
   
@@ -26,9 +25,5 @@
 		grid-template-columns: 1fr;
 	}
 
-    .line-break{
-      
-        max-width:80ch;
-      
-    }
+
 }

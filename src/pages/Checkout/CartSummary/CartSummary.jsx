@@ -1,24 +1,11 @@
 import { useNavigate, Link } from "react-router-dom";
 import { v4 as uuid } from "uuid";
+import { useState } from "react";
 import { useUserData } from "../../../context/UserDataContext";
 import { actionTypes } from "../../../reducers/actionTypes";
 import { useAuth } from "../../../context/AuthContext";
 import { addOrderService } from "../../../services/order-services/addOrderService";
-import { useState } from "react";
-
-function loadScript(src) {
-	return new Promise((resolve) => {
-		const script = document.createElement("script");
-		script.src = src;
-		script.onload = () => {
-			resolve(true);
-		};
-		script.onerror = () => {
-			resolve(false);
-		};
-		document.body.appendChild(script);
-	});
-}
+import { loadScript } from "../../../helpers/loadScript";
 
 export const CartSummary = () => {
 	const {
@@ -26,7 +13,8 @@ export const CartSummary = () => {
 		userDataDispatch,
 	} = useUserData();
 	const {
-		auth: { token },
+		auth: { token, firstName, lastName, userEmail },
+		auth: {},
 	} = useAuth();
 	const { SET_ORDERS, SET_ORDER, SET_CART } = actionTypes;
 	const navigate = useNavigate();
@@ -49,7 +37,7 @@ export const CartSummary = () => {
 
 	const totalPayment = totalPaymentWithOutDelivery + deliveryFee;
 
-	async function displayRazorpay() {
+	const displayRazorpay = async () => {
 		const res = await loadScript(
 			"https://checkout.razorpay.com/v1/checkout.js"
 		);
@@ -103,7 +91,7 @@ export const CartSummary = () => {
 		};
 		const paymentObject = new window.Razorpay(options);
 		paymentObject.open();
-	}
+	};
 
 	return (
 		<div className="cart-total-wrapper flex-column gap-s">
@@ -154,30 +142,28 @@ export const CartSummary = () => {
 					<span>₹{deliveryFee > 0 ? deliveryFee : "FREE"}</span>
 				</li>
 				<li className="flex-space-between txt-bold text-s">
-					<span>Total:</span>{" "}
-					<span>
-						₹
-						{orderDetails?.cartItemsTotal -
-							orderDetails?.cartItemsDiscountTotal -
-							orderDetails?.couponDiscountTotal}
-					</span>
+					<span>Total:</span> <span>₹{totalPayment}</span>
 				</li>
 				<span className="text-xs border-top-bottom-light padding-tp-btm-xs text-center">
 					DELIVERING TO
 				</span>
-				<div className="card-content gap-xs ">
-					<span className="text-xs">{orderDetails?.orderAddress?.name}</span>
+				{!orderDetails?.orderAddress ? (
+					<span className="text-s">Address not selected..I am lost..</span>
+				) : (
+					<div className="card-content gap-xs ">
+						<span className="text-xs">{orderDetails?.orderAddress?.name}</span>
 
-					<div>
-						{`${orderDetails?.orderAddress?.street} ,
+						<div>
+							{`${orderDetails?.orderAddress?.street} ,
 						 ${orderDetails?.orderAddress?.city} ,
 						 ${orderDetails?.orderAddress?.state} ,
 						 ${orderDetails?.orderAddress?.country} -
 						 ${orderDetails?.orderAddress?.pincode}`}
-					</div>
+						</div>
 
-					<span>Phone Number : {orderDetails?.orderAddress?.phone}</span>
-				</div>
+						<span>Phone Number : {orderDetails?.orderAddress?.phone}</span>
+					</div>
+				)}
 			</ul>
 			<button className="btn btn-primary-solid" onClick={placeOrderHandler}>
 				Proceed to pay

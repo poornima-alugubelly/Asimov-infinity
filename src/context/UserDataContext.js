@@ -42,7 +42,6 @@ const UserDataProvider = ({ children }) => {
 				setLoading(true);
 				try {
 					const res = await getCartService(auth.token);
-					console.log("cart", res);
 					if (res.status === 200) {
 						userDataDispatch({
 							type: SET_CART,
@@ -52,7 +51,7 @@ const UserDataProvider = ({ children }) => {
 						setLoading(false);
 					}
 				} catch (err) {
-					toast.error("There was a problem please try again after some time");
+					console.log(err);
 				}
 			})();
 
@@ -68,7 +67,7 @@ const UserDataProvider = ({ children }) => {
 						setLoading(false);
 					}
 				} catch (err) {
-					toast.error("There was a problem please try again after some time");
+					console.log(err);
 				}
 			})();
 
@@ -86,7 +85,7 @@ const UserDataProvider = ({ children }) => {
 						setLoading(false);
 					}
 				} catch (err) {
-					toast.error("There was a problem please try again after some time");
+					console.log(err);
 				}
 			})();
 
@@ -104,7 +103,7 @@ const UserDataProvider = ({ children }) => {
 						setLoading(false);
 					}
 				} catch (err) {
-					toast.error("There was a problem please try again after some time");
+					console.log(err);
 				}
 			})();
 		}

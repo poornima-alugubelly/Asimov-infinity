@@ -61,11 +61,7 @@ export const ProductListing = () => {
 	const getPagesArray = (start) => {
 		let limit = pageLimit;
 		if (start + pageLimit - 1 > totalPages) limit = totalPages - start + 1;
-		console.log(
-			Array(limit)
-				.fill()
-				.map((_, idx) => start + idx)
-		);
+
 		setPagesArray(
 			Array(limit)
 				.fill()
@@ -73,48 +69,54 @@ export const ProductListing = () => {
 		);
 		setCurrPage(start);
 	};
-	console.log("pagesArray", pagesArray);
+
 	return !productsLoading ? (
 		<div className="grid-30-70 main-container-gutter">
 			<ProductFilters />
-			<div>
-				<div className="grid-product-layout">
-					{pageProducts.map((product) => (
-						<ProductCard key={product._id} product={product} />
-					))}
-				</div>
-				<div className="flex-row gap-s flex-align-center">
-					<button
-						className={`btn btn-primary-outline ${
-							pagesArray && pagesArray[0] === 1 ? "btn-disabled" : ""
-						}`}
-						onClick={() => getPagesArray(pagesArray[0] - pageLimit)}
-					>
-						Previous
-					</button>
-
-					{pagesArray.map((pageNumber) => (
-						<span
-							role="button"
-							className={`${
-								currPage === pageNumber ? "btn btn-primary-solid" : ""
-							} pointer`}
-							onClick={() => setCurrPage(pageNumber)}
+			{pageProducts.length ? (
+				<div className="productListing-space-between">
+					<div className="grid-product-layout">
+						{pageProducts.map((product) => (
+							<ProductCard key={product._id} product={product} />
+						))}
+					</div>
+					<div className="flex-row gap-s flex-center padding-tp-btm-s">
+						<button
+							className={`btn btn-primary-outline ${
+								pagesArray && pagesArray[0] === 1 ? "btn-disabled" : ""
+							}`}
+							onClick={() => getPagesArray(pagesArray[0] - pageLimit)}
 						>
-							{pageNumber}
-						</span>
-					))}
+							Previous
+						</button>
 
-					<button
-						className={`btn btn-primary-outline ${
-							pagesArray[0] + pageLimit > totalPages ? "btn-disabled" : ""
-						}`}
-						onClick={() => getPagesArray(pagesArray[pagesArray.length - 1] + 1)}
-					>
-						Next
-					</button>
+						{pagesArray.map((pageNumber) => (
+							<span
+								role="button"
+								className={`${
+									currPage === pageNumber ? "btn btn-primary-solid" : ""
+								} pointer`}
+								onClick={() => setCurrPage(pageNumber)}
+							>
+								{pageNumber}
+							</span>
+						))}
+
+						<button
+							className={`btn btn-primary-outline ${
+								pagesArray[0] + pageLimit > totalPages ? "btn-disabled" : ""
+							}`}
+							onClick={() =>
+								getPagesArray(pagesArray[pagesArray.length - 1] + 1)
+							}
+						>
+							Next
+						</button>
+					</div>
 				</div>
-			</div>
+			) : (
+				<h2 className="text-center">No products found...</h2>
+			)}
 		</div>
 	) : (
 		<Loader />
