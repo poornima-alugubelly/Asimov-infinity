@@ -42,6 +42,7 @@ export const ProductListing = () => {
 	const [pagesArray, setPagesArray] = useState([1, 2, 3]);
 	const pageLimit = 3;
 	const setValue = useCallback(() => {
+		setCurrPage(1);
 		setPagesArray(
 			Array(totalPages)
 				.fill()
