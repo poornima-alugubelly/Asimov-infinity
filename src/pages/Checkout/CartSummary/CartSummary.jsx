@@ -156,17 +156,17 @@ export const CartSummary = () => {
 					DELIVERING TO
 				</span>
 				<div className="card-content gap-xs ">
-					<span className="text-xs">{orderDetails?.orderAddress.name}</span>
+					<span className="text-xs">{orderDetails?.orderAddress?.name}</span>
 
 					<div>
-						{`${orderDetails?.orderAddress.street} ,
-						 ${orderDetails?.orderAddress.city} ,
-						 ${orderDetails?.orderAddress.state} ,
-						 ${orderDetails?.orderAddress.country} -
-						 ${orderDetails?.orderAddress.pincode}`}
+						{`${orderDetails?.orderAddress?.street} ,
+						 ${orderDetails?.orderAddress?.city} ,
+						 ${orderDetails?.orderAddress?.state} ,
+						 ${orderDetails?.orderAddress?.country} -
+						 ${orderDetails?.orderAddress?.pincode}`}
 					</div>
 
-					<span>Phone Number : {orderDetails?.orderAddress.phone}</span>
+					<span>Phone Number : {orderDetails?.orderAddress?.phone}</span>
 				</div>
 			</ul>
 			<button className="btn btn-primary-solid" onClick={displayRazorpay}>

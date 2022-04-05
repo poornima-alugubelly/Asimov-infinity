@@ -89,7 +89,7 @@ export const NavBar = () => {
 							<i class="fas fa-heart btn-icon"></i>
 
 							<span className="badge badge-top badge-s badge-red">
-								{wishlistProducts.length}
+								{wishlistProducts?.length}
 							</span>
 						</div>
 
@@ -102,7 +102,7 @@ export const NavBar = () => {
 							<i className="fas fa-shopping-cart btn-icon"></i>
 
 							<span className="badge badge-top badge-s badge-red">
-								{cartProducts.length}
+								{cartProducts?.length}
 							</span>
 						</div>
 

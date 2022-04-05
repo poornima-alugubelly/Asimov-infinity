@@ -31,92 +31,87 @@ const UserDataProvider = ({ children }) => {
 	});
 
 	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(false);
+
 	const { SET_CART, SET_WISHLIST, SET_ADDRESSLIST, SET_ORDERS, RESET } =
 		actionTypes;
 	const { auth } = useAuth();
 
 	useEffect(() => {
-		() => {
-			if (auth.isAuth) {
-				(async () => {
-					setLoading(true);
-					try {
-						const res = await getCartService(auth.token);
-						if (res.status === 200) {
-							userDataDispatch({
-								type: SET_CART,
-								payload: { cart: res.data.cart },
-							});
+		if (auth.isAuth) {
+			(async () => {
+				setLoading(true);
+				try {
+					const res = await getCartService(auth.token);
+					console.log("cart", res);
+					if (res.status === 200) {
+						userDataDispatch({
+							type: SET_CART,
+							payload: { cart: res.data.cart },
+						});
 
-							setLoading(false);
-						}
-					} catch (err) {
-						setError(true);
+						setLoading(false);
 					}
-				})();
+				} catch (err) {
+					toast.error("There was a problem please try again after some time");
+				}
+			})();
 
-				(async () => {
-					setLoading(true);
-					try {
-						const res = await getWishlistService(auth.token);
-						if (res.status === 200) {
-							userDataDispatch({
-								type: SET_WISHLIST,
-								payload: { wishlist: res.data.wishlist },
-							});
-							setLoading(false);
-						}
-					} catch (err) {
-						setError(true);
+			(async () => {
+				setLoading(true);
+				try {
+					const res = await getWishlistService(auth.token);
+					if (res.status === 200) {
+						userDataDispatch({
+							type: SET_WISHLIST,
+							payload: { wishlist: res.data.wishlist },
+						});
+						setLoading(false);
 					}
-				})();
+				} catch (err) {
+					toast.error("There was a problem please try again after some time");
+				}
+			})();
 
-				(async () => {
-					setLoading(true);
-					try {
-						const res = await getAddressListService(auth.token);
-						console.log("addresses", res);
-						if (res.status === 200) {
-							userDataDispatch({
-								type: SET_ADDRESSLIST,
-								payload: { addressList: res.data.addressList },
-							});
+			(async () => {
+				setLoading(true);
+				try {
+					const res = await getAddressListService(auth.token);
+					console.log("addresses", res);
+					if (res.status === 200) {
+						userDataDispatch({
+							type: SET_ADDRESSLIST,
+							payload: { addressList: res.data.addressList },
+						});
 
-							setLoading(false);
-						}
-					} catch (err) {
-						setError(true);
+						setLoading(false);
 					}
-				})();
+				} catch (err) {
+					toast.error("There was a problem please try again after some time");
+				}
+			})();
 
-				(async () => {
-					setLoading(true);
-					try {
-						const res = await getOrdersService(auth.token);
-						console.log("orders", res);
-						if (res.status === 200) {
-							userDataDispatch({
-								type: SET_ORDERS,
-								payload: { orders: res.data.orders },
-							});
+			(async () => {
+				setLoading(true);
+				try {
+					const res = await getOrdersService(auth.token);
+					console.log("orders", res);
+					if (res.status === 200) {
+						userDataDispatch({
+							type: SET_ORDERS,
+							payload: { orders: res.data.orders },
+						});
 
-							setLoading(false);
-						}
-					} catch (err) {
-						setError(true);
+						setLoading(false);
 					}
-				})();
-			} else {
-				userDataDispatch({ type: RESET });
-			}
-		};
+				} catch (err) {
+					toast.error("There was a problem please try again after some time");
+				}
+			})();
+		}
 	}, [auth.isAuth]);
 
 	return (
-		<userDataContext.Provider
-			value={{ userData, userDataDispatch, error, loading }}
-		>
+		<userDataContext.Provider value={{ userData, userDataDispatch, loading }}>
 			{children}
 		</userDataContext.Provider>
 	);

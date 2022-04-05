@@ -128,7 +128,7 @@ export const Signup = () => {
 							I accept all Terms & Conditions
 						</label>
 					</div>
-					{error && <span className="red-text">{error}</span>}
+					{error && <span className="text-red">{error}</span>}
 					<button className="btn btn-primary-solid">Sign Up</button>
 					<a
 						href="./login.html"

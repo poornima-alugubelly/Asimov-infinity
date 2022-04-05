@@ -40,19 +40,17 @@ export const userDataReducer = (state, action) => {
 			};
 		case RESET:
 			return {
-				state: {
-					cartProducts: [],
-					wishlistProducts: [],
-					addressList: [],
-					ordersDetails: {
-						cartItemsTotal: "",
-						cartItemsDiscountTotal: "",
-						couponDiscountTotal: "",
-						orderAddress: "",
-						orderId: "",
-					},
-					orders: [],
+				cartProducts: [],
+				wishlistProducts: [],
+				addressList: [],
+				ordersDetails: {
+					cartItemsTotal: "",
+					cartItemsDiscountTotal: "",
+					couponDiscountTotal: "",
+					orderAddress: "",
+					orderId: "",
 				},
+				orders: [],
 			};
 	}
 };

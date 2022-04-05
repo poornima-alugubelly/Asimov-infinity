@@ -8,8 +8,6 @@ export const Addresses = () => {
 		userData: { addressList, error, loading },
 	} = useUserData();
 
-	useEffect(() => (error ? navigate("/errorpage") : ""));
-
 	return !loading ? (
 		<div className="padding-s">
 			<h3>My Addresses</h3>

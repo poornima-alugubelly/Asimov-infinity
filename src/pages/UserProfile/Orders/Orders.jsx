@@ -5,8 +5,6 @@ export const Orders = () => {
 		userData: { orders, error, loading },
 	} = useUserData();
 
-	useEffect(() => (error ? navigate("/errorpage") : ""));
-
 	const ordersPlaced = orders.map((order) => order.orderedProducts);
 
 	return !loading ? (

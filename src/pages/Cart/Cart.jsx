@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { CartProduct } from "./components/CartProduct/CartProduct.jsx";
 import { CartDetails } from "./components/CartDetails/CartDetails.jsx";
 import { useUserData } from "../../context/UserDataContext.js";
@@ -8,8 +7,6 @@ import "./Cart.css";
 export const Cart = () => {
 	const { userData, error, loading } = useUserData();
 	const { cartProducts } = userData;
-	const navigate = useNavigate();
-	useEffect(() => (error ? navigate("/errorpage") : ""));
 
 	return !loading ? (
 		<div className="cart-page-container">

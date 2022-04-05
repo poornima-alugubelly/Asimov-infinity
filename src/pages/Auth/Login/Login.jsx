@@ -68,6 +68,9 @@ export const Login = () => {
 								required
 								placeholder="Enter Password"
 								value={formVal.password}
+								onChange={(e) =>
+									setFormVal((prev) => ({ ...prev, password: e.target.value }))
+								}
 							/>
 
 							<span
@@ -91,7 +94,7 @@ export const Login = () => {
 							Forgot your password?
 						</a>
 					</div>
-					{error && <span className="red-text">{error}</span>}
+					{error && <span className="text-red">{error}</span>}
 					<button className="btn btn-primary-solid">Login</button>
 					<button
 						className="btn btn-primary-outline"

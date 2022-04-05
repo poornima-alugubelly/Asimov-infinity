@@ -1,13 +1,17 @@
 import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
+import { actionTypes } from "../../../reducers/actionTypes";
+import { useUserData } from "../../../context/UserDataContext";
 export const Profile = () => {
 	const {
 		auth: { firstName, lastName, userEmail },
 		setAuth,
 	} = useAuth();
+	const { userDataDispatch } = useUserData();
 
 	const navigate = useNavigate();
+
+	const { RESET } = actionTypes;
 
 	const logoutHandler = () => {
 		localStorage.removeItem("token");
@@ -19,7 +23,7 @@ export const Profile = () => {
 			lastName: "",
 			userEmail: "",
 		});
-
+		userDataDispatch({ type: RESET });
 		navigate("/home");
 	};
 
