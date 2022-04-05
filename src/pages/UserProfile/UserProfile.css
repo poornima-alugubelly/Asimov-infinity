@@ -1,22 +1,24 @@
-.profile-link {
-	border-bottom: 1px solid var(--ternary-dark);
-}
+
 
 .profile-container {
 	display: flex;
 	border: 1px solid var(--ternary-dark);
 	margin: 0 3rem;
-	max-width:30rem;
+	width:23rem;
 	flex-direction: column;
 }
 
-.profile-nav {
-	display: flex;
-	border-bottom: 1px  var(--ternary-dark);
+.profile-container .flex-column{
+	border-bottom: 1px solid var(--ternary-dark);
 
+}
 
+.border-bottom{
+	border-bottom: 1px solid var(--primary-color);
 }
 
 .profile-details {
 	min-width: 15rem;
 }
+
+

@@ -6,7 +6,7 @@ import { actionTypes } from "../../../reducers/actionTypes";
 import { useAuth } from "../../../context/AuthContext";
 import { addOrderService } from "../../../services/order-services/addOrderService";
 import { loadScript } from "../../../helpers/loadScript";
-
+import { clearCartService } from "../../../services/cart-services";
 export const CartSummary = () => {
 	const {
 		userData: { orderDetails, cartProducts },
@@ -66,8 +66,9 @@ export const CartSummary = () => {
 				};
 
 				const res = await addOrderService(order, token);
-				if (res.status === 201) {
-					console.log("order", res.data.orders);
+				const resCart = await clearCartService(token);
+				console.log(resCart);
+				if (res.status === 201 && resCart.status === 201) {
 					userDataDispatch({
 						type: SET_ORDERS,
 						payload: { orders: res.data.orders },
