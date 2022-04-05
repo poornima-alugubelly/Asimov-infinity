@@ -69,7 +69,7 @@ export const NavBar = () => {
 				{auth.isAuth ? (
 					<div>
 						<Link to="/profile" className="flex-column ">
-							<i class="fas fa-user btn-icon"></i>
+							<i className="fas fa-user btn-icon"></i>
 
 							<span className="text-xxs pointer">Profile </span>
 						</Link>
@@ -77,7 +77,7 @@ export const NavBar = () => {
 				) : (
 					<div className="flex-column">
 						<Link to="/login" className="flex-column ">
-							<i class="fas fa-user btn-icon"></i>
+							<i className="fas fa-user btn-icon"></i>
 							<span className="text-xxs pointer">Login</span>
 						</Link>
 					</div>
@@ -99,7 +99,7 @@ export const NavBar = () => {
 				<div className="flex-column">
 					<Link to="/cart">
 						<div className="badge-wrapper">
-							<i class="fas fa-shopping-cart btn-icon"></i>
+							<i className="fas fa-shopping-cart btn-icon"></i>
 
 							<span className="badge badge-top badge-s badge-red">
 								{cartProducts.length}

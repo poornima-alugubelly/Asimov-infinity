@@ -8,11 +8,14 @@ import { AddressModal } from "./pages/UserProfile/Addresses/AddressModal.jsx";
 function App() {
 	return (
 		<div className="App">
-			<ToastContainer theme="colored" autoClose={1200} />
+			<div className="content">
+				<ToastContainer theme="colored" autoClose={1200} />
 
-			<NavBar />
-			<AddressModal />
-			<NavRoutes />
+				<NavBar />
+				<AddressModal />
+				<NavRoutes />
+			</div>
+
 			<Footer />
 		</div>
 	);

@@ -64,10 +64,10 @@ export const ProductListing = () => {
 	};
 	console.log("pagesArray", pagesArray);
 	return !productsLoading ? (
-		<div class="grid-30-70 main-container-gutter">
+		<div className="grid-30-70 main-container-gutter">
 			<ProductFilters />
 			<div>
-				<div class="grid-product-layout">
+				<div className="grid-product-layout">
 					{pageProducts.map((product) => (
 						<ProductCard key={product._id} product={product} />
 					))}

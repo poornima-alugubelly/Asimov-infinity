@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 export const Login = () => {
 	const [formVal, setFormVal] = useState({ email: "", password: "" });
 	const [pwdToggle, pwdToggler] = usePwdToggler();
+	const [error, setError] = useState("");
 	const { setAuth } = useAuth();
 	const navigate = useNavigate();
 	const loginHandler = async (e, email, password) => {
@@ -18,28 +19,35 @@ export const Login = () => {
 			if (res.status === 200) {
 				localStorage.setItem("token", res.data.encodedToken);
 				localStorage.setItem("isAuth", true);
-				setAuth({ token: res.data.encodedToken, isAuth: true });
+				console.log(res.data.foundUser.firstName);
+				setAuth({
+					token: res.data.encodedToken,
+					isAuth: true,
+					firstName: res.data.foundUser.firstName,
+					lastName: res.data.foundUser.lastName,
+					userEmail: res.data.foundUser.email,
+				});
 				navigate("/home");
 			}
 		} catch (err) {
-			console.log("err", err);
+			setError(err.response.data.errors[0]);
 		}
 	};
 
 	return (
-		<div class="form-page-container flex-center">
+		<div className="form-page-container flex-center">
 			<form
 				action=""
-				class="form-container"
+				className="form-container"
 				onSubmit={(e) => loginHandler(e, formVal.email, formVal.password)}
 			>
-				<h2 class="padding-s text-center">LOGIN</h2>
-				<div class="flex-column gap-s">
+				<h2 className="padding-s text-center">LOGIN</h2>
+				<div className="flex-column gap-s">
 					<div>
 						<label for="email-input"> Email </label>
 						<input
 							type="email"
-							class="input"
+							className="input"
 							id="email-input"
 							placeholder="Enter Email"
 							value={formVal.email}
@@ -48,12 +56,11 @@ export const Login = () => {
 								setFormVal((prev) => ({ ...prev, email: e.target.value }))
 							}
 						/>
-						<span class="form-error-msg">Enter valid Email</span>
 					</div>
 
 					<div>
 						<label for="email-password"> Password </label>
-						<div class="input input-with-icon flex-space-between">
+						<div className="input input-with-icon flex-space-between">
 							<input
 								type={`${pwdToggle.type}`}
 								id="email-password"
@@ -61,39 +68,33 @@ export const Login = () => {
 								required
 								placeholder="Enter Password"
 								value={formVal.password}
-								onChange={(e) =>
-									setFormVal((prev) => ({ ...prev, password: e.target.value }))
-								}
 							/>
 
 							<span
-								class={`fas ${pwdToggle.class} pointer`}
+								className={`fas ${pwdToggle.class} pointer`}
 								role="button"
 								onClick={() => pwdToggler()}
 							></span>
 						</div>
-
-						<span class="form-error-msg">
-							Password must have atleast 8 characters
-						</span>
 					</div>
-					<div class="form-subtext flex-space-between">
-						<label for="remember-me" class="flex-row gap-xs pointer">
+					<div className="form-subtext flex-space-between">
+						<label for="remember-me" className="flex-row gap-xs pointer">
 							<input
 								type="checkbox"
 								name="checkbox"
 								id="remember-me"
-								class="input-checkbox"
+								className="input-checkbox"
 							/>
 							Remember-me
 						</label>
-						<a href="#" class="txt-high-light link-colored">
+						<a href="#" className="txt-high-light link-colored">
 							Forgot your password?
 						</a>
 					</div>
-					<button class="btn btn-primary-solid">Login</button>
+					{error && <span className="red-text">{error}</span>}
+					<button className="btn btn-primary-solid">Login</button>
 					<button
-						class="btn btn-primary-outline"
+						className="btn btn-primary-outline"
 						onClick={(e) =>
 							loginHandler(e, "adarshbalak@gmail.com", "adarshBalaki123")
 						}
@@ -102,9 +103,9 @@ export const Login = () => {
 					</button>
 					<Link
 						to="/Signup"
-						class="text-center link-colored flex-center gap-xs"
+						className="text-center link-colored flex-center gap-xs"
 					>
-						Create New account <i class="fas fa-chevron-right"></i>
+						Create New account <i className="fas fa-chevron-right"></i>
 					</Link>
 				</div>
 			</form>

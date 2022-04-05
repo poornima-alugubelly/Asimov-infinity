@@ -96,9 +96,9 @@ export const CartSummary = () => {
 	}
 
 	return (
-		<div class="cart-total-wrapper flex-column gap-s">
-			<ul class="flex-column gap-xs">
-				<li class="txt-bold text-xs">
+		<div className="cart-total-wrapper flex-column gap-s">
+			<ul className="flex-column gap-xs">
+				<li className="txt-bold text-xs">
 					ORDER DETAILS ({cartProducts.length} items):
 				</li>
 				<span className="text-xs border-top-bottom-light padding-tp-btm-xs text-center">
@@ -125,25 +125,25 @@ export const CartSummary = () => {
 				<span className="text-xs border-top-bottom-light padding-tp-btm-xs text-center">
 					BILLING
 				</span>
-				<li class="flex-space-between">
+				<li className="flex-space-between">
 					<span>Total MRP:</span> <span>₹{orderDetails?.cartItemsTotal}</span>
 				</li>
 
-				<li class="flex-space-between">
+				<li className="flex-space-between">
 					<span>Total Discount:</span>
 					<span>-₹{orderDetails?.cartItemsDiscountTotal}</span>
 				</li>
 				{orderDetails?.couponDiscount ? (
-					<li class="flex-space-between">
+					<li className="flex-space-between">
 						<span>Coupon discount:</span>{" "}
 						<span>-₹{orderDetails?.couponDiscountTotal}</span>
 					</li>
 				) : null}
-				<li class="flex-space-between">
+				<li className="flex-space-between">
 					<span>Delivery fee:</span>{" "}
 					<span>₹{deliveryFee > 0 ? deliveryFee : "FREE"}</span>
 				</li>
-				<li class="flex-space-between txt-bold text-s">
+				<li className="flex-space-between txt-bold text-s">
 					<span>Total:</span>{" "}
 					<span>
 						₹

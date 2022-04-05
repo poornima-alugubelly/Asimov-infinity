@@ -130,7 +130,7 @@ export const AddressModal = () => {
 						required
 					></input>
 					<div className="flex-row gap-s">
-						<button onClick={submitHandler} className="btn btn-primary-solid">
+						<button onSubmit={submitHandler} className="btn btn-primary-solid">
 							Save
 						</button>
 

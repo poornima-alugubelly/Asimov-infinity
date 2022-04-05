@@ -12,19 +12,22 @@ export const Cart = () => {
 	useEffect(() => (error ? navigate("/errorpage") : ""));
 
 	return !loading ? (
-		<div class="cart-page-container">
-			<h2 class="padding-l text-center txt-high-light">
+		<div className="cart-page-container">
+			<h2 className="padding-l text-center txt-high-light">
 				My Cart ({cartProducts.length} products)
 			</h2>
-
-			<div class="grid-60-40 gap-m">
-				<div class="cart-products-wrapper">
-					{cartProducts.map((product) => (
-						<CartProduct key={product._id} product={product} />
-					))}
+			{cartProducts.length ? (
+				<div className="grid-60-40 gap-m">
+					<div className="cart-products-wrapper">
+						{cartProducts.map((product) => (
+							<CartProduct key={product._id} product={product} />
+						))}
+					</div>
+					<CartDetails />{" "}
 				</div>
-				{cartProducts.length ? <CartDetails /> : ""}
-			</div>
+			) : (
+				<h2 className="text-center text-s">No products added to cart...</h2>
+			)}
 		</div>
 	) : (
 		<Loader />
