@@ -10,13 +10,11 @@ export const useAddressUpdater = (serviceFunction, address, msg) => {
 	} = useAuth();
 	const { userDataDispatch } = useUserData();
 	const { SET_ADDRESSLIST } = actionTypes;
-	// console.log("got", address);
-	// console.log(serviceFunction);
+
 	const serverCall = async () => {
 		try {
-			console.log("here");
 			const res = await serviceFunction(address, token);
-			console.log("res", res);
+
 			if (res.status === 200 || 201) {
 				toast.success(msg);
 				userDataDispatch({
@@ -25,7 +23,7 @@ export const useAddressUpdater = (serviceFunction, address, msg) => {
 				});
 			}
 		} catch (err) {
-			console.log("Error", err);
+			toast.error("There was a problem please try after some time");
 		}
 	};
 	return [serverCall];

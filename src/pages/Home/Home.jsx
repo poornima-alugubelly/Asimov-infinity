@@ -1,5 +1,4 @@
 import "./Home.css";
-import { IMAGES } from "../../assets/index";
 import { Link } from "react-router-dom";
 import { useProductListing } from "../../context/ProductListingContext";
 import { actionTypes } from "../../reducers/actionTypes";
@@ -40,7 +39,7 @@ export const Home = () => {
 					onClick={() => navigateHandler(BOOKS)}
 				>
 					<img
-						src={IMAGES.duneBookCover}
+						src="/assets/dunebook.jpg"
 						className="img-responsive"
 						alt="product image"
 					/>
@@ -93,7 +92,11 @@ export const Home = () => {
 			</div>
 			<main className="container-banner padding-s gap-l holo-bg">
 				<div className="hero-image">
-					<img src={IMAGES.hero} className="img-responsive" alt="hero image" />
+					<img
+						src="/assets/delivery.svg"
+						className="img-responsive"
+						alt="hero image"
+					/>
 				</div>
 				<div className="flex-column gap-s">
 					<p className="text-xl text-heading txt-high-light">ASIMOV∞</p>

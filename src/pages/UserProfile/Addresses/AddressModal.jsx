@@ -28,7 +28,7 @@ export const AddressModal = () => {
 		state: "Telangana",
 		country: "India",
 		pincode: "500099",
-		phone: "9999999",
+		phone: "9999999999",
 	};
 	const [addAddressServerCall] = useAddressUpdater(
 		addAddressService,
@@ -65,7 +65,10 @@ export const AddressModal = () => {
 		isAddressModalOpen && (
 			<div>
 				<div className="overlay"></div>
-				<form className=" modal-center form-container flex-column gap-s">
+				<form
+					className=" modal-center form-container flex-column gap-s"
+					onSubmit={submitHandler}
+				>
 					<h3>Address form </h3>
 					<input
 						placeholder="Enter name"
@@ -122,7 +125,7 @@ export const AddressModal = () => {
 					</select>
 					<input
 						placeholder="Enter phone number"
-						name="phone number"
+						name="phone"
 						className="input"
 						value={formValues?.phone}
 						onChange={changeHandler}
@@ -130,9 +133,7 @@ export const AddressModal = () => {
 						required
 					></input>
 					<div className="flex-row gap-s">
-						<button onSubmit={submitHandler} className="btn btn-primary-solid">
-							Save
-						</button>
+						<button className="btn btn-primary-solid">Save</button>
 
 						<button
 							onClick={(e) => {

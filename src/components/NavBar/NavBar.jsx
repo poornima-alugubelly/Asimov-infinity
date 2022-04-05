@@ -1,4 +1,3 @@
-import { IMAGES } from "../../assets";
 import "./NavBar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -52,7 +51,7 @@ export const NavBar = () => {
 				<button>
 					<img
 						className="icon-search"
-						src={typing ? IMAGES.dismissBlue : IMAGES.searchIcon}
+						src={typing ? "/assets/dismiss-blue.svg" : "/assets/Search.svg"}
 						alt="search"
 						onClick={() => {
 							setTyping(false);
@@ -129,7 +128,7 @@ export const NavBar = () => {
 			>
 				<li className="padding-s">
 					<img
-						src={IMAGES.dismissBlue}
+						src="/assets/dismiss-blue.svg"
 						className="btn-dismiss item-top-left"
 						onClick={() => setNavIsOpen(false)}
 					/>
