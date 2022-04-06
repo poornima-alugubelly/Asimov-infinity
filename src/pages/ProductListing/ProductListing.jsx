@@ -37,11 +37,13 @@ export const ProductListing = () => {
 	const ratedProducts = getRatedProducts(categoryProducts, rating);
 	const finalFilteredProducts = getSortedProducts(ratedProducts, sortBy);
 	const totalPages = Math.ceil(finalFilteredProducts.length / 8);
-	console.log("total", totalPages);
 	const [currPage, setCurrPage] = useState(1);
 	const [pagesArray, setPagesArray] = useState([1, 2, 3]);
 	const pageLimit = 3;
+	console.log(currPage);
+
 	const setValue = useCallback(() => {
+		console.log("runs");
 		setCurrPage(1);
 		setPagesArray(
 			Array(totalPages)
@@ -59,7 +61,7 @@ export const ProductListing = () => {
 		currPage * 8 + 1
 	);
 
-	const getPagesArray = (start) => {
+	const getPagesArray = (start, operation) => {
 		let limit = pageLimit;
 		if (start + pageLimit - 1 > totalPages) limit = totalPages - start + 1;
 
@@ -68,7 +70,7 @@ export const ProductListing = () => {
 				.fill()
 				.map((_, idx) => start + idx)
 		);
-		setCurrPage(start);
+		operation === "next" ? setCurrPage(start) : setCurrPage(currPage - 1);
 	};
 
 	return !productsLoading ? (
@@ -84,9 +86,13 @@ export const ProductListing = () => {
 					<div className="flex-row gap-s flex-center padding-tp-btm-s">
 						<button
 							className={`btn btn-primary-outline ${
-								pagesArray && pagesArray[0] === 1 ? "btn-disabled" : ""
+								currPage === 1 ? "btn-disabled" : ""
 							}`}
-							onClick={() => getPagesArray(pagesArray[0] - pageLimit)}
+							onClick={() =>
+								currPage === pagesArray[0]
+									? getPagesArray(pagesArray[0] - pageLimit)
+									: setCurrPage(currPage - 1)
+							}
 						>
 							Previous
 						</button>
@@ -105,10 +111,12 @@ export const ProductListing = () => {
 
 						<button
 							className={`btn btn-primary-outline ${
-								pagesArray[0] + pageLimit > totalPages ? "btn-disabled" : ""
+								currPage === totalPages ? "btn-disabled" : ""
 							}`}
 							onClick={() =>
-								getPagesArray(pagesArray[pagesArray.length - 1] + 1)
+								currPage === pagesArray[pagesArray.length - 1]
+									? getPagesArray(pagesArray[pagesArray.length - 1] + 1, "next")
+									: setCurrPage(currPage + 1)
 							}
 						>
 							Next
