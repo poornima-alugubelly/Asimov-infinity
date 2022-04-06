@@ -54,7 +54,11 @@ export const NavBar = () => {
 				<button>
 					<img
 						className="icon-search"
-						src={typing ? "/assets/dismiss-blue.svg" : "/assets/Search.svg"}
+						src={
+							typing && searchText
+								? "/assets/dismiss-blue.svg"
+								: "/assets/Search.svg"
+						}
 						alt="search"
 						onClick={() => {
 							setTyping(false);
