@@ -13,7 +13,7 @@ import { formatDate, requiresAuth } from "../utils/authUtils";
  * */
 export const getCartItemsHandler = function (schema, request) {
 	const userId = requiresAuth.call(this, request);
-	console.log(userId);
+
 	if (!userId) {
 		new Response(
 			404,
@@ -68,7 +68,6 @@ export const addItemToCartHandler = function (schema, request) {
 
 //PUT
 export const clearCartHandler = function (schema, request) {
-	console.log("clear clart");
 	const userId = requiresAuth.call(this, request);
 	try {
 		if (!userId) {
@@ -83,7 +82,7 @@ export const clearCartHandler = function (schema, request) {
 
 		this.db.users.update({ _id: userId }, { cart: [] });
 		const userCart = schema.users.findBy({ _id: userId }).cart;
-		console.log("usercart in be", userCart);
+
 		return new Response(201, {}, { cart: userCart });
 	} catch (error) {
 		return new Response(
@@ -174,10 +173,10 @@ export const removeItemFromCartHandler = function (schema, request) {
  * send POST Request at /api/user/cart/:productId
  * body contains {action} (whose 'type' can be increment or decrement)
  * */
-console.log("in backend");
+
 export const updateCartItemHandler = function (schema, request) {
 	const productId = request.params.productId;
-	console.log("resquest", request);
+
 	const userId = requiresAuth.call(this, request);
 	try {
 		if (!userId) {
@@ -195,7 +194,7 @@ export const updateCartItemHandler = function (schema, request) {
 			userCart.forEach((product) => {
 				if (product._id === productId) {
 					product.qty += 1;
-					console.log("quantity", product.qty);
+
 					product.updatedAt = formatDate();
 				}
 			});

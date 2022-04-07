@@ -4,13 +4,15 @@ import { loginService } from "../../../services/auth-services/loginService";
 import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { usePwdToggler } from "../../../hooks/usePwdToggler";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 export const Login = () => {
 	const [formVal, setFormVal] = useState({ email: "", password: "" });
 	const [pwdToggle, pwdToggler] = usePwdToggler();
 	const [error, setError] = useState("");
 	const { setAuth } = useAuth();
 	const navigate = useNavigate();
+	const location = useLocation();
+	const from = location?.state?.from.pathname || "/";
 	const loginHandler = async (e, email, password) => {
 		setFormVal({ email, password });
 		e.preventDefault();
@@ -27,7 +29,7 @@ export const Login = () => {
 					lastName: res.data.foundUser.lastName,
 					userEmail: res.data.foundUser.email,
 				});
-				navigate("/home");
+				navigate(from, { replace: true });
 			}
 		} catch (err) {
 			setError(err.response.data.errors[0]);

@@ -67,7 +67,7 @@ export const CartSummary = () => {
 
 				const res = await addOrderService(order, token);
 				const resCart = await clearCartService(token);
-				console.log(resCart);
+
 				if (res.status === 201 && resCart.status === 201) {
 					userDataDispatch({
 						type: SET_ORDERS,

@@ -11,9 +11,8 @@ export const OrderSummary = () => {
 	const order = orders.filter((currOrder) => currOrder.orderId === orderId);
 	if (order.length) {
 	}
-	console.log(order);
+
 	const { paymentId, amountPaid, orderedProducts, deliveryAddress } = order[0];
-	console.log(order?.deliveryAddress, paymentId);
 	const { name, street, city, state, country, pincode, phone } =
 		deliveryAddress;
 
