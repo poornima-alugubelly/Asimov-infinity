@@ -29,7 +29,7 @@ export const ProductDisplay = () => {
 		setAddingToCart(true);
 		try {
 			const res = await addToCartService(product, auth.token);
-			console.log("result", res);
+
 			if (res.status === 201) {
 				toast.success("Added to cart");
 				setAddingToCart(false);

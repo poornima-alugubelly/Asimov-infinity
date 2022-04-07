@@ -26,7 +26,6 @@ export const CartProduct = ({ product }) => {
 				res = await cartCounterService(product._id, auth.token, operation);
 			}
 
-			console.log("increment", res.data.cart);
 			if (res.status === 200) {
 				setUpdatingCart(false);
 				toast.success("Successfully Updated cart");

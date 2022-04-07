@@ -1,12 +1,12 @@
 import "./NavBar.css";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useUserData } from "../../context/UserDataContext";
 import { useProductListing } from "../../context/ProductListingContext";
 import { actionTypes } from "../../reducers/actionTypes";
 export const NavBar = () => {
-	const { auth, setAuth } = useAuth();
+	const { auth } = useAuth();
 	const { SEARCH } = actionTypes;
 	const {
 		userData: { cartProducts, wishlistProducts },
@@ -16,23 +16,29 @@ export const NavBar = () => {
 		productListingDispatch,
 	} = useProductListing();
 	const [navIsOpen, setNavIsOpen] = useState(false);
-
 	const navigate = useNavigate();
 	const [typing, setTyping] = useState(false);
+	const getActiveStyle = ({ isActive }) => ({
+		color: isActive ? "#01d2ed" : "",
+	});
 
 	return (
 		<nav className="nav-bar shadow-bottom">
 			<div className="nav-bar-primary">
-				<Link to="/Home" className="nav-bar-logo">
+				<NavLink style={getActiveStyle} to="/Home" className="nav-bar-logo">
 					ASIMOV∞
-				</Link>
+				</NavLink>
 
 				<ul className="nav-bar-links">
 					<li>
-						<Link to="/Home">Home</Link>
+						<NavLink style={getActiveStyle} to="/Home">
+							Home
+						</NavLink>
 					</li>
 					<li>
-						<Link to="/ProductListing">Shop Now</Link>
+						<NavLink style={getActiveStyle} to="/ProductListing">
+							Shop Now
+						</NavLink>
 					</li>
 				</ul>
 			</div>
@@ -74,23 +80,31 @@ export const NavBar = () => {
 			<ul className="nav-bar-secondary nav-bar-links">
 				{auth.isAuth ? (
 					<div>
-						<Link to="/profile" className="flex-column ">
+						<NavLink
+							style={getActiveStyle}
+							to="/profile"
+							className="flex-column "
+						>
 							<i className="fas fa-user btn-icon"></i>
 
 							<span className="text-xxs pointer">Profile </span>
-						</Link>
+						</NavLink>
 					</div>
 				) : (
 					<div className="flex-column">
-						<Link to="/login" className="flex-column ">
+						<NavLink
+							style={getActiveStyle}
+							to="/login"
+							className="flex-column "
+						>
 							<i className="fas fa-user btn-icon"></i>
 							<span className="text-xxs pointer">Login</span>
-						</Link>
+						</NavLink>
 					</div>
 				)}
 
 				<div className="flex-column">
-					<Link to="/wishlist">
+					<NavLink style={getActiveStyle} to="/wishlist">
 						<div className="badge-wrapper ">
 							<i class="fas fa-heart btn-icon"></i>
 
@@ -100,10 +114,10 @@ export const NavBar = () => {
 						</div>
 
 						<span className="text-xxs pointer">Wishlist</span>
-					</Link>
+					</NavLink>
 				</div>
 				<div className="flex-column">
-					<Link to="/cart">
+					<NavLink style={getActiveStyle} to="/cart">
 						<div className="badge-wrapper">
 							<i className="fas fa-shopping-cart btn-icon"></i>
 
@@ -113,7 +127,7 @@ export const NavBar = () => {
 						</div>
 
 						<span className="text-xxs pointer">Cart</span>
-					</Link>
+					</NavLink>
 				</div>
 			</ul>
 			<div
@@ -142,29 +156,33 @@ export const NavBar = () => {
 				</li>
 
 				<li className="list-item">
-					<Link to="/Home" className="link-text">
+					<NavLink to="/Home" style={getActiveStyle} className="link-text">
 						Home
-					</Link>
+					</NavLink>
 				</li>
 				<li className="list-item">
-					<Link to="/ProductListing" className="link-text">
+					<NavLink
+						to="/ProductListing"
+						style={getActiveStyle}
+						className="link-text"
+					>
 						Shop Now
-					</Link>
+					</NavLink>
 				</li>
 				<li className="list-item">
-					<Link to="/profile" className="link-text">
+					<NavLink to="/profile" style={getActiveStyle} className="link-text">
 						My Profile
-					</Link>
+					</NavLink>
 				</li>
 				<li className="list-item">
-					<Link to="/cart" className="link-text">
+					<NavLink to="/cart" style={getActiveStyle} className="link-text">
 						My Cart
-					</Link>
+					</NavLink>
 				</li>
 				<li className="list-item">
-					<Link to="/wishlist" className="link-text">
+					<NavLink to="/wishlist" style={getActiveStyle} className="link-text">
 						My Wishlist
-					</Link>
+					</NavLink>
 				</li>
 			</ul>
 		</nav>
