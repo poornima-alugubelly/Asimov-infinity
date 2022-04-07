@@ -75,7 +75,7 @@ const UserDataProvider = ({ children }) => {
 				setLoading(true);
 				try {
 					const res = await getAddressListService(auth.token);
-					console.log("addresses", res);
+
 					if (res.status === 200) {
 						userDataDispatch({
 							type: SET_ADDRESSLIST,

@@ -72,7 +72,6 @@ const ProductListingProvider = ({ children }) => {
 			}
 		})();
 	}, []);
-	console.log("data", productListingState);
 	return (
 		<ProductListingContext.Provider
 			value={{ productListingState, productListingDispatch }}
