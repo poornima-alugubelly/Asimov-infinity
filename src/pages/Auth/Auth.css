@@ -22,6 +22,50 @@
 	font-family: var(--primary-font);
 }
 
+.tooltip {
+	position:relative; 
+	
+  }
+
+  .tooltip::before,
+.tooltip::after {
+	--scale: 0;
+  --arrow-size: 8px;
+  --tooltip-color: var(--black);
+  position: absolute;
+  top: -.25rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
+  transition: 150ms transform;
+  transform-origin: bottom center;
+}
+
+.tooltip::before {
+	--translate-y: calc(-100% - var(--arrow-size));
+	content: attr(data-tooltip);
+	color: white;
+	padding: .5rem;
+	border-radius: .3rem;
+	text-align: center;
+	width: max-content;
+	background: var(--tooltip-color);
+  }
+  
+  .tooltip:hover::before,
+  .tooltip:hover::after {
+	--scale: 1;
+  }
+  
+  .tooltip::after {
+	--translate-y: calc(-1 * var(--arrow-size));
+  
+	content: '';
+	border: var(--arrow-size) solid transparent;
+	border-top-color: var(--tooltip-color);
+	transform-origin: top center;
+  }
+
+
 @media (max-width: 400px) {
 	.form-subtext.flex-space-between {
 		flex-direction: column;

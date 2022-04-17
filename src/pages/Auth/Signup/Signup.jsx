@@ -69,7 +69,15 @@ export const Signup = () => {
 					</div>
 
 					<div>
-						<label for="email-password"> Password </label>
+						<label for="email-password" className="flex-row gap-xs">
+							<span>Password</span>
+							<span
+								data-tooltip="Password should have atleast 8 characters "
+								class="tooltip"
+							>
+								<i class="fas fa-question-circle"></i>
+							</span>
+						</label>
 						<div className="input input-with-icon flex-space-between">
 							<input
 								type={`${pwdToggle.type}`}
