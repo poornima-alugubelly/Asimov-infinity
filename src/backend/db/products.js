@@ -53,7 +53,7 @@ export const products = [
 	},
 	{
 		_id: uuid(),
-		name: "Starwars The Mandolorian Note Book",
+		name: "Star Wars The Mandolorian Note Book",
 		price: 1500,
 		category: "stationery",
 		rating: 2.3,
@@ -118,7 +118,7 @@ export const products = [
 	},
 	{
 		_id: uuid(),
-		name: "Starwars the Mandalorian Child bad",
+		name: "Star Wars the Mandalorian Child bad",
 		price: 2000,
 		category: "lifestyle",
 		rating: 4.6,
@@ -136,7 +136,7 @@ export const products = [
 	},
 	{
 		_id: uuid(),
-		name: "Starwars Pencil case",
+		name: "Star Wars Pencil case",
 		price: 80,
 		category: "stationery",
 		rating: 4.7,
@@ -327,7 +327,7 @@ export const products = [
 	},
 	{
 		_id: uuid(),
-		name: "Starwars facemask set",
+		name: "Star Wars facemask set",
 		price: 4500,
 		category: "lifestyle",
 		rating: 2.9,
