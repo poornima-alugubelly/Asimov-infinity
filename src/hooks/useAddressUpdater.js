@@ -1,3 +1,18 @@
+/**
+ * /**
+ *
+ * This is a custom hook for address management
+ *
+ * @type {custom-hook} - useAddressUpdater
+ * @param {function} serviceFunction - Service function related to Addresses :
+ * 										addAddressService , getAddressListService ,
+ * 										removeAddressService , updateAddressService
+ * @param {object} address - optional argument , passed when it is needed in the service function
+ * @param {string} msg - message to be displayed on toast after service calls
+ * @return {function} servercall - a function which handles invoking the service function passed
+ * @export {custom-hook} - useAddressUpdater
+ */
+
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { useUserData } from "../context/UserDataContext";
