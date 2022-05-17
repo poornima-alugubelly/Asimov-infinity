@@ -1,3 +1,14 @@
+/**
+ * /**
+ *
+ * This is a Context Provider for the user date
+ *
+ * @type - context-provider
+ * @return {react-component} - UserDataProvider component
+ * @export {react-component} - UserDataProvider component
+ * @export {custom-hook} - useUserData()
+ */
+
 import {
 	createContext,
 	useContext,
@@ -12,7 +23,7 @@ import { getOrdersService } from "../services/order-services/getOrdersService";
 import { userDataReducer } from "../reducers/userDataReducer";
 import { useAuth } from "./AuthContext";
 import { actionTypes } from "../reducers/actionTypes";
-import { toast } from "react-toastify";
+
 const userDataContext = createContext();
 const useUserData = () => useContext(userDataContext);
 const UserDataProvider = ({ children }) => {

@@ -1,10 +1,15 @@
-import {
-	createContext,
-	useContext,
-	useReducer,
-	useEffect,
-	useState,
-} from "react";
+/**
+ * /**
+ *
+ * This is a Context Provider for the products listing state
+ *
+ * @type - context-provider
+ * @return {react-component} - ProductListingProvider component
+ * @export {react-component} - ProductListingProvider component
+ * @export {custom-hook} - useProductListing()
+ */
+
+import { createContext, useContext, useReducer, useEffect } from "react";
 import { productListingReducer } from "../reducers/productListingReducer";
 import { getProductListService } from "../services/getProductListService";
 import { actionTypes } from "../reducers/actionTypes";

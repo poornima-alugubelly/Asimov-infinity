@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { useUserData } from "../context/UserDataContext";
 import { actionTypes } from "../reducers/actionTypes";
+
 export const useAddressUpdater = (serviceFunction, address, msg) => {
-	const [updatingAddress, setUpdatingAddress] = useState();
 	const {
 		auth: { token },
 	} = useAuth();

@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ProductListingProvider } from "./context/ProductListingContext";
 import { AuthContextProvider } from "./context/AuthContext";
 import { UserDataProvider } from "./context/UserDataContext";
-import { GlobalProvider } from "./context/GlobalContext";
+import { AddressProvider } from "./context/AddressContext";
 // Call make Server
 makeServer();
 
@@ -16,9 +16,9 @@ ReactDOM.render(
 			<AuthContextProvider>
 				<UserDataProvider>
 					<ProductListingProvider>
-						<GlobalProvider>
+						<AddressProvider>
 							<App />
-						</GlobalProvider>
+						</AddressProvider>
 					</ProductListingProvider>
 				</UserDataProvider>
 			</AuthContextProvider>

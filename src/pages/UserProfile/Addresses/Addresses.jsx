@@ -1,11 +1,11 @@
 import { useUserData } from "../../../context/UserDataContext";
 import { AddressCard } from "./AddressCard";
-import { useGlobal } from "../../../context/GlobalContext";
+import { useAddress } from "../../../context/AddressContext";
 import { Loader } from "../../../components/Loader/Loader";
 export const Addresses = () => {
-	const { setGlobalState } = useGlobal();
+	const { setAddressState } = useAddress();
 	const {
-		userData: { addressList, error, loading },
+		userData: { addressList, loading },
 	} = useUserData();
 
 	return !loading ? (
@@ -15,7 +15,7 @@ export const Addresses = () => {
 				<i className="fas fa-plus"></i>
 				<span
 					onClick={() =>
-						setGlobalState((prev) => ({ ...prev, isAddressModalOpen: true }))
+						setAddressState((prev) => ({ ...prev, isAddressModalOpen: true }))
 					}
 				>
 					Add new address
