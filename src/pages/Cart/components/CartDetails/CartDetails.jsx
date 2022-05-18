@@ -44,7 +44,9 @@ export const CartDetails = () => {
 	useEffect(
 		() =>
 			setCouponSelected(
-				couponSelected.filter((coupon) => coupon.amount <= totalBill)
+				couponSelected.filter(
+					(coupon) => coupon.minPurchase <= totalBill - couponDiscount
+				)
 			),
 		[totalBill]
 	);
