@@ -1,26 +1,35 @@
 import "./NavBar.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useUserData } from "../../context/UserDataContext";
 import { useProductListing } from "../../context/ProductListingContext";
 import { actionTypes } from "../../reducers/actionTypes";
+import { useDebounce } from "../../hooks/useDebounce";
+
 export const NavBar = () => {
 	const { auth } = useAuth();
 	const { SEARCH } = actionTypes;
 	const {
 		userData: { cartProducts, wishlistProducts },
 	} = useUserData();
-	const {
-		productListingState: { searchText },
-		productListingDispatch,
-	} = useProductListing();
+	const { productListingDispatch } = useProductListing();
 	const [navIsOpen, setNavIsOpen] = useState(false);
 	const navigate = useNavigate();
 	const [typing, setTyping] = useState(false);
 	const getActiveStyle = ({ isActive }) => ({
 		color: isActive ? "#01d2ed" : "",
 	});
+	const [searchVal, setSearchVal] = useState();
+	const debouncedSearchVal = useDebounce(searchVal, 800);
+
+	useEffect(() => {
+		productListingDispatch({
+			type: SEARCH,
+			payload: { searchInput: searchVal },
+		});
+		console.log("called");
+	}, [debouncedSearchVal]);
 
 	return (
 		<nav className="nav-bar shadow-bottom">
@@ -47,27 +56,25 @@ export const NavBar = () => {
 				<input
 					type="text"
 					placeholder="Enter category or product name..."
-					value={searchText}
+					value={searchVal}
 					onChange={(e) => {
 						navigate("/ProductListing");
 						setTyping(true);
-						productListingDispatch({
-							type: SEARCH,
-							payload: { searchInput: e.target.value },
-						});
+						setSearchVal(e.target.value);
 					}}
 				/>
 				<button>
 					<img
 						className="icon-search"
 						src={
-							typing && searchText
+							typing && searchVal
 								? "/assets/dismiss-blue.svg"
 								: "/assets/Search.svg"
 						}
 						alt="search"
 						onClick={() => {
 							setTyping(false);
+							setSearchVal("");
 							productListingDispatch({
 								type: SEARCH,
 								payload: { searchInput: "" },
