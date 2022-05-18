@@ -24,15 +24,7 @@ export const products = [
 		discount: 55,
 		src: "https://d1x7zurbps6occ.cloudfront.net/product/large/725123-192724.jpg",
 	},
-	{
-		_id: uuid(),
-		name: "The Mandalorian Coffee Mug",
-		price: 1000,
-		category: "lifestyle",
-		rating: 1.6,
-		discount: 35,
-		src: "https://d1x7zurbps6occ.cloudfront.net/product/large/1071780-317673.jpg",
-	},
+
 	{
 		_id: uuid(),
 		name: "Vintage Coyboy bebop phone case - iphone 13",
