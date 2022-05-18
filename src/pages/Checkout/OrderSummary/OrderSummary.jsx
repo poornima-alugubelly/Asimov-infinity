@@ -28,6 +28,9 @@ export const OrderSummary = () => {
 						<b>Payment ID : {paymentId}</b>
 					</span>
 					<span className="text-xs">
+						<b>Order ID : {orderId}</b>
+					</span>
+					<span className="text-xs">
 						<b>Amount Paid : {amountPaid}</b>
 					</span>
 					<span>Order will be delivered to :</span>

@@ -1,3 +1,14 @@
+/**
+ * /**
+ *
+ * This is a Context Provider for the address state
+ *
+ * @type - context-provider
+ * @return {react-component} - AuthProvider component
+ * @export {react-component} - AuthProvider component
+ * @export {custom-hook} - useAuth()
+ */
+
 import { createContext, useContext, useState } from "react";
 const AuthContext = createContext();
 

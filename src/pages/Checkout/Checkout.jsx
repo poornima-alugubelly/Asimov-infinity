@@ -2,6 +2,8 @@ import { useUserData } from "../../context/UserDataContext";
 import { CartSummary } from "./CartSummary/CartSummary";
 import { Loader } from "../../components/Loader/Loader";
 import { actionTypes } from "../../reducers/actionTypes";
+import { useAddress } from "../../context/AddressContext";
+
 import "./Checkout.css";
 export const Checkout = () => {
 	const {
@@ -9,6 +11,7 @@ export const Checkout = () => {
 		loading,
 		userDataDispatch,
 	} = useUserData();
+	const { setAddressState } = useAddress();
 
 	const { SET_ORDER } = actionTypes;
 
@@ -50,6 +53,19 @@ export const Checkout = () => {
 							</li>
 						))}
 					</ul>
+					<button className="btn btn-primary-solid margin-tp-btm-s">
+						<i className="fas fa-plus"></i>
+						<span
+							onClick={() =>
+								setAddressState((prev) => ({
+									...prev,
+									isAddressModalOpen: true,
+								}))
+							}
+						>
+							Add new address
+						</span>
+					</button>
 				</div>
 				<CartSummary />
 			</div>

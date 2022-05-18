@@ -4,14 +4,28 @@ export const Orders = () => {
 	const {
 		userData: { orders, error, loading },
 	} = useUserData();
-
-	const ordersPlaced = orders.map((order) => order.orderedProducts);
-
+	console.log(orders);
+	const { ordersPlaced, paymentId, orderId, amountPaid, deliveryAddress } =
+		orders.map((order) => order);
+	console.log(ordersPlaced, paymentId, orderId, amountPaid);
 	return !loading ? (
 		orders.length ? (
-			<div>
-				{ordersPlaced.map((order) =>
-					order.map((product) => (
+			orders.map((placedOrder) => (
+				<div className="padding-s">
+					<p>
+						<b>Payment ID :</b> {placedOrder.paymentId}
+					</p>
+					<p>
+						<b>Order ID :</b> {placedOrder.orderId}
+					</p>
+					<p>
+						<b>Amount Paid :</b> {placedOrder.amountPaid}
+					</p>
+					<p>
+						<b>Products Ordered :</b>
+					</p>
+
+					{placedOrder?.orderedProducts?.map((product) => (
 						<div className="card-horizontal padding-s">
 							<div className="img-container">
 								<img
@@ -27,9 +41,9 @@ export const Orders = () => {
 								<span>Price : {product.price}</span>
 							</div>
 						</div>
-					))
-				)}
-			</div>
+					))}
+				</div>
+			))
 		) : (
 			<span className="padding-s text-s">No orders placed till now...</span>
 		)

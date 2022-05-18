@@ -1,6 +1,5 @@
 import { useNavigate, Link } from "react-router-dom";
 import { v4 as uuid } from "uuid";
-import { useState } from "react";
 import { useUserData } from "../../../context/UserDataContext";
 import { actionTypes } from "../../../reducers/actionTypes";
 import { useAuth } from "../../../context/AuthContext";
@@ -13,20 +12,14 @@ export const CartSummary = () => {
 		userDataDispatch,
 	} = useUserData();
 	const {
-		auth: { token, firstName, lastName, userEmail },
+		auth: { token },
 		auth: {},
 	} = useAuth();
 	const { SET_ORDERS, SET_ORDER, SET_CART } = actionTypes;
 	const navigate = useNavigate();
-	const [addressWarning, setAddressWarning] = useState(false);
 
 	const placeOrderHandler = () => {
-		if (orderDetails?.orderAddress) {
-			displayRazorpay();
-			setAddressWarning(false);
-		} else {
-			setAddressWarning(true);
-		}
+		displayRazorpay();
 	};
 
 	const totalPaymentWithOutDelivery =
@@ -149,7 +142,7 @@ export const CartSummary = () => {
 					DELIVERING TO
 				</span>
 				{!orderDetails?.orderAddress ? (
-					<span className="text-s">Address not selected..I am lost..</span>
+					<span className="text-s">Address not selected..we are lost.. </span>
 				) : (
 					<div className="card-content gap-xs ">
 						<span className="text-xs">{orderDetails?.orderAddress?.name}</span>
@@ -166,16 +159,14 @@ export const CartSummary = () => {
 					</div>
 				)}
 			</ul>
-			<button className="btn btn-primary-solid" onClick={placeOrderHandler}>
+			<button
+				className={`btn btn-primary-solid ${
+					orderDetails?.orderAddress ? "" : "btn-disabled"
+				}`}
+				onClick={placeOrderHandler}
+			>
 				Proceed to pay
 			</button>
-			{addressWarning && (
-				<Link to="/profile/addresses">
-					<span className="link-text">
-						Click here to add an address for delivery
-					</span>
-				</Link>
-			)}
 		</div>
 	);
 };

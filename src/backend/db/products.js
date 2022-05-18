@@ -24,15 +24,7 @@ export const products = [
 		discount: 55,
 		src: "https://d1x7zurbps6occ.cloudfront.net/product/large/725123-192724.jpg",
 	},
-	{
-		_id: uuid(),
-		name: "The Mandalorian Coffee Mug",
-		price: 1000,
-		category: "lifestyle",
-		rating: 1.6,
-		discount: 35,
-		src: "https://d1x7zurbps6occ.cloudfront.net/product/large/1071780-317673.jpg",
-	},
+
 	{
 		_id: uuid(),
 		name: "Vintage Coyboy bebop phone case - iphone 13",
@@ -53,7 +45,7 @@ export const products = [
 	},
 	{
 		_id: uuid(),
-		name: "Starwars The Mandolorian Note Book",
+		name: "Star Wars The Mandolorian Note Book",
 		price: 1500,
 		category: "stationery",
 		rating: 2.3,
@@ -118,7 +110,7 @@ export const products = [
 	},
 	{
 		_id: uuid(),
-		name: "Starwars the Mandalorian Child bad",
+		name: "Star Wars the Mandalorian Child bad",
 		price: 2000,
 		category: "lifestyle",
 		rating: 4.6,
@@ -136,7 +128,7 @@ export const products = [
 	},
 	{
 		_id: uuid(),
-		name: "Starwars Pencil case",
+		name: "Star Wars Pencil case",
 		price: 80,
 		category: "stationery",
 		rating: 4.7,
@@ -327,7 +319,7 @@ export const products = [
 	},
 	{
 		_id: uuid(),
-		name: "Starwars facemask set",
+		name: "Star Wars facemask set",
 		price: 4500,
 		category: "lifestyle",
 		rating: 2.9,

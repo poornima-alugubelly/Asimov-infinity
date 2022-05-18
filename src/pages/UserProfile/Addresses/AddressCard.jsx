@@ -1,8 +1,8 @@
-import { useGlobal } from "../../../context/GlobalContext";
+import { useAddress } from "../../../context/AddressContext";
 import { removeAddressService } from "../../../services/address-services";
 import { useAddressUpdater } from "../../../hooks/useAddressUpdater";
 export const AddressCard = ({ address }) => {
-	const { setGlobalState } = useGlobal();
+	const { setAddressState } = useAddress();
 	const [removeAddressServerCall] = useAddressUpdater(
 		removeAddressService,
 		address,
@@ -27,7 +27,7 @@ export const AddressCard = ({ address }) => {
 				<button
 					className="btn btn-primary-solid"
 					onClick={() =>
-						setGlobalState({
+						setAddressState({
 							isAddressModalOpen: true,
 							currAddress: { ...address },
 						})

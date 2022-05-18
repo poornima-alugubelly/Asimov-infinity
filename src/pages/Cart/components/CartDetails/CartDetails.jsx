@@ -40,6 +40,16 @@ export const CartDetails = () => {
 		});
 		setCouponsDiscount(total);
 	}, [couponSelected]);
+
+	useEffect(
+		() =>
+			setCouponSelected(
+				couponSelected.filter(
+					(coupon) => coupon.minPurchase <= totalBill - couponDiscount
+				)
+			),
+		[totalBill]
+	);
 	const deliveryFee = totalBill - couponDiscount > 1000 ? 0 : 100;
 	return (
 		<div>

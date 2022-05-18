@@ -23,6 +23,7 @@ export const Signup = () => {
 			if (res.status === 201) {
 				localStorage.setItem("token", res.data.encodedToken);
 				localStorage.setItem("isAuth", true);
+
 				setError(false);
 				setAuth({
 					token: res.data.encodedToken,

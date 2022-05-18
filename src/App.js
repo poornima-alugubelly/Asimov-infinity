@@ -5,7 +5,8 @@ import { ToastContainer } from "react-toastify";
 import { Footer } from "./components/Footer/Footer";
 import "react-toastify/dist/ReactToastify.css";
 import { AddressModal } from "./pages/UserProfile/Addresses/AddressModal.jsx";
-import { ScrollToTopBtn } from "./components/ScrollToTopBtn/ScrollToTopBtn";
+import { ScrollToTopBtn } from "./components/ScrollToTopBtn";
+import { ScrollToTop } from "./components/ScrollToTop";
 function App() {
 	return (
 		<div className="App">
@@ -19,6 +20,7 @@ function App() {
 				<NavBar />
 				<AddressModal />
 				<NavRoutes />
+				<ScrollToTop />
 				<ScrollToTopBtn />
 			</div>
 

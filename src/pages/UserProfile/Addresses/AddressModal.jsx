@@ -1,4 +1,4 @@
-import { useGlobal } from "../../../context/GlobalContext";
+import { useAddress } from "../../../context/AddressContext";
 import { useState, useEffect } from "react";
 import { useAddressUpdater } from "../../../hooks/useAddressUpdater";
 import { addAddressService } from "../../../services/address-services/addAddressService";
@@ -6,9 +6,9 @@ import { updateAddressService } from "../../../services/address-services/updateA
 
 export const AddressModal = () => {
 	const {
-		globalState: { isAddressModalOpen, currAddress },
-		setGlobalState,
-	} = useGlobal();
+		addressState: { isAddressModalOpen, currAddress },
+		setAddressState,
+	} = useAddress();
 
 	const [formValues, setFormValues] = useState();
 
@@ -41,7 +41,7 @@ export const AddressModal = () => {
 		"Address has been updated"
 	);
 	const resetForm = () => {
-		setGlobalState((prev) => ({
+		setAddressState((prev) => ({
 			...prev,
 			isAddressModalOpen: false,
 			currAddress: {

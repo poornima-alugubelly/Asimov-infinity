@@ -55,8 +55,8 @@ export const ProductListing = () => {
 	}, [setValue]);
 
 	const pageProducts = finalFilteredProducts.slice(
-		1 + 8 * (currPage - 1),
-		currPage * 8 + 1
+		8 * (currPage - 1),
+		currPage * 8
 	);
 
 	const getPagesArray = (start, operation) => {
