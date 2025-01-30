@@ -7,21 +7,25 @@ import "react-toastify/dist/ReactToastify.css";
 import { AddressModal } from "./pages/UserProfile/Addresses/AddressModal.jsx";
 import { ScrollToTopBtn } from "./components/ScrollToTopBtn";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { CompareProvider } from "./context/CompareContext";
+
 function App() {
 	return (
 		<div className="App">
 			<div className="content">
-				<ToastContainer
-					theme="colored"
-					autoClose={1000}
-					position="bottom-left"
-				/>
+				<CompareProvider>
+					<ToastContainer
+						theme="colored"
+						autoClose={1000}
+						position="bottom-left"
+					/>
 
-				<NavBar />
-				<AddressModal />
-				<NavRoutes />
-				<ScrollToTop />
-				<ScrollToTopBtn />
+					<NavBar />
+					<AddressModal />
+					<NavRoutes />
+					<ScrollToTop />
+					<ScrollToTopBtn />
+				</CompareProvider>
 			</div>
 
 			<Footer />
