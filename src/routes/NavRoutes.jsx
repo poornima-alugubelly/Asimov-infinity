@@ -14,6 +14,7 @@ import { Addresses } from "../pages/UserProfile/Addresses/Addresses.jsx";
 import { Profile } from "../pages/UserProfile/Profile/Profile.jsx";
 import { Checkout } from "../pages/Checkout/Checkout.jsx";
 import { OrderSummary } from "../pages/Checkout/OrderSummary/OrderSummary.jsx";
+import { Compare } from "../pages/Compare/Compare";
 export const NavRoutes = () => {
 	return (
 		<Routes>
@@ -37,6 +38,7 @@ export const NavRoutes = () => {
 				</Route>
 				<Route path="/checkout" element={<Checkout />} />
 				<Route path="/orderSummary" element={<OrderSummary />} />
+				<Route path="/compare" element={<Compare />} />
 			</Route>
 
 			<Route path="/:productId" element={<ProductDisplay />} />

@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { useUserData } from "../../context/UserDataContext";
 import { actionTypes } from "../../reducers/actionTypes";
 import { toast } from "react-toastify";
+import { useCompare } from "../../context/CompareContext";
+
 export const ProductDisplay = () => {
 	const params = useParams();
 	const productId = params.productId;
@@ -18,6 +20,7 @@ export const ProductDisplay = () => {
 	const { userData, userDataDispatch } = useUserData();
 	const { cartProducts, wishlistProducts } = userData;
 	const { auth } = useAuth();
+	const { addToCompare, compareItems } = useCompare();
 	const [inCart, setInCart] = useState(false);
 	const [inWishlist, setInWishlist] = useState(false);
 	const [addingToCart, setAddingToCart] = useState(false);
@@ -64,6 +67,8 @@ export const ProductDisplay = () => {
 			toast.error("Couldn't add to wishlist , try again later!");
 		}
 	};
+
+	const isInCompare = compareItems.some((item) => item._id === productId);
 
 	return (
 		<div className="cart-page-container ">
@@ -136,6 +141,17 @@ export const ProductDisplay = () => {
 							<span>
 								{inWishlist ? "Added to Wishlist" : "Move To Wishlist"}
 							</span>
+						</button>
+						<button
+							className={`btn-compare ${isInCompare ? "btn-compare-active" : ""}`}
+							onClick={() => {
+								if (!isInCompare) {
+									addToCompare(product);
+									toast.success("Added to compare list");
+								}
+							}}
+						>
+							{isInCompare ? "In Compare" : "Compare"}
 						</button>
 					</div>
 				</div>

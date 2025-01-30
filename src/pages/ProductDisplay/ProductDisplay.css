@@ -18,6 +18,26 @@
 	padding-bottom: 1rem;
 }
 
+.btn-compare {
+  padding: 0.5rem 1rem;
+  border: 2px solid #6c757d;
+  background: white;
+  color: #6c757d;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-compare:hover {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-compare-active {
+  background: #6c757d;
+  color: white;
+}
+
 @media (max-width: 768px) {
 	.single-product-container {
 		display: grid;
